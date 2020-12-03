@@ -1,13 +1,8 @@
 package com.example.sportsapp_1
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -15,17 +10,21 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
 
+        setClicks()
 
-        val button = findViewById<Button>(R.id.bt_create_account)
-        button.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-        }
+    }
 
-        val textView = findViewById<TextView>(R.id.tv_skip)
-        textView.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+    private fun setClicks() {
+        tv_skip.setOnClickListener {
+            openActivity(SignUpActivity::class.java)
         }
+        bt_create_account.setOnClickListener {
+            openActivity(MainActivity::class.java)
+        }
+    }
+
+
+    private fun openActivity(cls: Class<*>) {
+        startActivity(Intent(this, cls))
     }
 }
