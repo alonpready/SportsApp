@@ -6,17 +6,21 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.login.*
 import kotlinx.android.synthetic.main.signup.*
+import kotlinx.android.synthetic.main.signup.tv_password
 
 class SignUpActivity : AppCompatActivity() {
-
     private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signup)
-
         auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+
 
         val textView = findViewById<TextView>(R.id.tv_backto_login)
         textView.setOnClickListener {
@@ -25,17 +29,15 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-
     fun signUpClicked(view: View) {
+
 
         val mail = tv_mail.text.toString()
         val password = tv_password.text.toString()
 
         auth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener { task ->
-
             if (task.isSuccessful) {
-                val intent = Intent(applicationContext,HomepageFragment::class.java)
-                startActivity(intent)
+                loadFragment(HomepageFragment())
             }
         }.addOnFailureListener { exception ->
             if (exception != null) {
@@ -47,4 +49,12 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainerView, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
 }
