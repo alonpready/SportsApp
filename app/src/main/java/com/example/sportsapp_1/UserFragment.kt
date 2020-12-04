@@ -2,10 +2,12 @@ package com.example.sportsapp_1
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_user.*
 
@@ -34,6 +36,11 @@ class UserFragment : Fragment() {
             auth.signOut()
             var intent = Intent(getActivity(), LoginActivity::class.java)
             activity?.startActivity(intent)
+            val manager: FragmentManager = activity!!.supportFragmentManager
+            val trans: FragmentTransaction = manager.beginTransaction()
+            trans.remove(this)
+            trans.commit()
+            manager.popBackStack()
         }
 
     }

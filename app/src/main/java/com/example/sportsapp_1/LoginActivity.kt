@@ -23,8 +23,11 @@ class LoginActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
 
 
-        if (currentUser != null)
+        if (currentUser != null) {
             openActivity(MainActivity::class.java)
+            finish()
+        }
+
 
     }
     
@@ -44,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(){ task ->
             if (task.isSuccessful) {
                 openActivity(MainActivity::class.java)
+                finish()
             }
         }.addOnFailureListener { exception ->
             Toast.makeText(applicationContext, exception.localizedMessage.toString(), Toast.LENGTH_LONG).show()
@@ -62,4 +66,6 @@ class LoginActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
+
 }
