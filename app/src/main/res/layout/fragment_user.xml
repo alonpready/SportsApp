@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bt_logOut"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserFragment">
@@ -9,8 +10,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Profil"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:text="Profil" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 
 </FrameLayout>
