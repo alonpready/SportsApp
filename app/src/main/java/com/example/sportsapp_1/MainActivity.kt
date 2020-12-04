@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 { loadFragment(UserFragment()) }
 
             }
-
+                
             true
         }
     }
