@@ -16,10 +16,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setClicks() {
         tv_skip.setOnClickListener {
-            openActivity(SignUpActivity::class.java)
+            openActivity(MainActivity::class.java)
         }
         bt_create_account.setOnClickListener {
-            openActivity(MainActivity::class.java)
+            openActivity(SignUpActivity::class.java)
         }
     }
 
