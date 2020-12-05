@@ -2,23 +2,27 @@ package com.example.sportsapp_1
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.TextView
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.signup.*
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        loadFragment(HomepageFragment())
         setBottomNavigation()
+        loadFragment(HomepageFragment())
+
     }
 
     private fun setBottomNavigation() {
+
 
         bottom_navigation.setOnNavigationItemSelectedListener {
 
@@ -36,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.videospage ->
                 { loadFragment(VideosFragment()) }
 
-                R.id.userpage ->
+                R.id.bt_logOut ->
                 { loadFragment(UserFragment()) }
 
             }
@@ -51,5 +55,18 @@ class MainActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
+    override fun onBackPressed() {
+        Log.d("CDA", "onBackPressed Called")
+        val setIntent = Intent(Intent.ACTION_MAIN)
+        setIntent.addCategory(Intent.CATEGORY_HOME)
+        setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(setIntent)
+    }
+
+
+
+
+
 
 }

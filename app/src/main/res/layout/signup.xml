@@ -13,10 +13,12 @@
         android:layout_height="49dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/rounded_corners_orange"
+        android:onClick="signUpClicked"
         android:text="Kayıt Ol"
         android:textSize="18sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_password_again" />
 
@@ -34,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo_orange" />
 
     <EditText
         android:id="@+id/tv_surname"
@@ -54,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/iv_logo_orange"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="50dp"
