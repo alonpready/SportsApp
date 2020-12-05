@@ -2,6 +2,7 @@ package com.example.sportsapp_1
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -50,7 +51,11 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             }
         }.addOnFailureListener { exception ->
-            Toast.makeText(applicationContext, exception.localizedMessage.toString(), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                applicationContext,
+                exception.localizedMessage.toString(),
+                Toast.LENGTH_LONG
+            ).show()
         }
 
     }
@@ -65,6 +70,14 @@ class LoginActivity : AppCompatActivity() {
         transaction.replace(R.id.fragmentContainerView, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    override fun onBackPressed() {
+        Log.d("CDA", "onBackPressed Called")
+        val setIntent = Intent(Intent.ACTION_MAIN)
+        setIntent.addCategory(Intent.CATEGORY_HOME)
+        setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(setIntent)
     }
 
 
