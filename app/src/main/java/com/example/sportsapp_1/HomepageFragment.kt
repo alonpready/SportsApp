@@ -42,7 +42,7 @@ class HomepageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        iv_homepage_userphoto.setOnClickListener() {
+        iv_homepage_photo.setOnClickListener() {
             loadFragment(UserFragment())
             val manager: FragmentManager = activity!!.supportFragmentManager
             val trans: FragmentTransaction = manager.beginTransaction()

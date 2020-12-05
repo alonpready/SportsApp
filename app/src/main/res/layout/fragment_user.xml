@@ -6,160 +6,223 @@
     android:layout_height="match_parent"
     tools:context=".UserFragment">
 
-    <View
-        android:id="@+id/v_user_backround"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:background="@drawable/rounded_corners_userpage_top" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/bt_logOut"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="right"
-        android:layout_marginTop="48dp"
-        android:layout_marginRight="20dp"
-        android:background="#00FFFFFF"
-        android:scaleType="fitXY"
-        android:src="@drawable/exit_icon" />
+        <TextView
+            android:id="@+id/tv_under_graph8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Kitle Endeksi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.524"
+            app:layout_constraintStart_toEndOf="@+id/tv_under_graph7"
+            app:layout_constraintTop_toBottomOf="@+id/iv_graph12" />
 
-    <ImageView
-        android:id="@+id/iv_profile_photo"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="58dp"
-        android:src="@drawable/profile_photo" />
+        <TextView
+            android:id="@+id/tv_in_graph10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="19,4"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_graph12"
+            app:layout_constraintEnd_toEndOf="@+id/iv_graph12"
+            app:layout_constraintStart_toStartOf="@+id/iv_graph12"
+            app:layout_constraintTop_toTopOf="@+id/iv_graph12" />
 
-    <TextView
-        android:id="@+id/tv_userPage_top_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="90dp"
-        android:fontFamily="casual"
-        android:text="Bugün\nNasılsın?"
-        android:textColor="#252525"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_in_graph9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="183"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_graph13"
+            app:layout_constraintEnd_toEndOf="@+id/iv_graph13"
+            app:layout_constraintStart_toStartOf="@+id/iv_graph13"
+            app:layout_constraintTop_toTopOf="@+id/iv_graph13" />
 
-    <TextView
-        android:id="@+id/tv_userPage_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="175dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="Alpay Güler"
-        android:textColor="#111E02"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        <View
+            android:id="@+id/v_user_backround"
+            android:layout_width="wrap_content"
+            android:layout_height="270dp"
+            android:background="@drawable/rounded_corners_userpage_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_health_information"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="275dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="GENEL SAĞLIK BİLGİLERİM"
-        android:textStyle="bold"/>
+        <ImageView
+            android:id="@+id/iv_profile_photo3"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginEnd="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/profile_photo"
+            app:layout_constraintBottom_toBottomOf="@+id/v_user_backround"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_graph1"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginTop="310dp"
-        android:rotation="140"
-        android:src="@drawable/roundgraph" />
+        <TextView
+            android:id="@+id/tv_rezervation2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:text="Rezervasyonlar"
+            android:textColor="@color/colorBackgraund"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_in_graph1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="74dp"
-        android:layout_marginTop="337dp"
-        android:text="85"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <ImageButton
+            android:id="@+id/bt_logOut"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="16dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitXY"
+            android:src="@drawable/exit_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/tv_rezervation2"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_under_graph1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="62dp"
-        android:layout_marginTop="395dp"
-        android:text="Ağırlık" />
+        <TextView
+            android:id="@+id/tv_userPage_top_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginBottom="52dp"
+            android:fontFamily="casual"
+            android:text="Bugün\nNasılsın?"
+            android:textColor="#252525"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/v_user_backround"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_graph2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="310dp"
-        android:src="@drawable/roundgraph" />
+        <TextView
+            android:id="@+id/tv_userPage_username3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Alpay Güler"
+            android:textColor="#111E02"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/v_user_backround"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_in_graph2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="337dp"
-        android:text="183"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_health_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="GENEL SAĞLIK BİLGİLERİM"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_user_backround" />
 
-    <TextView
-        android:id="@+id/tv_under_graph2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="181dp"
-        android:layout_marginTop="395dp"
-        android:text="Uzunluk" />
+        <ImageView
+            android:id="@+id/iv_graph12"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="48dp"
+            android:src="@drawable/roundgraph"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
 
-    <ImageView
-        android:id="@+id/iv_graph3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="289dp"
-        android:layout_marginTop="310dp"
-        android:rotation="-84"
-        android:src="@drawable/roundgraph" />
+        <ImageView
+            android:id="@+id/iv_graph13"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="36dp"
+            android:rotation="-84"
+            android:src="@drawable/roundgraph"
+            app:layout_constraintEnd_toStartOf="@+id/iv_graph12"
+            app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
 
-    <TextView
-        android:id="@+id/tv_in_graph3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="312dp"
-        android:layout_marginTop="337dp"
-        android:text="19,4"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/iv_graph10"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:rotation="140"
+            android:src="@drawable/roundgraph"
+            app:layout_constraintEnd_toStartOf="@+id/iv_graph13"
+            app:layout_constraintHorizontal_bias="0.564"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
 
-    <TextView
-        android:id="@+id/tv_under_graph3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="290dp"
-        android:layout_marginTop="395dp"
-        android:text="Kitle Endeksi" />
+        <TextView
+            android:id="@+id/tv_in_graph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="85"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_graph10"
+            app:layout_constraintEnd_toEndOf="@+id/iv_graph10"
+            app:layout_constraintStart_toStartOf="@+id/iv_graph10"
+            app:layout_constraintTop_toTopOf="@+id/iv_graph10" />
 
-    <View
-        android:id="@+id/v_user_backround2"
-        android:layout_width="wrap_content"
-        android:layout_height="225dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/rounded_corners_userpage_top2" />
+        <TextView
+            android:id="@+id/tv_under_graph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="68dp"
+            android:layout_marginTop="8dp"
+            android:text="Ağırlık"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_graph10" />
 
-    <TextView
-        android:id="@+id/tv_last_gym_entrances"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="465dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="SON SALON GİRİŞLERİ"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_under_graph7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="8dp"
+            android:text="Uzunluk"
+            app:layout_constraintStart_toEndOf="@+id/tv_under_graph"
+            app:layout_constraintTop_toBottomOf="@+id/iv_graph13" />
 
+        <View
+            android:id="@+id/v_user_backround5"
+            android:layout_width="wrap_content"
+            android:layout_height="205dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/rounded_corners_userpage_top2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_last_gym_entrances3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="SON SALON GİRİŞLERİ"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/v_user_backround5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
