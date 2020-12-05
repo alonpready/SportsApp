@@ -33,7 +33,7 @@
         android:layout_width="275dp"
         android:layout_height="275dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="140dp"
         android:src="@drawable/roundgraph" />
 
     <TextView
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="250dp"
         android:text="11/36"
         android:textSize="36sp"
         android:textStyle="bold" />
