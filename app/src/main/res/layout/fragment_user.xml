@@ -10,70 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_under_graph8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Kitle Endeksi"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.524"
-            app:layout_constraintStart_toEndOf="@+id/tv_under_graph7"
-            app:layout_constraintTop_toBottomOf="@+id/iv_graph12" />
-
-        <TextView
-            android:id="@+id/tv_in_graph10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="19,4"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_graph12"
-            app:layout_constraintEnd_toEndOf="@+id/iv_graph12"
-            app:layout_constraintStart_toStartOf="@+id/iv_graph12"
-            app:layout_constraintTop_toTopOf="@+id/iv_graph12" />
-
-        <TextView
-            android:id="@+id/tv_in_graph9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="183"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_graph13"
-            app:layout_constraintEnd_toEndOf="@+id/iv_graph13"
-            app:layout_constraintStart_toStartOf="@+id/iv_graph13"
-            app:layout_constraintTop_toTopOf="@+id/iv_graph13" />
-
         <View
             android:id="@+id/v_user_backround"
             android:layout_width="wrap_content"
             android:layout_height="270dp"
             android:background="@drawable/rounded_corners_userpage_top"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_profile_photo3"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginEnd="50dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/profile_photo"
-            app:layout_constraintBottom_toBottomOf="@+id/v_user_backround"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_rezervation2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
-            android:text="Rezervasyonlar"
-            android:textColor="@color/colorBackgraund"
-            android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -90,11 +31,34 @@
             android:src="@drawable/exit_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toEndOf="@+id/tv_rezervation2"
+            app:layout_constraintStart_toEndOf="@+id/tv_rezervation_rez"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_userPage_top_text2"
+            android:id="@+id/tv_rezervation_rez"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:text="Rezervasyonlar"
+            android:textColor="@color/colorBackgraund"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_profile_photo3"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginEnd="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/profile_photo"
+            app:layout_constraintBottom_toBottomOf="@+id/v_user_backround"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_userPage_top_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="52dp"
@@ -108,7 +72,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/tv_userPage_username3"
+            android:id="@+id/tv_userPage_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="52dp"
@@ -136,7 +100,75 @@
             app:layout_constraintTop_toBottomOf="@+id/v_user_backround" />
 
         <ImageView
-            android:id="@+id/iv_graph12"
+            android:id="@+id/iv_graph1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:rotation="140"
+            android:src="@drawable/roundgraph"
+            app:layout_constraintEnd_toStartOf="@+id/iv_graph2"
+            app:layout_constraintHorizontal_bias="0.564"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
+
+        <TextView
+            android:id="@+id/tv_in_graph1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="85"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_graph1"
+            app:layout_constraintEnd_toEndOf="@+id/iv_graph1"
+            app:layout_constraintStart_toStartOf="@+id/iv_graph1"
+            app:layout_constraintTop_toTopOf="@+id/iv_graph1" />
+
+        <TextView
+            android:id="@+id/tv_under_graph1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="68dp"
+            android:layout_marginTop="8dp"
+            android:text="Ağırlık"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_graph1" />
+
+        <ImageView
+            android:id="@+id/iv_graph2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="36dp"
+            android:rotation="-84"
+            android:src="@drawable/roundgraph"
+            app:layout_constraintEnd_toStartOf="@+id/iv_graph3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
+
+        <TextView
+            android:id="@+id/tv_in_graph2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="183"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_graph2"
+            app:layout_constraintEnd_toEndOf="@+id/iv_graph2"
+            app:layout_constraintStart_toStartOf="@+id/iv_graph2"
+            app:layout_constraintTop_toTopOf="@+id/iv_graph2" />
+
+        <TextView
+            android:id="@+id/tv_under_graph2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="8dp"
+            android:text="Uzunluk"
+            app:layout_constraintStart_toEndOf="@+id/tv_under_graph1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_graph2" />
+
+        <ImageView
+            android:id="@+id/iv_graph3"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
@@ -146,73 +178,44 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
 
-        <ImageView
-            android:id="@+id/iv_graph13"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="36dp"
-            android:rotation="-84"
-            android:src="@drawable/roundgraph"
-            app:layout_constraintEnd_toStartOf="@+id/iv_graph12"
-            app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
-
-        <ImageView
-            android:id="@+id/iv_graph10"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="20dp"
-            android:rotation="140"
-            android:src="@drawable/roundgraph"
-            app:layout_constraintEnd_toStartOf="@+id/iv_graph13"
-            app:layout_constraintHorizontal_bias="0.564"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
-
         <TextView
-            android:id="@+id/tv_in_graph"
+            android:id="@+id/tv_in_graph3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="85"
+            android:text="19,4"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_graph10"
-            app:layout_constraintEnd_toEndOf="@+id/iv_graph10"
-            app:layout_constraintStart_toStartOf="@+id/iv_graph10"
-            app:layout_constraintTop_toTopOf="@+id/iv_graph10" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_graph3"
+            app:layout_constraintEnd_toEndOf="@+id/iv_graph3"
+            app:layout_constraintStart_toStartOf="@+id/iv_graph3"
+            app:layout_constraintTop_toTopOf="@+id/iv_graph3" />
 
         <TextView
-            android:id="@+id/tv_under_graph"
+            android:id="@+id/tv_under_graph3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="68dp"
             android:layout_marginTop="8dp"
-            android:text="Ağırlık"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_graph10" />
-
-        <TextView
-            android:id="@+id/tv_under_graph7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="72dp"
-            android:layout_marginTop="8dp"
-            android:text="Uzunluk"
-            app:layout_constraintStart_toEndOf="@+id/tv_under_graph"
-            app:layout_constraintTop_toBottomOf="@+id/iv_graph13" />
+            android:text="Kitle Endeksi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.524"
+            app:layout_constraintStart_toEndOf="@+id/tv_under_graph2"
+            app:layout_constraintTop_toBottomOf="@+id/iv_graph3" />
 
         <View
-            android:id="@+id/v_user_backround5"
+            android:id="@+id/v_user_backround2"
             android:layout_width="wrap_content"
             android:layout_height="205dp"
             android:layout_gravity="bottom"
             android:background="@drawable/rounded_corners_userpage_top2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_under_graph2"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/tv_last_gym_entrances3"
+            android:id="@+id/tv_last_gym_entrances"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -223,6 +226,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/v_user_backround5" />
+            app:layout_constraintTop_toTopOf="@+id/v_user_backround2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

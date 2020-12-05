@@ -9,8 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.login.*
-import kotlinx.android.synthetic.main.login.tv_password
-import kotlinx.android.synthetic.main.signup.*
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -31,11 +29,9 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
-    
+
     private fun setClicks() {
-        tv_skip.setOnClickListener {
-            openActivity(MainActivity::class.java)
-        }
+
         bt_create_account.setOnClickListener {
             openActivity(SignUpActivity::class.java)
         }
@@ -45,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
         val userEmail = tv_username.text.trim().toString()
         val userPassword = tv_password.text.trim().toString()
 
-        auth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(){ task ->
+        auth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener() { task ->
             if (task.isSuccessful) {
                 openActivity(MainActivity::class.java)
                 finish()
