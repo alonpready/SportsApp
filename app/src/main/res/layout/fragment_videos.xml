@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".VideosFragment">
 
+    <TextView
+        android:id="@+id/tv_exercises"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="65dp"
+        android:text="Egzersizler"
+        android:textColor="@color/colorTwo"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <ImageView
         android:id="@+id/iv_videos_userphoto"
         android:layout_width="40dp"
