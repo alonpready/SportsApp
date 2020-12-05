@@ -1,9 +1,6 @@
 package com.example.sportsapp_1
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
@@ -17,12 +14,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         setBottomNavigation()
+        loadFragment(HomepageFragment())
+
     }
 
     private fun setBottomNavigation() {
+
 
         bottom_navigation.setOnNavigationItemSelectedListener {
 
@@ -40,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.videospage ->
                 { loadFragment(VideosFragment()) }
 
-                R.id.userpage ->
+                R.id.bt_logOut ->
                 { loadFragment(UserFragment()) }
 
             }

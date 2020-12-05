@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SportsApp_1</string>
+    <string name="app_name">Sports App</string>
     <string name="title_activity_main_page">MainActivity</string>
     <string name="title_home">Anasayfa</string>
     <string name="title_dashboard">Rezervasyonlar</string>

@@ -16,7 +16,7 @@
         android:layout_marginEnd="51dp"
         android:ems="10"
         android:hint="Kullanıcı Adı"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textColorHint="@android:color/secondary_text_light_nodisable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
@@ -98,7 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bt_forget_password" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_logo_green"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="50dp"
