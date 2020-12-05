@@ -32,7 +32,7 @@ class UserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        button.setOnClickListener() {
+        bt_logOut.setOnClickListener() {
             auth.signOut()
             var intent = Intent(getActivity(), LoginActivity::class.java)
             activity?.startActivity(intent)

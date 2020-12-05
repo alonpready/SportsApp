@@ -7,14 +7,8 @@
     tools:context=".QrcodeFragment">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Qr Kod"
-        android:gravity="center"/>
-
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iv_read_the_qrcode"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"

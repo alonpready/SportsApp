@@ -12,7 +12,7 @@
     <item android:id="@+id/videospage"
         android:title="Videolar"
         android:icon="@drawable/youtube" />
-    <item android:id="@+id/userpage"
+    <item android:id="@+id/bt_logOut"
         android:title="Profil"
         android:icon="@drawable/user" />
 
