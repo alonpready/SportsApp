@@ -3,6 +3,7 @@ package com.example.sportsapp_1
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -56,5 +57,14 @@ class SignUpActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
+    override fun onBackPressed() {
+        Log.d("CDA", "onBackPressed Called")
+        val setIntent = Intent(Intent.ACTION_MAIN)
+        setIntent.addCategory(Intent.CATEGORY_HOME)
+        setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(setIntent)
+    }
+
 
 }

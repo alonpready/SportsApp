@@ -2,9 +2,11 @@ package com.example.sportsapp_1
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -20,6 +22,16 @@ class UserFragment : Fragment() {
 
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
+
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                Log.d("CDA", "onBackPressed Called")
+                val setIntent = Intent(Intent.ACTION_MAIN)
+                setIntent.addCategory(Intent.CATEGORY_HOME)
+                setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(setIntent)
+            }
+        })
 
     }
 
@@ -45,5 +57,6 @@ class UserFragment : Fragment() {
         }
 
     }
+
 
 }
