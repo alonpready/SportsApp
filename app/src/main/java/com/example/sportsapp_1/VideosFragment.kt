@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import kotlinx.android.synthetic.main.fragment_qrcode.*
+import kotlinx.android.synthetic.main.fragment_videos.*
 
 
 class VideosFragment : Fragment() {
@@ -33,6 +35,22 @@ class VideosFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_videos, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        iv_videos_profile_photo.setOnClickListener() {
+            loadFragment(UserFragment())
+        }
+
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        transaction?.replace(R.id.fragmentContainerView, fragment)
+        transaction?.addToBackStack(null)
+        transaction?.commit()
     }
 
 }

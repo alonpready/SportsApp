@@ -1,6 +1,5 @@
 package com.example.sportsapp_1
 
-import android.content.AbstractThreadedSyncAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,15 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_homepage.*
-import kotlinx.android.synthetic.main.fragment_user.*
 
 
 class HomepageFragment : Fragment() {
@@ -55,7 +48,7 @@ class HomepageFragment : Fragment() {
             loadFragment(UserFragment())
         }
 
-        rv.layoutManager = LinearLayoutManager(activity)
+        recyclerview_homepage.layoutManager = LinearLayoutManager(activity)
 
         val t1 = TrainingTypes("Dead Lift","3x5")
         val t2 = TrainingTypes("Bench Press","2x10")
@@ -72,7 +65,7 @@ class HomepageFragment : Fragment() {
         listOfTrainingTypes.add(t5)
         listOfTrainingTypes.add(t6)
 
-        rv.adapter = RVAdapter(requireContext(),listOfTrainingTypes)
+        recyclerview_homepage.adapter = RVAdapter(requireContext(),listOfTrainingTypes)
 
     }
 
