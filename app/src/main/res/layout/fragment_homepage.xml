@@ -12,11 +12,11 @@
 
 
         <TextView
-            android:id="@+id/tv_current_density"
+            android:id="@+id/tv_header_homepage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
-            android:text="Anlık Yoğunluk"
+            android:layout_marginTop="20dp"
+            android:text="Anasayfa"
             android:textColor="@color/colorTwo"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -28,9 +28,24 @@
             android:id="@+id/tv_graph_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="108dp"
+            android:layout_marginTop="120dp"
             android:text="11/36"
             android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/iv_round_graph"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="@+id/iv_round_graph"
+            app:layout_constraintTop_toTopOf="@+id/iv_round_graph" />
+
+        <TextView
+            android:id="@+id/tv_current_density"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:gravity="center"
+            android:text="Anlık Yoğunluk"
+            android:textColor="#8BC34A"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/iv_round_graph"
             app:layout_constraintHorizontal_bias="0.502"
@@ -46,18 +61,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_current_density" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_header_homepage" />
 
         <ImageView
             android:id="@+id/iv_homepage_photo"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/profilephp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toEndOf="@+id/tv_current_density"
+            app:layout_constraintStart_toEndOf="@+id/tv_header_homepage"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

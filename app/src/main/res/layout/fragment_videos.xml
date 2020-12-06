@@ -11,10 +11,10 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_exercises"
+            android:id="@+id/tv_header_exercises"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="20dp"
             android:text="Egzersizler"
             android:textColor="@color/colorTwo"
             android:textSize="18sp"
@@ -27,12 +27,12 @@
             android:id="@+id/iv_videos_profile_photo"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/profilephp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toEndOf="@+id/tv_exercises"
+            app:layout_constraintStart_toEndOf="@+id/tv_header_exercises"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
