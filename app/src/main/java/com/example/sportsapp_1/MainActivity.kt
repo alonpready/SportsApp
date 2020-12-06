@@ -15,14 +15,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        auth = FirebaseAuth.getInstance()
         setBottomNavigation()
         loadFragment(HomepageFragment())
 
     }
 
     private fun setBottomNavigation() {
-
 
         bottom_navigation.setOnNavigationItemSelectedListener {
 
@@ -63,7 +62,6 @@ class MainActivity : AppCompatActivity() {
         setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(setIntent)
     }
-
 
 
 
