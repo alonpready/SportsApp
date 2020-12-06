@@ -8,10 +8,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.login.*
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
+    private val dbReferance = FirebaseDatabase.getInstance().reference.child("users")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,42 +33,53 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setClicks() {
-
+        buttonClick()
         bt_create_account.setOnClickListener {
             openActivity(SignUpActivity::class.java)
         }
     }
 
-    fun signInClicked(view: View) {
-        val userEmail = tv_username.text.trim().toString()
-        val userPassword = tv_password.text.trim().toString()
+    fun buttonClick() {
+        bt_login.setOnClickListener {
+            val userEmail = tv_username.text.trim().toString()
+            val userPassword = tv_password.text.trim().toString()
 
-        auth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener() { task ->
-            if (task.isSuccessful) {
-                openActivity(MainActivity::class.java)
-                finish()
+            if (isEmailOrPasswordValid(userEmail, userPassword)) {
+
+                auth.signInWithEmailAndPassword(userEmail, userPassword)
+                    .addOnCompleteListener() { task ->
+
+                        if (task.isSuccessful) {
+                            openActivity(MainActivity::class.java)
+                            finish()
+                        }
+                    }.addOnFailureListener { exception ->
+                        Toast.makeText(
+                            applicationContext,
+                            exception.localizedMessage.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
             }
-        }.addOnFailureListener { exception ->
-            Toast.makeText(
-                applicationContext,
-                exception.localizedMessage.toString(),
-                Toast.LENGTH_LONG
-            ).show()
         }
 
     }
 
 
+    private fun isEmailOrPasswordValid(userEmail: String, userPassword: String) : Boolean
+    {
+        return if (userEmail.isNullOrBlank() || userPassword.isNullOrBlank()) {
+            Toast.makeText(this, "Kullanıcı adı veya şifre boş olamaz.", Toast.LENGTH_LONG).show()
+            false
+        }
+
+        else true
+    }
+
     private fun openActivity(cls: Class<*>) {
         startActivity(Intent(this, cls))
     }
 
-    private fun loadFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainerView, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }
 
     override fun onBackPressed() {
         Log.d("CDA", "onBackPressed Called")
