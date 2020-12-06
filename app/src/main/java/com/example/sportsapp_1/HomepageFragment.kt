@@ -3,25 +3,23 @@ package com.example.sportsapp_1
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_homepage.*
-import kotlinx.android.synthetic.main.fragment_user.*
 
 
 class HomepageFragment : Fragment() {
 
+    private var listOfTrainingTypes = ArrayList<TrainingTypes>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true){
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 Log.d("CDA", "onBackPressed Called")
                 val setIntent = Intent(Intent.ACTION_MAIN)
@@ -33,7 +31,6 @@ class HomepageFragment : Fragment() {
 
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,9 +41,8 @@ class HomepageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        iv_homepage_photo.setOnClickListener() {
-            loadFragment(UserFragment())
-        }
+        setUI()
+        setClicks()
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -55,4 +51,47 @@ class HomepageFragment : Fragment() {
         transaction?.addToBackStack(null)
         transaction?.commit()
     }
+
+
+    private fun openUserPage() {
+        loadFragment(UserFragment())
+    }
+
+
+    private fun setClicks() {
+        iv_homepage_photo.setOnClickListener {
+            openUserPage()
+        }
+    }
+
+
+    private fun setUI() {
+        inizilatizeRv()
+    }
+
+
+    private fun createTrainTypes() {
+        val t1 = TrainingTypes("Dead Lift", "3x5")
+        val t2 = TrainingTypes("Bench Press", "2x10")
+        val t3 = TrainingTypes("Pull Dumbell", "4x2")
+        val t4 = TrainingTypes("Dumbell Lift", "2x5")
+        val t5 = TrainingTypes("Barfix", "3x5")
+        val t6 = TrainingTypes("Squad", "2x6")
+
+        listOfTrainingTypes.add(t1)
+        listOfTrainingTypes.add(t2)
+        listOfTrainingTypes.add(t3)
+        listOfTrainingTypes.add(t4)
+        listOfTrainingTypes.add(t5)
+        listOfTrainingTypes.add(t6)
+
+    }
+
+    private fun inizilatizeRv() {
+        createTrainTypes()
+        rv.layoutManager = LinearLayoutManager(activity)
+        rv.adapter = RVAdapter(requireContext(), listOfTrainingTypes)
+    }
+
+
 }

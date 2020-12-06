@@ -49,12 +49,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_profile_photo3"
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_marginEnd="50dp"
-            android:scaleType="fitXY"
             android:src="@drawable/profile_photo"
             app:layout_constraintBottom_toBottomOf="@+id/v_user_backround"
             app:layout_constraintEnd_toEndOf="parent" />

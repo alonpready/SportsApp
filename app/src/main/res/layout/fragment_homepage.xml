@@ -56,10 +56,9 @@
             android:id="@+id/iv_round_graph"
             android:layout_width="275dp"
             android:layout_height="275dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:src="@drawable/roundgraph"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_header_homepage" />
 
@@ -74,6 +73,30 @@
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toEndOf="@+id/tv_header_homepage"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_round_graph" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Sizin için"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/rv"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
