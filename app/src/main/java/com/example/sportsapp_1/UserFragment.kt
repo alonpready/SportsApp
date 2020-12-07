@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_user.*
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class UserFragment : Fragment() {
@@ -35,12 +36,17 @@ class UserFragment : Fragment() {
     private lateinit var userPageTextView: TextView
     var selectedPicture: Uri? = null
     var storaged = FirebaseStorage.getInstance()
+    private lateinit var db: FirebaseDatabase
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         auth = FirebaseAuth.getInstance()
 
-
-
+        db = FirebaseDatabase.getInstance()
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 Log.d("CDA", "onBackPressed Called")
@@ -146,10 +152,12 @@ class UserFragment : Fragment() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
         if (requestCode == 2 && resultCode == Activity.RESULT_OK && data != null) {
             selectedPicture = data.data
+
             try {
-                if (selectedPicture != null) {
+                if(selectedPicture != null) {
 
                     if (Build.VERSION.SDK_INT >= 28) {
                         val source =
@@ -172,14 +180,25 @@ class UserFragment : Fragment() {
 
 
 
-                    ppreference.putFile(selectedPicture!!)
+                    ppreference.putFile(selectedPicture!!).addOnSuccessListener { taskSnapshot ->
+
+                        val uploadPPReferance = FirebaseStorage.getInstance().reference.child("profilephotos").child(ppname)
+                        uploadPPReferance.downloadUrl.addOnSuccessListener { uri ->
+
+                            val downloadUrl = uri.toString()
+
+                            db.reference.child("users")
+                                .child(auth.currentUser?.uid ?: "").child("userPhotoUrl").setValue(downloadUrl)
+
+
+                        }
+                        }
                 }
 
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-
 
         super.onActivityResult(requestCode, resultCode, data)
     }

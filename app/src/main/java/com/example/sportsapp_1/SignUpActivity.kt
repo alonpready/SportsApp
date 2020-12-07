@@ -43,7 +43,7 @@ class SignUpActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val user = User(mail, auth.currentUser?.uid, surname, name, password)
+                val user = User(mail, auth.currentUser?.uid, surname, name, password,"")
                 FirebaseDatabase.getInstance().reference.child("users")
                     .child(auth.currentUser?.uid ?: "").setValue(user)
                 auth.signOut()
