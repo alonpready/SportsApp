@@ -16,9 +16,13 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import coil.load
+import com.example.sportsapp_1.Utill.Gone
+import com.example.sportsapp_1.Utill.Visible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -27,6 +31,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_user.*
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class UserFragment : Fragment() {
@@ -35,12 +40,17 @@ class UserFragment : Fragment() {
     private lateinit var userPageTextView: TextView
     var selectedPicture: Uri? = null
     var storaged = FirebaseStorage.getInstance()
+    private lateinit var db: FirebaseDatabase
+    private var userPhotoUrl : String = ""
+    private var user : User? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         auth = FirebaseAuth.getInstance()
 
-
-
+        db = FirebaseDatabase.getInstance()
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 Log.d("CDA", "onBackPressed Called")
@@ -62,6 +72,9 @@ class UserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        user_cl.Gone()
+        userPage_progressbar.Visible()
+
         setClicks()
 
         userPageTextView = view.findViewById(R.id.tv_userPage_username)
@@ -71,8 +84,9 @@ class UserFragment : Fragment() {
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (singleSnapshot in snapshot!!.children) {
-                    val user = singleSnapshot.getValue(User::class.java)
-                    userPageTextView.text = user?.userName
+                    user = singleSnapshot.getValue(User::class.java)
+
+                    setUser(user?.userName, user?.userPhotoUrl)
                 }
             }
 
@@ -81,7 +95,6 @@ class UserFragment : Fragment() {
             }
 
         })
-
 
     }
 
@@ -146,10 +159,12 @@ class UserFragment : Fragment() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
         if (requestCode == 2 && resultCode == Activity.RESULT_OK && data != null) {
             selectedPicture = data.data
+
             try {
-                if (selectedPicture != null) {
+                if(selectedPicture != null) {
 
                     if (Build.VERSION.SDK_INT >= 28) {
                         val source =
@@ -172,7 +187,19 @@ class UserFragment : Fragment() {
 
 
 
-                    ppreference.putFile(selectedPicture!!)
+                    ppreference.putFile(selectedPicture!!).addOnSuccessListener { taskSnapshot ->
+
+                        val uploadPPReferance = FirebaseStorage.getInstance().reference.child("profilephotos").child(ppname)
+                        uploadPPReferance.downloadUrl.addOnSuccessListener { uri ->
+
+                            val downloadUrl = uri.toString()
+
+                            db.reference.child("users")
+                                .child(auth.currentUser?.uid ?: "").child("userPhotoUrl").setValue(downloadUrl)
+
+
+                        }
+                        }
                 }
 
             } catch (e: Exception) {
@@ -180,8 +207,14 @@ class UserFragment : Fragment() {
             }
         }
 
-
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun setUser(name:String?, photoUrl:String?) {
+        userPageTextView.text = name?:""
+        iv_profile_photo3.load(photoUrl)
+        user_cl.Visible()
+        userPage_progressbar.Gone()
     }
 
 
