@@ -16,9 +16,13 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import coil.load
+import com.example.sportsapp_1.Utill.Gone
+import com.example.sportsapp_1.Utill.Visible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -37,8 +41,8 @@ class UserFragment : Fragment() {
     var selectedPicture: Uri? = null
     var storaged = FirebaseStorage.getInstance()
     private lateinit var db: FirebaseDatabase
-
-
+    private var userPhotoUrl : String = ""
+    private var user : User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +72,9 @@ class UserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        user_cl.Gone()
+        userPage_progressbar.Visible()
+
         setClicks()
 
         userPageTextView = view.findViewById(R.id.tv_userPage_username)
@@ -77,8 +84,9 @@ class UserFragment : Fragment() {
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (singleSnapshot in snapshot!!.children) {
-                    val user = singleSnapshot.getValue(User::class.java)
-                    userPageTextView.text = user?.userName
+                    user = singleSnapshot.getValue(User::class.java)
+
+                    setUser(user?.userName, user?.userPhotoUrl)
                 }
             }
 
@@ -87,7 +95,6 @@ class UserFragment : Fragment() {
             }
 
         })
-
 
     }
 
@@ -201,6 +208,13 @@ class UserFragment : Fragment() {
         }
 
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun setUser(name:String?, photoUrl:String?) {
+        userPageTextView.text = name?:""
+        iv_profile_photo3.load(photoUrl)
+        user_cl.Visible()
+        userPage_progressbar.Gone()
     }
 
 
