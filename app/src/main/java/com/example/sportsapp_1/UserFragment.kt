@@ -24,7 +24,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_user.*
+import java.util.*
 
 
 class UserFragment : Fragment() {
@@ -32,7 +34,7 @@ class UserFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var userPageTextView: TextView
     var selectedPicture: Uri? = null
-
+    var storaged = FirebaseStorage.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
@@ -122,6 +124,8 @@ class UserFragment : Fragment() {
         }
 
 
+
+
     }
 
 
@@ -159,6 +163,16 @@ class UserFragment : Fragment() {
                         )
                         iv_profile_photo3.setImageBitmap(bitmap)
                     }
+
+                    val uuid = UUID.randomUUID()
+                    val ppname = "$uuid.jpg"
+
+                    val reference = storaged.reference
+                    val ppreference = reference.child("profilephotos").child(ppname)
+
+
+
+                    ppreference.putFile(selectedPicture!!)
                 }
 
             } catch (e: Exception) {
@@ -172,3 +186,6 @@ class UserFragment : Fragment() {
 
 
 }
+
+
+
