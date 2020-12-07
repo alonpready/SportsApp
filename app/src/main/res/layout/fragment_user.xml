@@ -54,6 +54,7 @@
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_marginEnd="50dp"
+            android:layout_marginBottom="16dp"
             android:src="@drawable/profile_photo"
             app:layout_constraintBottom_toBottomOf="@+id/v_user_backround"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -79,24 +80,24 @@
             android:layout_marginStart="52dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="casual"
-            tools:text="Alpay Güler"
             android:textColor="#111E02"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/v_user_backround"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Alpay Güler" />
 
         <TextView
             android:id="@+id/tv_health_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-smallcaps"
             android:text="GENEL SAĞLIK BİLGİLERİM"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/v_user_backround" />
 
@@ -104,11 +105,11 @@
             android:id="@+id/iv_graph1"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:rotation="140"
             android:src="@drawable/roundgraph"
             app:layout_constraintEnd_toStartOf="@+id/iv_graph2"
-            app:layout_constraintHorizontal_bias="0.563"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
 
@@ -128,21 +129,22 @@
             android:id="@+id/tv_under_graph1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="68dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:text="Ağırlık"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/iv_graph1"
+            app:layout_constraintStart_toStartOf="@+id/iv_graph1"
             app:layout_constraintTop_toBottomOf="@+id/iv_graph1" />
 
         <ImageView
             android:id="@+id/iv_graph2"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="36dp"
+            android:layout_marginTop="16dp"
             android:rotation="-84"
             android:src="@drawable/roundgraph"
             app:layout_constraintEnd_toStartOf="@+id/iv_graph3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_graph1"
             app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
 
         <TextView
@@ -162,21 +164,23 @@
             android:id="@+id/tv_under_graph2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="72dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:text="Uzunluk"
-            app:layout_constraintStart_toEndOf="@+id/tv_under_graph1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_graph2" />
 
         <ImageView
             android:id="@+id/iv_graph3"
-            android:layout_width="80dp"
+            android:layout_width="81dp"
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="48dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/roundgraph"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_graph2"
             app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
 
         <TextView
@@ -195,38 +199,36 @@
             android:id="@+id/tv_under_graph3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:text="Kitle Endeksi"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.524"
-            app:layout_constraintStart_toEndOf="@+id/tv_under_graph2"
+            app:layout_constraintEnd_toEndOf="@+id/iv_graph3"
+            app:layout_constraintStart_toStartOf="@+id/iv_graph3"
             app:layout_constraintTop_toBottomOf="@+id/iv_graph3" />
 
         <View
             android:id="@+id/v_user_backround2"
             android:layout_width="wrap_content"
-            android:layout_height="275dp"
+            android:layout_height="0dp"
             android:layout_gravity="bottom"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_corners_userpage_top2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_under_graph2"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_under_graph2" />
 
         <TextView
             android:id="@+id/tv_last_gym_entrances"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-smallcaps"
             android:text="SON SALON GİRİŞLERİ"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/v_user_backround2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/v_user_backround2"
             app:layout_constraintTop_toTopOf="@+id/v_user_backround2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

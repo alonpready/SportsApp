@@ -1,15 +1,12 @@
 package com.example.sportsapp_1
 
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.drm.DrmStore
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
-import androidx.constraintlayout.solver.widgets.Snapshot
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -28,18 +24,14 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
 import kotlinx.android.synthetic.main.fragment_user.*
-import java.lang.Exception
-import java.util.jar.Manifest
-import kotlin.math.sign
 
 
 class UserFragment : Fragment() {
 
-    private lateinit var auth : FirebaseAuth
-    private lateinit var userPageTextView : TextView
-    var selectedPicture: Uri ?= null
+    private lateinit var auth: FirebaseAuth
+    private lateinit var userPageTextView: TextView
+    var selectedPicture: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +39,7 @@ class UserFragment : Fragment() {
 
 
 
-        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true){
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 Log.d("CDA", "onBackPressed Called")
                 val setIntent = Intent(Intent.ACTION_MAIN)
@@ -74,9 +66,9 @@ class UserFragment : Fragment() {
         val reference = FirebaseDatabase.getInstance().reference
         val currentUser = FirebaseAuth.getInstance().currentUser
         val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
-        query.addListenerForSingleValueEvent(object: ValueEventListener {
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for(singleSnapshot in snapshot!!.children) {
+                for (singleSnapshot in snapshot!!.children) {
                     val user = singleSnapshot.getValue(User::class.java)
                     userPageTextView.text = user?.userName
                 }
@@ -112,14 +104,20 @@ class UserFragment : Fragment() {
     }
 
     private fun openGallery() {
-        if (activity?.let { ContextCompat.checkSelfPermission(it, android.Manifest.permission.READ_EXTERNAL_STORAGE) } != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity!!,
+        if (activity?.let {
+                ContextCompat.checkSelfPermission(
+                    it,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            } != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                activity!!,
                 arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                1)
-        }
-
-        else {
-            val intent = Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                1
+            )
+        } else {
+            val intent =
+                Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(intent, 2)
         }
 
@@ -134,7 +132,8 @@ class UserFragment : Fragment() {
     ) {
         if (requestCode == 1) {
             if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                val intent = Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                val intent =
+                    Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 startActivityForResult(intent, 2)
             }
         }
@@ -170,7 +169,6 @@ class UserFragment : Fragment() {
 
         super.onActivityResult(requestCode, resultCode, data)
     }
-
 
 
 }

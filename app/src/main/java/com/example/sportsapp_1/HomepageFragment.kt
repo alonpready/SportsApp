@@ -89,8 +89,8 @@ class HomepageFragment : Fragment() {
 
     private fun inizilatizeRv() {
         createTrainTypes()
-        rv.layoutManager = LinearLayoutManager(activity)
-        rv.adapter = RVAdapter(requireContext(), listOfTrainingTypes)
+        recyclerview_homepage.layoutManager = LinearLayoutManager(activity)
+        recyclerview_homepage.adapter = RVAdapter(requireContext(), listOfTrainingTypes)
     }
 
 
