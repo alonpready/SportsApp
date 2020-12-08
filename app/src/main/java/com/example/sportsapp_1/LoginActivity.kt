@@ -9,11 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.fragment_user.*
 import kotlinx.android.synthetic.main.login.*
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val dbReferance = FirebaseDatabase.getInstance().reference.child("users")
+    private var user : User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         if (currentUser != null) {
+
             openActivity(MainActivity::class.java)
             finish()
         }

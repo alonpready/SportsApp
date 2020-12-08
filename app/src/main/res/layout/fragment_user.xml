@@ -60,6 +60,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/v_user_backround"
             app:layout_constraintEnd_toEndOf="parent" />
 
+
         <TextView
             android:id="@+id/tv_userPage_top_text"
             android:layout_width="wrap_content"

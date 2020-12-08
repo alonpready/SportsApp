@@ -9,12 +9,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
+import com.example.sportsapp_1.Utill.Gone
+import com.example.sportsapp_1.Utill.Visible
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_homepage.*
+import kotlinx.android.synthetic.main.fragment_qrcode.*
 import kotlinx.android.synthetic.main.fragment_rezervation.*
 
 
 class RezervationFragment : Fragment() {
-
+    private var user : User? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,6 +54,9 @@ class RezervationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        rezpage_cl.Gone()
+        rezPage_progressbar.Visible()
+        userInfoLoad()
         iv_rezervation_profile_photo.setOnClickListener() {
             loadFragment(UserFragment())
         }
@@ -60,5 +72,32 @@ class RezervationFragment : Fragment() {
         transaction?.commit()
     }
 
+    private fun userInfoLoad(){
+        val reference = FirebaseDatabase.getInstance().reference
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (singleSnapshot in snapshot!!.children) {
+                    user = singleSnapshot.getValue(User::class.java)
+
+                    minippLoad(user?.userPhotoUrl)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
+    }
+    private fun minippLoad(photoUrl:String?) {
+        if (photoUrl != ""){
+            iv_rezervation_profile_photo.load(photoUrl)
+        }
+        rezpage_cl.Visible()
+        rezPage_progressbar.Gone()
+    }
 }
 

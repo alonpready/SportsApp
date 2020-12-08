@@ -41,7 +41,7 @@ class UserFragment : Fragment() {
     var selectedPicture: Uri? = null
     var storaged = FirebaseStorage.getInstance()
     private lateinit var db: FirebaseDatabase
-    private var userPhotoUrl : String = ""
+
     private var user : User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,7 +106,6 @@ class UserFragment : Fragment() {
         val trans: FragmentTransaction = manager.beginTransaction()
         trans.remove(this)
         trans.commit()
-        manager.popBackStack()
     }
 
     private fun setClicks() {
@@ -212,7 +211,9 @@ class UserFragment : Fragment() {
 
     private fun setUser(name:String?, photoUrl:String?) {
         userPageTextView.text = name?:""
+        if (photoUrl != ""){
         iv_profile_photo3.load(photoUrl)
+        }
         user_cl.Visible()
         userPage_progressbar.Gone()
     }

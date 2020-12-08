@@ -9,12 +9,23 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
+import com.example.sportsapp_1.Utill.Gone
+import com.example.sportsapp_1.Utill.Visible
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_homepage.*
+import kotlinx.android.synthetic.main.fragment_user.*
 
 
 class HomepageFragment : Fragment() {
 
     private var listOfTrainingTypes = ArrayList<TrainingTypes>()
+
+    private var user : User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +52,13 @@ class HomepageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        homepage_cl.Gone()
+        homePage_progressbar.Visible()
+
         setUI()
         setClicks()
+        userInfoLoad()
+
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -91,6 +107,36 @@ class HomepageFragment : Fragment() {
         createTrainTypes()
         recyclerview_homepage.layoutManager = LinearLayoutManager(activity)
         recyclerview_homepage.adapter = RVAdapter(requireContext(), listOfTrainingTypes)
+    }
+
+    private fun userInfoLoad(){
+        val reference = FirebaseDatabase.getInstance().reference
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (singleSnapshot in snapshot!!.children) {
+                    user = singleSnapshot.getValue(User::class.java)
+
+                    minippLoad(user?.userPhotoUrl)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
+    }
+    private fun minippLoad(photoUrl:String?) {
+
+        if (photoUrl != ""){
+            iv_homepage_photo.load(photoUrl)
+        }
+        homepage_cl.Visible()
+        homePage_progressbar.Gone()
+
     }
 
 

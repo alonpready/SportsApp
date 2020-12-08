@@ -8,13 +8,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import coil.load
+import com.example.sportsapp_1.Utill.Gone
+import com.example.sportsapp_1.Utill.Visible
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_homepage.*
 import kotlinx.android.synthetic.main.fragment_qrcode.*
 import kotlinx.android.synthetic.main.fragment_rezervation.*
 
 
 class QrcodeFragment : Fragment() {
 
-
+    private var user : User? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true){
@@ -40,7 +49,9 @@ class QrcodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        qrpage_cl.Gone()
+        qrPage_progressbar.Visible()
+        userInfoLoad()
         iv_qrcode_homepage_photo.setOnClickListener() {
             loadFragment(UserFragment())
         }
@@ -52,6 +63,35 @@ class QrcodeFragment : Fragment() {
         transaction?.replace(R.id.fragmentContainerView, fragment)
         transaction?.addToBackStack(null)
         transaction?.commit()
+    }
+
+    private fun userInfoLoad(){
+        val reference = FirebaseDatabase.getInstance().reference
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (singleSnapshot in snapshot!!.children) {
+                    user = singleSnapshot.getValue(User::class.java)
+
+                    minippLoad(user?.userPhotoUrl)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
+    }
+    private fun minippLoad(photoUrl:String?) {
+        if (photoUrl != ""){
+        iv_qrcode_homepage_photo.load(photoUrl)
+        }
+        qrpage_cl.Visible()
+        qrPage_progressbar.Gone()
+
     }
 
 }
