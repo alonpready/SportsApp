@@ -25,6 +25,8 @@ import com.google.zxing.WriterException
 import kotlinx.android.synthetic.main.fragment_homepage.*
 import kotlinx.android.synthetic.main.fragment_qrcode.*
 import kotlinx.android.synthetic.main.fragment_rezervation.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -134,12 +136,12 @@ class QrcodeFragment : Fragment() {
     private fun keyanddateToString(): String{
 
         var userKey = (user?.userKey).toString()
-        var currentTime: Date = Calendar.getInstance().getTime()
-        var currentTimeS = currentTime.toString()
-
-        var keyandtimeS = "$currentTimeS + $userKey"
+        var currentTime: String = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm").format(
+            LocalDateTime.now())
+        var keyandtimeS = "$currentTime + $userKey"
 
         return keyandtimeS
+
 
     }
 }
