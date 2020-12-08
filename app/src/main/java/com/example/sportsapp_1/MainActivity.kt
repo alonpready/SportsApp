@@ -3,9 +3,11 @@ package com.example.sportsapp_1
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.rbddevs.splashy.Splashy
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.signup.*
 
@@ -13,12 +15,35 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         auth = FirebaseAuth.getInstance()
         setBottomNavigation()
         loadFragment(HomepageFragment())
+        setSplashy()
 
+    }
+
+    private fun setSplashy() { Splashy(this)
+            .setLogo(R.drawable.app_logo)
+            .setLogoScaleType(ImageView.ScaleType.FIT_XY)
+            .setLogoWHinDp(150,150)
+            .setTitle("Sports App")
+            .setTitleColor("#FFFFFF")
+            .setTitleSize(25F)
+            .setSubTitle("Her yolculuk tek bir adımla başlar.")
+            .setSubTitleSize(15F)
+            .setBackgroundColor(R.color.black)
+            .setAnimation(Splashy.Animation.GROW_LOGO_FROM_CENTER, 1500)
+            .setProgressColor(R.color.colorPrimaryGreen)
+            .setFullScreen(true)
+            .setClickToHide(true)
+            .setDuration(2000)
+            .setFullScreen(true)
+            .showProgress(true)
+            .show()
     }
 
     private fun setBottomNavigation() {
@@ -53,10 +78,10 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.fragmentContainerView, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+
     }
 
     override fun onBackPressed() {
-        Log.d("CDA", "onBackPressed Called")
         val setIntent = Intent(Intent.ACTION_MAIN)
         setIntent.addCategory(Intent.CATEGORY_HOME)
         setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
