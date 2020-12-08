@@ -13,40 +13,60 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/iv_read_the_qrcode"
+            android:id="@+id/iv_qrcode"
+
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/qrcodepage"
+
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="31dp"
+            android:layout_marginBottom="56dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/rectangleqr" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_qrcode_homepage_photo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/profilephp"
+            app:layout_constraintBottom_toTopOf="@+id/iv_qrcode"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toEndOf="@+id/tv_header_homepage"
+            app:layout_constraintStart_toEndOf="@+id/tv_header_qrcode"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_header_qrcode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="176dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="119dp"
             android:text="QR Kod"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_qrcode_homepage_photo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bt_qrcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:text="generate"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_qrcode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
     <ProgressBar
         android:id="@+id/qrPage_progressbar"
