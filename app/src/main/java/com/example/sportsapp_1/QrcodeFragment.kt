@@ -1,13 +1,16 @@
 package com.example.sportsapp_1
 
+import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import coil.load
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.Visible
@@ -16,17 +19,23 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
 import kotlinx.android.synthetic.main.fragment_homepage.*
 import kotlinx.android.synthetic.main.fragment_qrcode.*
 import kotlinx.android.synthetic.main.fragment_rezervation.*
+import java.util.*
 
 
 class QrcodeFragment : Fragment() {
 
     private var user : User? = null
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true){
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 Log.d("CDA", "onBackPressed Called")
                 val setIntent = Intent(Intent.ACTION_MAIN)
@@ -52,9 +61,9 @@ class QrcodeFragment : Fragment() {
         qrpage_cl.Gone()
         qrPage_progressbar.Visible()
         userInfoLoad()
-        iv_qrcode_homepage_photo.setOnClickListener() {
-            loadFragment(UserFragment())
-        }
+
+       setClicks()
+
 
     }
 
@@ -85,7 +94,7 @@ class QrcodeFragment : Fragment() {
         })
 
     }
-    private fun minippLoad(photoUrl:String?) {
+    private fun minippLoad(photoUrl: String?) {
         if (photoUrl != ""){
         iv_qrcode_homepage_photo.load(photoUrl)
         }
@@ -94,4 +103,43 @@ class QrcodeFragment : Fragment() {
 
     }
 
+    private fun setClicks(){
+        iv_qrcode_homepage_photo.setOnClickListener() {
+            loadFragment(UserFragment())
+        }
+        bt_qrcode.setOnClickListener {
+            val bitmap = generateQRCode(keyanddateToString())
+            iv_qrcode.setImageBitmap(bitmap)
+        }
+    }
+
+    private fun generateQRCode(text: String): Bitmap {
+        val width = 500
+        val height = 500
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val codeWriter = MultiFormatWriter()
+        try {
+            val bitMatrix = codeWriter.encode(text, BarcodeFormat.QR_CODE, width, height)
+            for (x in 0 until width) {
+                for (y in 0 until height) {
+                    bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
+                }
+            }
+        } catch (e: WriterException) {
+            Log.d(TAG, "generateQRCode: ${e.message}")
+        }
+        return bitmap
+    }
+
+    private fun keyanddateToString(): String{
+
+        var userKey = (user?.userKey).toString()
+        var currentTime: Date = Calendar.getInstance().getTime()
+        var currentTimeS = currentTime.toString()
+
+        var keyandtimeS = "$currentTimeS + $userKey"
+
+        return keyandtimeS
+
+    }
 }
