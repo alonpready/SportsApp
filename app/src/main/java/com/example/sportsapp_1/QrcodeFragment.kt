@@ -1,11 +1,11 @@
 package com.example.sportsapp_1
 
-import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +16,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import coil.load
 import com.example.sportsapp_1.Utill.Gone
+import com.example.sportsapp_1.Utill.QrCodeInstantType.*
 import com.example.sportsapp_1.Utill.Visible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -25,20 +26,16 @@ import com.google.firebase.database.ValueEventListener
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
-import kotlinx.android.synthetic.main.fragment_homepage.*
 import kotlinx.android.synthetic.main.fragment_qrcode.*
-import kotlinx.android.synthetic.main.fragment_rezervation.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
-import android.os.CountDownTimer
-import kotlin.system.measureTimeMillis
 
 
 class QrcodeFragment : Fragment() {
 
     private var user : User? = null
-    private lateinit var auth: FirebaseAuth
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var db : FirebaseDatabase
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +67,7 @@ class QrcodeFragment : Fragment() {
         qrPage_progressbar.Visible()
         userInfoLoad()
 
-       setClicks()
+        setClicks()
 
 
     }
@@ -88,7 +85,7 @@ class QrcodeFragment : Fragment() {
         val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (singleSnapshot in snapshot!!.children) {
+                for (singleSnapshot in snapshot.children) {
                     user = singleSnapshot.getValue(User::class.java)
 
                     minippLoad(user?.userPhotoUrl)
@@ -104,38 +101,87 @@ class QrcodeFragment : Fragment() {
     }
     private fun minippLoad(photoUrl: String?) {
         if (photoUrl != ""){
-        iv_qrcode_homepage_photo.load(photoUrl)
+            iv_qrcode_homepage_photo.load(photoUrl)
         }
         qrpage_cl.Visible()
         qrPage_progressbar.Gone()
 
     }
 
-    private fun setClicks(){
-        iv_qrcode_homepage_photo.setOnClickListener() {
+    private fun setClicks() {
+        iv_qrcode_homepage_photo.setOnClickListener {
             loadFragment(UserFragment())
         }
         bt_qrcode.setOnClickListener {
             val bitmap = generateQRCode(keyanddateToString())
             iv_qrcode.setImageBitmap(bitmap)
 
-            object : CountDownTimer(60000,1000){
+            object : CountDownTimer(60000, 1000) {
 
                 override fun onTick(millisUntilFinished: Long) {
 
-                    tv_time.text = "BEKLEYİN: " +  millisUntilFinished/1000 + "sn"
-                    bt_qrcode.setEnabled(false);
+                    tv_time?.text = "BEKLEYİN: " + millisUntilFinished / 1000 + "sn"
+                    bt_qrcode.isEnabled = false
                 }
 
                 override fun onFinish() {
-                    bt_qrcode.setEnabled(true);
+                    bt_qrcode.isEnabled = true
                     tv_time.text = ""
                 }
 
             }.start()
 
+            val reference = FirebaseDatabase.getInstance().reference
+            val query = reference.child("users").child(auth.currentUser?.uid.toString()).child("userInstant")
+            val queryCurrentUserVal =  reference.child("gymCurrentUser").child("value")
+
+
+            query.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                       var instant = snapshot.getValue(Int::class.java)
+
+
+                    if (instant == FALSE.value) {
+                        query.setValue(TRUE.value)
+
+                        queryCurrentUserVal.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                var curValue = snapshot.getValue(Int::class.java)!!
+                                curValue = curValue.plus(1)
+                                queryCurrentUserVal.setValue(curValue)
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+                        })
+                    }
+                    else {
+                        query.setValue(FALSE.value)
+                        queryCurrentUserVal.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                var curValue = snapshot.getValue(Int::class.java)!!
+                                curValue = curValue.minus(1)
+                                queryCurrentUserVal.setValue(curValue)
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+                        })
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
         }
     }
+
+
 
     private fun generateQRCode(text: String): Bitmap {
         val width = 500
