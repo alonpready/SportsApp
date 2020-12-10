@@ -10,8 +10,8 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
-class RVAdapter(private val mContext: Context, private val trainingList: List<TrainingTypes>) :
-    RecyclerView.Adapter<RVAdapter.CardViewHolderOfDesignObjects>() {
+class Homepage_RVAdapter(private val mContext: Context, private val trainingList: List<TrainingTypes>) :
+    RecyclerView.Adapter<Homepage_RVAdapter.CardViewHolderOfDesignObjects>() {
 
     inner class CardViewHolderOfDesignObjects(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -21,7 +21,7 @@ class RVAdapter(private val mContext: Context, private val trainingList: List<Tr
         var iv_training_playIcon: ImageView
 
         init {
-            homepageCardView = view.findViewById(R.id.cv_cardview)
+            homepageCardView = view.findViewById(R.id.cv_homepage_cardview)
             tv_training_type = view.findViewById(R.id.tv_training_type)
             tv_training_repetition = view.findViewById(R.id.tv_training_repetition)
             iv_training_playIcon = view.findViewById(R.id.iv_training_playIcon)
@@ -30,7 +30,7 @@ class RVAdapter(private val mContext: Context, private val trainingList: List<Tr
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolderOfDesignObjects {
 
-        val view = LayoutInflater.from(mContext).inflate(R.layout.card_design, parent, false)
+        val view = LayoutInflater.from(mContext).inflate(R.layout.homepage_rv_cardview, parent, false)
         return CardViewHolderOfDesignObjects(view)
 
     }

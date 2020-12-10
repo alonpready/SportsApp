@@ -29,8 +29,6 @@ class HomepageFragment : Fragment() {
     private var user : User? = null
 
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,7 +50,6 @@ class HomepageFragment : Fragment() {
 
         val reference = FirebaseDatabase.getInstance().reference
         val queryCurrentUserVal =  reference.child("gymCurrentUser").child("value")
-
         var gymCapacity = 4
         var gymCurrentUser = 5
 
@@ -162,7 +159,7 @@ class HomepageFragment : Fragment() {
     private fun inizilatizeRv() {
         createTrainTypes()
         recyclerview_homepage.layoutManager = LinearLayoutManager(activity)
-        recyclerview_homepage.adapter = RVAdapter(requireContext(), listOfTrainingTypes)
+        recyclerview_homepage.adapter = Homepage_RVAdapter(requireContext(), listOfTrainingTypes)
     }
 
     private fun userInfoLoad(){
