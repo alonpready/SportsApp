@@ -67,7 +67,7 @@ class VideosFragment : Fragment() {
     private fun inizilatizeRv() {
 
         createTrainTypes()
-        
+
         recycleview_training_types_1.layoutManager =
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_1.adapter =
@@ -97,19 +97,24 @@ class VideosFragment : Fragment() {
             "Dead Lift",
             "Set Sayısı: 3x5",
             "15 dakika",
-            "youtube.com/s4213adas",R.drawable.iv_dead_lift)
+            "youtube.com/s4213adas",
+            R.drawable.iv_dead_lift)
+
         val tVideos2 = TrainingVideos(
             "Orta Seviye",
             "Bench Press",
             "Set Sayısı: 2x10",
             "12 dakika",
-            "youtube.com/241%32fdad",R.drawable.iv_benc_press)
+            "youtube.com/241%32fdad",
+            R.drawable.iv_benc_press)
+
         val tVideos3 = TrainingVideos(
             "İleri Seviye",
             "Dumbell Lift",
             "Set Sayısı: 3x10",
             "8 dakika",
-            "youtube.com/watc514%%23adas",R.drawable.iv_dumbell_lift)
+            "youtube.com/watc514%%23adas",
+            R.drawable.iv_dumbell_lift)
 
         listOfTrainingVideos.add(tVideos1)
         listOfTrainingVideos.add(tVideos2)

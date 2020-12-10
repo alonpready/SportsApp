@@ -113,7 +113,6 @@ class QrcodeFragment : Fragment() {
         bt_qrcode.setOnClickListener {
             val bitmap = generateQRCode(keyanddateToString())
             iv_qrcode.setImageBitmap(bitmap)
-            Toast.makeText(activity,"Bir dakika içerisinde en fazla bir adet kod oluşturabilirsiniz.",Toast.LENGTH_SHORT).show()
         }
     }
 
