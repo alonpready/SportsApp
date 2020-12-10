@@ -1,5 +1,6 @@
 package com.example.sportsapp_1
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
@@ -9,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import coil.load
@@ -28,12 +30,15 @@ import kotlinx.android.synthetic.main.fragment_rezervation.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import android.os.CountDownTimer
+import kotlin.system.measureTimeMillis
 
 
 class QrcodeFragment : Fragment() {
 
     private var user : User? = null
     private lateinit var auth: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,6 +117,22 @@ class QrcodeFragment : Fragment() {
         bt_qrcode.setOnClickListener {
             val bitmap = generateQRCode(keyanddateToString())
             iv_qrcode.setImageBitmap(bitmap)
+
+            object : CountDownTimer(60000,1000){
+
+                override fun onTick(millisUntilFinished: Long) {
+
+                    tv_time.text = "BEKLEYİN: " +  millisUntilFinished/1000 + "sn"
+                    bt_qrcode.setEnabled(false);
+                }
+
+                override fun onFinish() {
+                    bt_qrcode.setEnabled(true);
+                    tv_time.text = ""
+                }
+
+            }.start()
+
         }
     }
 
