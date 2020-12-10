@@ -7,7 +7,8 @@ data class User(var userEmail: String = "",
                 var userLastName:String ="",
                 var userName:String = "",
                 var userPassword:String  ="",
-                var userPhotoUrl:String =""
+                var userPhotoUrl:String ="",
+                var userInstant:Int = 0
 )
 
 
