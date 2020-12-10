@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import coil.load
@@ -112,6 +113,7 @@ class QrcodeFragment : Fragment() {
         bt_qrcode.setOnClickListener {
             val bitmap = generateQRCode(keyanddateToString())
             iv_qrcode.setImageBitmap(bitmap)
+            Toast.makeText(activity,"Bir dakika içerisinde en fazla bir adet kod oluşturabilirsiniz.",Toast.LENGTH_SHORT).show()
         }
     }
 
