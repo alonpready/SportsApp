@@ -59,6 +59,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage-ktx'
     implementation 'com.google.zxing:core:3.4.0'
     implementation 'com.rbddevs.splashy:splashy:1.3.0'
+    implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
+
 
 }
 apply plugin: 'com.google.gms.google-services'

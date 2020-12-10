@@ -25,44 +25,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_graph_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            android:text="11/36"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/iv_round_graph"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="@+id/iv_round_graph"
-            app:layout_constraintTop_toTopOf="@+id/iv_round_graph" />
-
-        <TextView
-            android:id="@+id/tv_current_density"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:gravity="center"
-            android:text="Anlık Yoğunluk"
-            android:textColor="#8BC34A"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/iv_round_graph"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="@+id/iv_round_graph"
-            app:layout_constraintTop_toTopOf="@+id/iv_round_graph" />
-
-        <ImageView
-            android:id="@+id/iv_round_graph"
-            android:layout_width="275dp"
-            android:layout_height="275dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/roundgraph"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_header_homepage" />
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_homepage_photo"
             android:layout_width="40dp"
@@ -74,6 +36,20 @@
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toEndOf="@+id/tv_header_homepage"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/v_homepage_CircularProgressBar"
+            android:layout_width="275dp"
+            android:layout_height="275dp"
+            app:cpb_background_progressbar_color="#b6bbd8"
+            app:cpb_background_progressbar_width="20dp"
+            app:cpb_progress_direction="to_right"
+            app:cpb_progressbar_color="#3f51b5"
+            app:cpb_progressbar_width="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_homepage_photo" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_homepage"
@@ -95,6 +71,34 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/recyclerview_homepage"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_current_density"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anlık Yoğunluk"
+            android:textColor="#8BC34A"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/v_homepage_CircularProgressBar"
+            app:layout_constraintEnd_toEndOf="@+id/v_homepage_CircularProgressBar"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="@+id/v_homepage_CircularProgressBar"
+            app:layout_constraintTop_toTopOf="@+id/v_homepage_CircularProgressBar"
+            app:layout_constraintVertical_bias="0.42" />
+
+        <TextView
+            android:id="@+id/tv_current_user_ratio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12/34"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/v_homepage_CircularProgressBar"
+            app:layout_constraintEnd_toEndOf="@+id/v_homepage_CircularProgressBar"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="@+id/v_homepage_CircularProgressBar"
+            app:layout_constraintTop_toTopOf="@+id/v_homepage_CircularProgressBar"
+            app:layout_constraintVertical_bias="0.545" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <ProgressBar

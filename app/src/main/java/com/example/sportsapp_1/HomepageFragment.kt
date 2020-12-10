@@ -1,6 +1,7 @@
 package com.example.sportsapp_1
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,15 +18,17 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlinx.android.synthetic.main.fragment_homepage.*
-import kotlinx.android.synthetic.main.fragment_user.*
 
 
 class HomepageFragment : Fragment() {
 
     private var listOfTrainingTypes = ArrayList<TrainingTypes>()
-
+    private lateinit var circularProgressXML:View
     private var user : User? = null
+    private var gymCapacity:Int = 0
+    private var gymCurrentUser:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,35 @@ class HomepageFragment : Fragment() {
                 startActivity(setIntent)
             }
         })
+
+    }
+
+
+    private fun circularProgressBar() {
+
+        gymCapacity = 34
+        gymCurrentUser = 12
+
+        circularProgressXML = v_homepage_CircularProgressBar
+        circularProgressXML = view!!.findViewById(R.id.v_homepage_CircularProgressBar)
+
+        v_homepage_CircularProgressBar.apply {
+            progress = gymCurrentUser.toFloat()
+            setProgressWithAnimation(gymCapacity.toFloat(), 3000)
+            progressMax = 100f
+            progressBarColorStart = Color.GREEN
+            progressBarColorEnd = Color.GREEN
+            progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+            backgroundProgressBarColor = Color.DKGRAY
+            backgroundProgressBarColorStart = Color.DKGRAY
+            backgroundProgressBarColorEnd = Color.DKGRAY
+            backgroundProgressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+            progressBarWidth = 24f // in DP
+            backgroundProgressBarWidth = 25f // in DP
+            roundBorder = true
+            startAngle = 0f
+            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+        }
 
     }
 
@@ -58,6 +90,7 @@ class HomepageFragment : Fragment() {
         setUI()
         setClicks()
         userInfoLoad()
+        circularProgressBar()
 
     }
 

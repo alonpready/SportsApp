@@ -3,6 +3,7 @@ package com.example.sportsapp_1
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
@@ -16,7 +17,6 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -29,9 +29,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
+import kotlinx.android.synthetic.main.fragment_homepage.*
 import kotlinx.android.synthetic.main.fragment_user.*
 import java.util.*
-import kotlin.collections.HashMap
 
 
 class UserFragment : Fragment() {
@@ -41,8 +42,10 @@ class UserFragment : Fragment() {
     var selectedPicture: Uri? = null
     var storaged = FirebaseStorage.getInstance()
     private lateinit var db: FirebaseDatabase
-
-    private var user : User? = null
+    private var gymCapacity: Int = 0
+    private var gymCurrentUser: Int = 0
+    private lateinit var circularProgressXML: View
+    private var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +79,7 @@ class UserFragment : Fragment() {
         userPage_progressbar.Visible()
 
         setClicks()
+        circularProgressBar()
 
         userPageTextView = view.findViewById(R.id.tv_userPage_username)
         val reference = FirebaseDatabase.getInstance().reference
@@ -86,7 +90,7 @@ class UserFragment : Fragment() {
                 for (singleSnapshot in snapshot!!.children) {
                     user = singleSnapshot.getValue(User::class.java)
 
-                    setUser(user?.userName, user?.userPhotoUrl)
+                    setUser(user?.userName?.capitalize(Locale.getDefault()), user?.userPhotoUrl)
                 }
             }
 
@@ -136,8 +140,6 @@ class UserFragment : Fragment() {
         }
 
 
-
-
     }
 
 
@@ -163,7 +165,7 @@ class UserFragment : Fragment() {
             selectedPicture = data.data
 
             try {
-                if(selectedPicture != null) {
+                if (selectedPicture != null) {
 
                     if (Build.VERSION.SDK_INT >= 28) {
                         val source =
@@ -188,17 +190,20 @@ class UserFragment : Fragment() {
 
                     ppreference.putFile(selectedPicture!!).addOnSuccessListener { taskSnapshot ->
 
-                        val uploadPPReferance = FirebaseStorage.getInstance().reference.child("profilephotos").child(ppname)
+                        val uploadPPReferance =
+                            FirebaseStorage.getInstance().reference.child("profilephotos")
+                                .child(ppname)
                         uploadPPReferance.downloadUrl.addOnSuccessListener { uri ->
 
                             val downloadUrl = uri.toString()
 
                             db.reference.child("users")
-                                .child(auth.currentUser?.uid ?: "").child("userPhotoUrl").setValue(downloadUrl)
+                                .child(auth.currentUser?.uid ?: "").child("userPhotoUrl")
+                                .setValue(downloadUrl)
 
 
                         }
-                        }
+                    }
                 }
 
             } catch (e: Exception) {
@@ -209,16 +214,82 @@ class UserFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun setUser(name:String?, photoUrl:String?) {
-        userPageTextView.text = name?:""
-        if (photoUrl != ""){
-        iv_profile_photo3.load(photoUrl)
+    private fun setUser(name: String?, photoUrl: String?) {
+        userPageTextView.text = name ?: ""
+        if (photoUrl != "") {
+            iv_profile_photo3.load(photoUrl)
         }
         user_cl.Visible()
         userPage_progressbar.Gone()
     }
 
+    private fun circularProgressBar() {
 
+        gymCapacity = 34
+        gymCurrentUser = 12
+
+        circularProgressXML = v_userpage_CircularProgressBar_1
+        circularProgressXML = view!!.findViewById(R.id.v_userpage_CircularProgressBar_1)
+
+        v_userpage_CircularProgressBar_1.apply {
+            progress = gymCurrentUser.toFloat()
+            setProgressWithAnimation(85f, 3000)
+            progressMax = 150f
+            progressBarColorStart = Color.GREEN
+            progressBarColorEnd = Color.GREEN
+            progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+            backgroundProgressBarColor = Color.DKGRAY
+            backgroundProgressBarColorStart = Color.DKGRAY
+            backgroundProgressBarColorEnd = Color.DKGRAY
+            backgroundProgressBarColorDirection =
+                CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+            progressBarWidth = 7f // in DP
+            backgroundProgressBarWidth = 7f // in DP
+            roundBorder = true
+            startAngle = 0f
+            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+        }
+
+        v_userpage_CircularProgressBar_2.apply {
+            progress = gymCurrentUser.toFloat()
+            setProgressWithAnimation(183.toFloat(), 3000)
+            progressMax = 200f
+            progressBarColorStart = Color.GREEN
+            progressBarColorEnd = Color.GREEN
+            progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+            backgroundProgressBarColor = Color.DKGRAY
+            backgroundProgressBarColorStart = Color.DKGRAY
+            backgroundProgressBarColorEnd = Color.DKGRAY
+            backgroundProgressBarColorDirection =
+                CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+            progressBarWidth = 7f // in DP
+            backgroundProgressBarWidth = 7f // in DP
+            roundBorder = true
+            startAngle = 0f
+            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+        }
+
+        v_userpage_CircularProgressBar_3.apply {
+            progress = gymCurrentUser.toFloat()
+            setProgressWithAnimation(19.4f, 3000)
+            progressMax = 25f
+            progressBarColorStart = Color.GREEN
+            progressBarColorEnd = Color.GREEN
+            progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+            backgroundProgressBarColor = Color.DKGRAY
+            backgroundProgressBarColorStart = Color.DKGRAY
+            backgroundProgressBarColorEnd = Color.DKGRAY
+            backgroundProgressBarColorDirection =
+                CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+            progressBarWidth = 7f // in DP
+            backgroundProgressBarWidth = 7f // in DP
+            roundBorder = true
+            startAngle = 0f
+            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+        }
+
+
+    }
 }
 
 

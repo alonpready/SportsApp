@@ -103,29 +103,69 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/v_user_backround" />
 
-        <ImageView
-            android:id="@+id/iv_graph1"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/v_userpage_CircularProgressBar_1"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:layout_marginTop="16dp"
-            android:rotation="140"
-            android:src="@drawable/roundgraph"
-            app:layout_constraintEnd_toStartOf="@+id/iv_graph2"
+            app:cpb_background_progressbar_color="#b6bbd8"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progress_direction="to_right"
+            app:cpb_progressbar_color="#3f51b5"
+            app:cpb_progressbar_width="10dp"
+            app:cpb_round_border="false"
+            app:layout_constraintEnd_toStartOf="@+id/v_userpage_CircularProgressBar_2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/v_userpage_CircularProgressBar_2"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="10dp"
+            app:cpb_background_progressbar_color="#b6bbd8"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progress_direction="to_right"
+            app:cpb_progressbar_color="#3f51b5"
+            app:cpb_progressbar_width="10dp"
+            app:cpb_round_border="false"
+            app:layout_constraintBottom_toTopOf="@+id/tv_under_graph2"
+            app:layout_constraintEnd_toStartOf="@+id/v_userpage_CircularProgressBar_3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/v_userpage_CircularProgressBar_1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_health_information"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/v_userpage_CircularProgressBar_3"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="16dp"
+            app:cpb_background_progressbar_color="#b6bbd8"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progress_direction="to_right"
+            app:cpb_progressbar_color="#3f51b5"
+            app:cpb_progressbar_width="10dp"
+            app:cpb_round_border="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/v_userpage_CircularProgressBar_2"
             app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
 
         <TextView
             android:id="@+id/tv_in_graph1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="85"
-            android:textSize="18sp"
+            android:text="85\nkg"
+            android:textSize="14sp"
+            android:gravity="center"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_graph1"
-            app:layout_constraintEnd_toEndOf="@+id/iv_graph1"
-            app:layout_constraintStart_toStartOf="@+id/iv_graph1"
-            app:layout_constraintTop_toTopOf="@+id/iv_graph1" />
+            app:layout_constraintBottom_toBottomOf="@+id/v_userpage_CircularProgressBar_1"
+            app:layout_constraintEnd_toEndOf="@+id/v_userpage_CircularProgressBar_1"
+            app:layout_constraintStart_toStartOf="@+id/v_userpage_CircularProgressBar_1"
+            app:layout_constraintTop_toTopOf="@+id/v_userpage_CircularProgressBar_1" />
 
         <TextView
             android:id="@+id/tv_under_graph1"
@@ -133,34 +173,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Ağırlık"
-            app:layout_constraintEnd_toEndOf="@+id/iv_graph1"
-            app:layout_constraintStart_toStartOf="@+id/iv_graph1"
-            app:layout_constraintTop_toBottomOf="@+id/iv_graph1" />
-
-        <ImageView
-            android:id="@+id/iv_graph2"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="16dp"
-            android:rotation="-84"
-            android:src="@drawable/roundgraph"
-            app:layout_constraintEnd_toStartOf="@+id/iv_graph3"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/iv_graph1"
-            app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
+            app:layout_constraintEnd_toEndOf="@+id/v_userpage_CircularProgressBar_1"
+            app:layout_constraintStart_toStartOf="@+id/v_userpage_CircularProgressBar_1"
+            app:layout_constraintTop_toBottomOf="@+id/v_userpage_CircularProgressBar_1" />
 
         <TextView
             android:id="@+id/tv_in_graph2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="183"
-            android:textSize="18sp"
+            android:gravity="center"
+            android:text="183\ncm"
+            android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_graph2"
-            app:layout_constraintEnd_toEndOf="@+id/iv_graph2"
-            app:layout_constraintStart_toStartOf="@+id/iv_graph2"
-            app:layout_constraintTop_toTopOf="@+id/iv_graph2" />
+            app:layout_constraintBottom_toBottomOf="@+id/v_userpage_CircularProgressBar_2"
+            app:layout_constraintEnd_toEndOf="@+id/v_userpage_CircularProgressBar_2"
+            app:layout_constraintStart_toStartOf="@+id/v_userpage_CircularProgressBar_2"
+            app:layout_constraintTop_toTopOf="@+id/v_userpage_CircularProgressBar_2" />
 
         <TextView
             android:id="@+id/tv_under_graph2"
@@ -168,34 +197,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Uzunluk"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_graph2" />
-
-        <ImageView
-            android:id="@+id/iv_graph3"
-            android:layout_width="81dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/roundgraph"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/iv_graph2"
-            app:layout_constraintTop_toBottomOf="@+id/tv_health_information" />
+            app:layout_constraintEnd_toEndOf="@+id/v_userpage_CircularProgressBar_2"
+            app:layout_constraintStart_toStartOf="@+id/v_userpage_CircularProgressBar_2"
+            app:layout_constraintTop_toBottomOf="@+id/v_userpage_CircularProgressBar_2" />
 
         <TextView
             android:id="@+id/tv_in_graph3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="19,4"
-            android:textSize="18sp"
+            android:gravity="center"
+            android:text="19,4\nkg/m²"
+            android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_graph3"
-            app:layout_constraintEnd_toEndOf="@+id/iv_graph3"
-            app:layout_constraintStart_toStartOf="@+id/iv_graph3"
-            app:layout_constraintTop_toTopOf="@+id/iv_graph3" />
+            app:layout_constraintBottom_toBottomOf="@+id/v_userpage_CircularProgressBar_3"
+            app:layout_constraintEnd_toEndOf="@+id/v_userpage_CircularProgressBar_3"
+            app:layout_constraintStart_toStartOf="@+id/v_userpage_CircularProgressBar_3"
+            app:layout_constraintTop_toTopOf="@+id/v_userpage_CircularProgressBar_3" />
 
         <TextView
             android:id="@+id/tv_under_graph3"
@@ -203,16 +220,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Kitle Endeksi"
-            app:layout_constraintEnd_toEndOf="@+id/iv_graph3"
-            app:layout_constraintStart_toStartOf="@+id/iv_graph3"
-            app:layout_constraintTop_toBottomOf="@+id/iv_graph3" />
+            app:layout_constraintEnd_toEndOf="@+id/v_userpage_CircularProgressBar_3"
+            app:layout_constraintStart_toStartOf="@+id/v_userpage_CircularProgressBar_3"
+            app:layout_constraintTop_toBottomOf="@+id/v_userpage_CircularProgressBar_3" />
 
         <View
             android:id="@+id/v_user_backround2"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="bottom"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/rounded_corners_userpage_top2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
