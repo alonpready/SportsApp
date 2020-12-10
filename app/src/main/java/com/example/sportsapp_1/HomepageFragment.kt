@@ -28,6 +28,7 @@ class HomepageFragment : Fragment() {
     private lateinit var circularProgressXML:View
     private var user : User? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -49,8 +50,7 @@ class HomepageFragment : Fragment() {
 
         val reference = FirebaseDatabase.getInstance().reference
         val queryCurrentUserVal =  reference.child("gymCurrentUser").child("value")
-
-        var gymCapacity = 10
+        var gymCapacity = 4
         var gymCurrentUser = 5
 
         queryCurrentUserVal.addListenerForSingleValueEvent(object : ValueEventListener {
