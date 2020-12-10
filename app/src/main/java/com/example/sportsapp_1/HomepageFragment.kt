@@ -139,7 +139,7 @@ class HomepageFragment : Fragment() {
     private fun inizilatizeRv() {
         createTrainTypes()
         recyclerview_homepage.layoutManager = LinearLayoutManager(activity)
-        recyclerview_homepage.adapter = RVAdapter(requireContext(), listOfTrainingTypes)
+        recyclerview_homepage.adapter = Homepage_RVAdapter(requireContext(), listOfTrainingTypes)
     }
 
     private fun userInfoLoad(){
