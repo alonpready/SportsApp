@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sportsapp_1.DataClasses.UserValues
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.signup.*
@@ -43,7 +44,7 @@ class SignUpActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val user = User(mail, auth.currentUser?.uid, surname, name, password)
+                val user = UserValues(mail, auth.currentUser?.uid, surname, name, password)
                 FirebaseDatabase.getInstance().reference.child("users")
                     .child(auth.currentUser?.uid ?: "").setValue(user)
                 auth.signOut()

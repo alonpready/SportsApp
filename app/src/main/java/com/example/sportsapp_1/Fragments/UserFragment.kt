@@ -1,4 +1,4 @@
-package com.example.sportsapp_1
+package com.example.sportsapp_1.Fragments
 
 import android.app.Activity
 import android.content.Intent
@@ -21,6 +21,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import coil.load
+import com.example.sportsapp_1.DataClasses.UserValues
+import com.example.sportsapp_1.LoginActivity
+import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.Visible
 import com.google.firebase.auth.FirebaseAuth
@@ -30,7 +33,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
-import kotlinx.android.synthetic.main.fragment_homepage.*
 import kotlinx.android.synthetic.main.fragment_user.*
 import java.util.*
 
@@ -45,7 +47,7 @@ class UserFragment : Fragment() {
     private var gymCapacity: Int = 0
     private var gymCurrentUser: Int = 0
     private lateinit var circularProgressXML: View
-    private var user: User? = null
+    private var userValues: UserValues? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,9 +90,9 @@ class UserFragment : Fragment() {
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (singleSnapshot in snapshot!!.children) {
-                    user = singleSnapshot.getValue(User::class.java)
+                    userValues = singleSnapshot.getValue(UserValues::class.java)
 
-                    setUser(user?.userName?.capitalize(Locale.getDefault()), user?.userPhotoUrl)
+                    setUser(userValues?.userName?.capitalize(Locale.getDefault()), userValues?.userPhotoUrl)
                 }
             }
 

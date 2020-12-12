@@ -1,4 +1,4 @@
-package com.example.sportsapp_1
+package com.example.sportsapp_1.Fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
+import com.example.sportsapp_1.DataClasses.UserValues
+import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.Visible
 import com.google.firebase.auth.FirebaseAuth
@@ -17,13 +18,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.fragment_homepage.*
-import kotlinx.android.synthetic.main.fragment_qrcode.*
 import kotlinx.android.synthetic.main.fragment_rezervation.*
 
 
 class RezervationFragment : Fragment() {
-    private var user : User? = null
+    private var userValues : UserValues? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -79,9 +78,9 @@ class RezervationFragment : Fragment() {
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (singleSnapshot in snapshot!!.children) {
-                    user = singleSnapshot.getValue(User::class.java)
+                    userValues = singleSnapshot.getValue(UserValues::class.java)
 
-                    minippLoad(user?.userPhotoUrl)
+                    minippLoad(userValues?.userPhotoUrl)
                 }
             }
 

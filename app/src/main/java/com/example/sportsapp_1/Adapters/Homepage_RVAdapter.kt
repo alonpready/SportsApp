@@ -1,4 +1,4 @@
-package com.example.sportsapp_1
+package com.example.sportsapp_1.Adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,6 +9,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sportsapp_1.R
+import com.example.sportsapp_1.DataClasses.TrainingTypes
 
 class Homepage_RVAdapter(private val mContext: Context, private val trainingList: List<TrainingTypes>) :
     RecyclerView.Adapter<Homepage_RVAdapter.CardViewHolderOfDesignObjects>() {

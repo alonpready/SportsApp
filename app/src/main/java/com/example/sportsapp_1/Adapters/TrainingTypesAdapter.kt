@@ -1,4 +1,4 @@
-package com.example.sportsapp_1
+package com.example.sportsapp_1.Adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sportsapp_1.R
+import com.example.sportsapp_1.DataClasses.TrainingVideos
 
-class TrainingTypesAdapter(private val mContext: Context, private val trainingVideosList: List<TrainingVideos>,
-                           private val urlListener:(trainingVideos:TrainingVideos)-> Unit) :
+class TrainingTypesAdapter(private val mContext: Context,
+                           private val trainingVideosList: List<TrainingVideos>,
+                           private val urlListener:(trainingVideos: TrainingVideos)-> Unit) :
     RecyclerView.Adapter<TrainingTypesAdapter.CardViewHolderOfDesignObjects>() {
 
     inner class CardViewHolderOfDesignObjects(view: View) : RecyclerView.ViewHolder(view) {

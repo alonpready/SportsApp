@@ -1,4 +1,4 @@
-package com.example.sportsapp_1
+package com.example.sportsapp_1.Fragments
 
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -10,11 +10,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import coil.load
+import com.example.sportsapp_1.DataClasses.UserValues
+import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.QrCodeInstantType.*
 import com.example.sportsapp_1.Utill.Visible
@@ -33,7 +33,7 @@ import java.time.format.DateTimeFormatter
 
 class QrcodeFragment : Fragment() {
 
-    private var user : User? = null
+    private var userValues : UserValues? = null
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var db : FirebaseDatabase
 
@@ -86,9 +86,9 @@ class QrcodeFragment : Fragment() {
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (singleSnapshot in snapshot.children) {
-                    user = singleSnapshot.getValue(User::class.java)
+                    userValues = singleSnapshot.getValue(UserValues::class.java)
 
-                    minippLoad(user?.userPhotoUrl)
+                    minippLoad(userValues?.userPhotoUrl)
                 }
             }
 
@@ -120,12 +120,15 @@ class QrcodeFragment : Fragment() {
 
                 override fun onTick(millisUntilFinished: Long) {
 
+                    //XXINCELEXX
+                    //Aşağıdaki kodları yorum satırına alınca NullPointException hatası gitti??
+
                     tv_time?.text = "BEKLEYİN: " + millisUntilFinished / 1000 + "sn"
-                    bt_qrcode.isEnabled = false
+                    //bt_qrcode.isEnabled = false
                 }
 
                 override fun onFinish() {
-                    bt_qrcode.isEnabled = true
+                    //bt_qrcode.isEnabled = true
                     tv_time.text = ""
                 }
 
@@ -203,7 +206,7 @@ class QrcodeFragment : Fragment() {
 
     private fun keyanddateToString(): String{
 
-        var userKey = (user?.userKey).toString()
+        var userKey = (userValues?.userKey).toString()
         var currentTime: String = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm").format(
             LocalDateTime.now())
         var keyandtimeS = "$currentTime + $userKey"
