@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideosFragment">
+    tools:context=".Fragments.VideosFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -25,9 +25,9 @@
                     android:id="@+id/tv_training_type3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
-                    android:text="Bacak Hareketleri"
+                    android:text="Omuz Hareketleri"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +62,7 @@
                     android:id="@+id/tv_training_type1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
                     android:text="Sırt Hareketleri"
                     android:textColor="#FFFFFF"
@@ -74,9 +74,9 @@
                     android:id="@+id/tv_training_type2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
-                    android:text="Omuz Hareketleri"
+                    android:text="Kol Hareketleri"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"

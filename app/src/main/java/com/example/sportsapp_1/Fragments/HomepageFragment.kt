@@ -1,4 +1,4 @@
-package com.example.sportsapp_1
+package com.example.sportsapp_1.Fragments
 
 import android.content.Intent
 import android.graphics.Color
@@ -12,6 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.sportsapp_1.Utill.Gone
+import com.example.sportsapp_1.Adapters.Homepage_RVAdapter
+import com.example.sportsapp_1.DataClasses.TrainingTypes
+import com.example.sportsapp_1.DataClasses.UserValues
+import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Visible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -26,7 +30,7 @@ class HomepageFragment : Fragment() {
 
     private var listOfTrainingTypes = ArrayList<TrainingTypes>()
     private lateinit var circularProgressXML:View
-    private var user : User? = null
+    private var userValues : UserValues? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -169,9 +173,9 @@ class HomepageFragment : Fragment() {
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (singleSnapshot in snapshot!!.children) {
-                    user = singleSnapshot.getValue(User::class.java)
+                    userValues = singleSnapshot.getValue(UserValues::class.java)
 
-                    minippLoad(user?.userPhotoUrl)
+                    minippLoad(userValues?.userPhotoUrl)
                 }
             }
 

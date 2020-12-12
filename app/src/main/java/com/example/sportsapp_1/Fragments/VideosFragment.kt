@@ -1,4 +1,4 @@
-package com.example.sportsapp_1
+package com.example.sportsapp_1.Fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.sportsapp_1.Utill.Gone
+import com.example.sportsapp_1.Adapters.TrainingTypesAdapter
+import com.example.sportsapp_1.DataClasses.TrainingVideos
+import com.example.sportsapp_1.DataClasses.UserValues
+import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Visible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -24,8 +29,10 @@ import kotlinx.android.synthetic.main.fragment_training_types.*
 class VideosFragment : Fragment() {
 
 
-    private var listOfTrainingVideos = ArrayList<TrainingVideos>()
-    private var user: User? = null
+    private var listOfTrainingVideos1 = ArrayList<TrainingVideos>()
+    private var listOfTrainingVideos2 = ArrayList<TrainingVideos>()
+    private var listOfTrainingVideos3 = ArrayList<TrainingVideos>()
+    private var userValues: UserValues? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
@@ -44,7 +51,6 @@ class VideosFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_training_types, container, false)
     }
 
@@ -54,51 +60,107 @@ class VideosFragment : Fragment() {
         videospage_cl.Gone()
         videosPage_progressbar.Visible()
         userInfoLoad()
-        iv_videos_profile_photo.setOnClickListener() {
+        iv_videos_profile_photo.setOnClickListener {
             loadFragment(UserFragment())
         }
 
     }
 
     private fun setUI() {
-        inizilatizeRv()
+        initializeRv1()
+        initializeRv2()
+        initializeRv3()
     }
 
-    private fun inizilatizeRv() {
+    private fun initializeRv1() {
 
-        createTrainTypes()
+        createTrainTypes1()
 
         recycleview_training_types_1.layoutManager =
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_1.adapter =
-            TrainingTypesAdapter(requireContext(), listOfTrainingVideos) { videoUrl ->
-                Toast.makeText(requireContext(), videoUrl.data_trainingUrl, Toast.LENGTH_SHORT).show()
+            TrainingTypesAdapter(requireContext(), listOfTrainingVideos1) {trainingVideos ->
+
+                //XXINCELEXX
+                //Bu kod neden çalışmıyor incele, konu: Fragmentlar arası veri aktarımı
+
+                view?.findViewById<TextView>(R.id.tv_Videospage_training_period_buttom)?.text =
+                    trainingVideos.data_trainingPeriod
+
+                loadFragment(VideospageFragment())
             }
+    }
+
+    private fun initializeRv2() {
+
+        createTrainTypes2()
 
         recycleview_training_types_2.layoutManager =
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_2.adapter =
-            TrainingTypesAdapter(requireContext(), listOfTrainingVideos)  { videoUrl ->
-                Toast.makeText(requireContext(), videoUrl.data_trainingUrl, Toast.LENGTH_SHORT).show()
+            TrainingTypesAdapter(requireContext(), listOfTrainingVideos2)  { videoUrl ->
+                loadFragment(VideospageFragment())
             }
+    }
+
+    private fun initializeRv3() {
+
+        createTrainTypes3()
 
         recycleview_training_types_3.layoutManager =
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_3.adapter =
-            TrainingTypesAdapter(requireContext(), listOfTrainingVideos)  { trainingVideos ->
-                Toast.makeText(requireContext(), trainingVideos.data_trainingUrl, Toast.LENGTH_SHORT).show()
+            TrainingTypesAdapter(requireContext(), listOfTrainingVideos3)  { trainingVideos ->
+                loadFragment(VideospageFragment())
             }
     }
 
-    private fun createTrainTypes() {
+    private fun createTrainTypes1() {
 
         val tVideos1 = TrainingVideos(
             "Başlangıç Seviye",
             "Dead Lift",
             "Set Sayısı: 3x5",
             "15 dakika",
-            "youtube.com/s4213adas",
-            R.drawable.iv_dead_lift)
+            "1VrZ1QLTdUs",
+            R.drawable.iv_dead_lift
+        )
+
+        val tVideos2 = TrainingVideos(
+            "Orta Seviye",
+            "Bench Press",
+            "Set Sayısı: 2x10",
+            "12 dakika",
+            "cHwutxa3XLY",
+            R.drawable.iv_benc_press
+        )
+
+        val tVideos3 = TrainingVideos(
+            "İleri Seviye",
+            "Dumbell Lift",
+            "Set Sayısı: 3x10",
+            "8 dakika",
+            "DQnFG4-SVys",
+            R.drawable.iv_dumbell_lift
+        )
+
+        listOfTrainingVideos1.add(tVideos1)
+        listOfTrainingVideos1.add(tVideos2)
+        listOfTrainingVideos1.add(tVideos3)
+
+
+    }
+
+    private fun createTrainTypes2() {
+
+        val tVideos1 = TrainingVideos(
+            "İleri Seviye",
+            "Dumbell Lift",
+            "Set Sayısı: 3x10",
+            "8 dakika",
+            "youtube.com/watc514%%23adas",
+            R.drawable.iv_dumbell_lift
+        )
 
         val tVideos2 = TrainingVideos(
             "Orta Seviye",
@@ -106,7 +168,43 @@ class VideosFragment : Fragment() {
             "Set Sayısı: 2x10",
             "12 dakika",
             "youtube.com/241%32fdad",
-            R.drawable.iv_benc_press)
+            R.drawable.iv_benc_press
+        )
+
+        val tVideos3 = TrainingVideos(
+            "Başlangıç Seviye",
+            "Dead Lift",
+            "Set Sayısı: 3x5",
+            "15 dakika",
+            "youtube.com/s4213adas",
+            R.drawable.iv_dead_lift
+        )
+
+        listOfTrainingVideos2.add(tVideos1)
+        listOfTrainingVideos2.add(tVideos2)
+        listOfTrainingVideos2.add(tVideos3)
+    }
+
+    private fun createTrainTypes3() {
+
+
+        val tVideos1 = TrainingVideos(
+            "Orta Seviye",
+            "Bench Press",
+            "Set Sayısı: 2x10",
+            "12 dakika",
+            "youtube.com/241%32fdad",
+            R.drawable.iv_benc_press
+        )
+
+        val tVideos2 = TrainingVideos(
+            "Başlangıç Seviye",
+            "Dead Lift",
+            "Set Sayısı: 3x5",
+            "15 dakika",
+            "youtube.com/s4213adas",
+            R.drawable.iv_dead_lift
+        )
 
         val tVideos3 = TrainingVideos(
             "İleri Seviye",
@@ -114,11 +212,12 @@ class VideosFragment : Fragment() {
             "Set Sayısı: 3x10",
             "8 dakika",
             "youtube.com/watc514%%23adas",
-            R.drawable.iv_dumbell_lift)
+            R.drawable.iv_dumbell_lift
+        )
 
-        listOfTrainingVideos.add(tVideos1)
-        listOfTrainingVideos.add(tVideos2)
-        listOfTrainingVideos.add(tVideos3)
+        listOfTrainingVideos3.add(tVideos1)
+        listOfTrainingVideos3.add(tVideos2)
+        listOfTrainingVideos3.add(tVideos3)
 
 
     }
@@ -136,10 +235,10 @@ class VideosFragment : Fragment() {
         val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (singleSnapshot in snapshot!!.children) {
-                    user = singleSnapshot.getValue(User::class.java)
+                for (singleSnapshot in snapshot.children) {
+                    userValues = singleSnapshot.getValue(UserValues::class.java)
 
-                    minippLoad(user?.userPhotoUrl)
+                    minippLoad(userValues?.userPhotoUrl)
                 }
             }
 
