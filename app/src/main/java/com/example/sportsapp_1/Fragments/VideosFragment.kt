@@ -15,6 +15,7 @@ import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Adapters.TrainingTypesAdapter
 import com.example.sportsapp_1.DataClasses.TrainingVideos
 import com.example.sportsapp_1.DataClasses.UserValues
+import com.example.sportsapp_1.MainActivity
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Visible
 import com.google.firebase.auth.FirebaseAuth
@@ -25,8 +26,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_training_types.*
 
 
-class VideosFragment : Fragment() {
-
+class VideosFragment() : Fragment() {
 
     private var listOfTrainingVideos1 = ArrayList<TrainingVideos>()
     private var listOfTrainingVideos2 = ArrayList<TrainingVideos>()
@@ -37,7 +37,6 @@ class VideosFragment : Fragment() {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                Log.d("CDA", "onBackPressed Called")
                 val setIntent = Intent(Intent.ACTION_MAIN)
                 setIntent.addCategory(Intent.CATEGORY_HOME)
                 setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -52,6 +51,7 @@ class VideosFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_training_types, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,13 +81,9 @@ class VideosFragment : Fragment() {
         recycleview_training_types_1.adapter =
             TrainingTypesAdapter(requireContext(), listOfTrainingVideos1) {trainingVideos ->
 
-                //XXINCELEXX
-                //Bu kod neden çalışmıyor incele, konu: Fragmentlar arası veri aktarımı
 
-                view?.findViewById<TextView>(R.id.tv_Videospage_training_period_buttom)?.text =
-                    trainingVideos.trPeriod
-
-                loadFragment(VideospageFragment())
+                val videospgFr : VideospageFragment = VideospageFragment(trainingVideos)
+                loadFragment(videospgFr)
             }
     }
 
@@ -98,8 +94,9 @@ class VideosFragment : Fragment() {
         recycleview_training_types_2.layoutManager =
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_2.adapter =
-            TrainingTypesAdapter(requireContext(), listOfTrainingVideos2)  { videoUrl ->
-                loadFragment(VideospageFragment())
+            TrainingTypesAdapter(requireContext(), listOfTrainingVideos2)  { trainingVideos ->
+                val videospgFr : VideospageFragment = VideospageFragment(trainingVideos)
+                loadFragment(videospgFr)
             }
     }
 
@@ -111,7 +108,8 @@ class VideosFragment : Fragment() {
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_3.adapter =
             TrainingTypesAdapter(requireContext(), listOfTrainingVideos3)  { trainingVideos ->
-                loadFragment(VideospageFragment())
+                val videospgFr : VideospageFragment = VideospageFragment(trainingVideos)
+                loadFragment(videospgFr)
             }
     }
 
@@ -158,7 +156,7 @@ class VideosFragment : Fragment() {
             "Dumbell Lift",
             "Set Sayısı: 3x10",
             "8 dakika",
-            "youtube.com/watc514%%23adas",
+            "DQnFG4-SVys",
             R.drawable.iv_dumbell_lift
         )
 
@@ -167,7 +165,7 @@ class VideosFragment : Fragment() {
             "Bench Press",
             "Set Sayısı: 2x10",
             "12 dakika",
-            "youtube.com/241%32fdad",
+            "DQnFG4-SVys",
             R.drawable.iv_benc_press
         )
 
@@ -176,7 +174,7 @@ class VideosFragment : Fragment() {
             "Dead Lift",
             "Set Sayısı: 3x5",
             "15 dakika",
-            "youtube.com/s4213adas",
+            "DQnFG4-SVys",
             R.drawable.iv_dead_lift
         )
 
@@ -193,7 +191,7 @@ class VideosFragment : Fragment() {
             "Bench Press",
             "Set Sayısı: 2x10",
             "12 dakika",
-            "youtube.com/241%32fdad",
+            "DQnFG4-SVys",
             R.drawable.iv_benc_press
         )
 
@@ -202,7 +200,7 @@ class VideosFragment : Fragment() {
             "Dead Lift",
             "Set Sayısı: 3x5",
             "15 dakika",
-            "youtube.com/s4213adas",
+            "DQnFG4-SVys",
             R.drawable.iv_dead_lift
         )
 
@@ -211,7 +209,7 @@ class VideosFragment : Fragment() {
             "Dumbell Lift",
             "Set Sayısı: 3x10",
             "8 dakika",
-            "youtube.com/watc514%%23adas",
+            "DQnFG4-SVys",
             R.drawable.iv_dumbell_lift
         )
 

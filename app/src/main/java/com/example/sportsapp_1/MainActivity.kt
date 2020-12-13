@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.sportsapp_1.DataClasses.TrainingVideos
 import com.example.sportsapp_1.Fragments.*
 import com.google.firebase.auth.FirebaseAuth
 import com.rbddevs.splashy.Splashy
