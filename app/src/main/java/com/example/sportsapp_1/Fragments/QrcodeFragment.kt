@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,8 @@ import coil.load
 import com.example.sportsapp_1.DataClasses.UserValues
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
-import com.example.sportsapp_1.Utill.QrCodeInstantType.*
+import com.example.sportsapp_1.Utill.QrCodeInstantType.FALSE
+import com.example.sportsapp_1.Utill.QrCodeInstantType.TRUE
 import com.example.sportsapp_1.Utill.Visible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -35,8 +35,6 @@ class QrcodeFragment : Fragment() {
 
     private var userValues : UserValues? = null
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private lateinit var db : FirebaseDatabase
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +47,6 @@ class QrcodeFragment : Fragment() {
                 startActivity(setIntent)
             }
         })
-
-
     }
 
     override fun onCreateView(
@@ -63,12 +59,17 @@ class QrcodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         qrpage_cl.Gone()
         qrPage_progressbar.Visible()
         userInfoLoad()
 
         setClicks()
 
+        if (bt_qrcodegiris.isEnabled && bt_qrcodecikis.isEnabled){
+            bt_qrcodecikis.isEnabled = false
+        }
 
     }
 
@@ -112,80 +113,73 @@ class QrcodeFragment : Fragment() {
         iv_qrcode_homepage_photo.setOnClickListener {
             loadFragment(UserFragment())
         }
-        bt_qrcode.setOnClickListener {
+        bt_qrcodegiris.setOnClickListener {
             val bitmap = generateQRCode(keyanddateToString())
             iv_qrcode.setImageBitmap(bitmap)
 
-            object : CountDownTimer(60000, 1000) {
+           userInstantChanging()
+            //cikisEnable()
+        }
 
-                override fun onTick(millisUntilFinished: Long) {
+        bt_qrcodecikis.setOnClickListener {
+            val bitmap = generateQRCode(keyanddateToString())
+            iv_qrcode.setImageBitmap(bitmap)
 
-                    //XXINCELEXX
-                    //Aşağıdaki kodları yorum satırına alınca NullPointException hatası gitti??
-
-                    tv_time?.text = "BEKLEYİN: " + millisUntilFinished / 1000 + "sn"
-                    //bt_qrcode.isEnabled = false
-                }
-
-                override fun onFinish() {
-                    //bt_qrcode.isEnabled = true
-                    tv_time.text = ""
-                }
-
-            }.start()
-
-            val reference = FirebaseDatabase.getInstance().reference
-            val query = reference.child("users").child(auth.currentUser?.uid.toString()).child("userInstant")
-            val queryCurrentUserVal =  reference.child("gymCurrentUser").child("value")
-
-
-            query.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                       var instant = snapshot.getValue(Int::class.java)
-
-
-                    if (instant == FALSE.value) {
-                        query.setValue(TRUE.value)
-
-                        queryCurrentUserVal.addListenerForSingleValueEvent(object : ValueEventListener {
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                var curValue = snapshot.getValue(Int::class.java)!!
-                                curValue = curValue.plus(1)
-                                queryCurrentUserVal.setValue(curValue)
-                            }
-
-                            override fun onCancelled(error: DatabaseError) {
-                                TODO("Not yet implemented")
-                            }
-                        })
-                    }
-                    else {
-                        query.setValue(FALSE.value)
-                        queryCurrentUserVal.addListenerForSingleValueEvent(object : ValueEventListener {
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                var curValue = snapshot.getValue(Int::class.java)!!
-                                curValue = curValue.minus(1)
-                                queryCurrentUserVal.setValue(curValue)
-                            }
-
-                            override fun onCancelled(error: DatabaseError) {
-                                TODO("Not yet implemented")
-                            }
-                        })
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-
-            })
-
+            userInstantChanging()
+            //girisEnable()
         }
     }
 
 
+    private fun userInstantChanging(){
+        val reference = FirebaseDatabase.getInstance().reference
+        val query = reference.child("users").child(auth.currentUser?.uid.toString()).child("userInstant")
+        val queryCurrentUserVal =  reference.child("gymCurrentUser").child("value")
 
+
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var instant = snapshot.getValue(Int::class.java)
+
+
+                if (instant == FALSE.value) {
+                    query.setValue(TRUE.value)
+
+                    queryCurrentUserVal.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            var curValue = snapshot.getValue(Int::class.java)!!
+
+                            curValue = curValue.plus(1)
+                            queryCurrentUserVal.setValue(curValue)
+                            cikisEnable()
+                        }
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+                }
+                else {
+                    query.setValue(FALSE.value)
+                    queryCurrentUserVal.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            var curValue = snapshot.getValue(Int::class.java)!!
+                            curValue = curValue.minus(1)
+                            queryCurrentUserVal.setValue(curValue)
+                            girisEnable()
+                        }
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
     private fun generateQRCode(text: String): Bitmap {
         val width = 500
         val height = 500
@@ -208,11 +202,50 @@ class QrcodeFragment : Fragment() {
 
         var userKey = (userValues?.userKey).toString()
         var currentTime: String = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm").format(
-            LocalDateTime.now())
+            LocalDateTime.now()
+        )
         var keyandtimeS = "$currentTime + $userKey"
 
         return keyandtimeS
 
 
+    }
+
+
+
+    override fun onResume() {
+        super.onResume()
+        val reference = FirebaseDatabase.getInstance().reference
+        val query = reference.child("users").child(auth.currentUser?.uid.toString())
+            .child("userInstant")
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var instant = snapshot.getValue(Int::class.java)
+
+                if (instant == FALSE.value) {
+                    girisEnable()
+                }
+                else {
+                    cikisEnable()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+
+
+    private fun girisEnable(){
+        bt_qrcodegiris.isEnabled = true
+        bt_qrcodecikis.isEnabled = false
+    }
+
+    private fun cikisEnable(){
+        bt_qrcodecikis.isEnabled = true
+        bt_qrcodegiris.isEnabled = false
     }
 }

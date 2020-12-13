@@ -49,11 +49,11 @@ class TrainingTypesAdapter(private val mContext: Context,
 
         val trainingVideos = trainingVideosList[position]
 
-        holder.trainingLevel.text = trainingVideos.data_trainingLevel
-        holder.trainingName.text = trainingVideos.data_trainingName
-        holder.trainingPeriod.text = trainingVideos.data_trainingPeriod
-        holder.trainingTime.text = trainingVideos.data_trainingTime
-        holder.trainingPhoto.setImageResource(trainingVideos.data_trainingPhoto)
+        holder.trainingLevel.text = trainingVideos.trLevel
+        holder.trainingName.text = trainingVideos.trName
+        holder.trainingPeriod.text = trainingVideos.trPeriod
+        holder.trainingTime.text = trainingVideos.trTime
+        holder.trainingPhoto.setImageResource(trainingVideos.trPhotoUrl)
         holder.trainingPhoto.setOnClickListener {
             urlListener.invoke(trainingVideosList[position]) }
         holder.trainingButton.setOnClickListener {
