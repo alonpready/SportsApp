@@ -10,15 +10,16 @@ import com.example.sportsapp_1.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-import kotlinx.android.synthetic.main.fragment_training_types.*
 import kotlinx.android.synthetic.main.fragment_videospage.*
 
 
-class VideospageFragment : Fragment() {
+class VideospageFragment(val data: TrainingVideos) : Fragment() {
 
+    private var videoId = ""
     private var listOfTrainingVideos = ArrayList<TrainingVideos>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        videoId = data.trVideoId
     }
 
 
@@ -52,7 +53,7 @@ class VideospageFragment : Fragment() {
 
         youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
-                val videoId = "r4MzxtBKyNE"
+                val videoId = videoId
                 youTubePlayer.loadVideo(videoId, 0f)
             }
         })

@@ -11,11 +11,11 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
-import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Adapters.Homepage_RVAdapter
-import com.example.sportsapp_1.DataClasses.TrainingTypes
+import com.example.sportsapp_1.DataClasses.TrainingVideos
 import com.example.sportsapp_1.DataClasses.UserValues
 import com.example.sportsapp_1.R
+import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.Visible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -26,11 +26,11 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlinx.android.synthetic.main.fragment_homepage.*
 
 
-class HomepageFragment : Fragment() {
+class HomepageFragment() : Fragment() {
 
-    private var listOfTrainingTypes = ArrayList<TrainingTypes>()
-    private lateinit var circularProgressXML:View
-    private var userValues : UserValues? = null
+    private var listOfTrainingVideos1 = ArrayList<TrainingVideos>()
+    private lateinit var circularProgressXML: View
+    private var userValues: UserValues? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,12 +53,12 @@ class HomepageFragment : Fragment() {
 
 
         val reference = FirebaseDatabase.getInstance().reference
-        val queryCurrentUserVal =  reference.child("gymCurrentUser").child("value")
+        val queryCurrentUserVal = reference.child("gymCurrentUser").child("value")
         var gymCapacity = 4
         var gymCurrentUser = 5
 
         queryCurrentUserVal.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot)  {
+            override fun onDataChange(snapshot: DataSnapshot) {
                 var curValue = snapshot.getValue(Int::class.java)!!
                 gymCurrentUser = curValue
                 tv_current_user_ratio.text = curValue.toString() + "/" + gymCapacity.toString()
@@ -79,21 +79,21 @@ class HomepageFragment : Fragment() {
                     backgroundProgressBarColor = Color.DKGRAY
                     backgroundProgressBarColorStart = Color.DKGRAY
                     backgroundProgressBarColorEnd = Color.DKGRAY
-                    backgroundProgressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                    backgroundProgressBarColorDirection =
+                        CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
                     progressBarWidth = 24f // in DP
                     backgroundProgressBarWidth = 25f // in DP
                     roundBorder = true
                     startAngle = 0f
                     progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
-                }}
+                }
+            }
 
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         })
-
-
 
 
     }
@@ -139,34 +139,119 @@ class HomepageFragment : Fragment() {
 
 
     private fun setUI() {
-        inizilatizeRv()
+        initializeRv()
     }
 
 
     private fun createTrainTypes() {
-        val t1 = TrainingTypes("Dead Lift", "3x5")
-        val t2 = TrainingTypes("Bench Press", "2x10")
-        val t3 = TrainingTypes("Pull Dumbell", "4x2")
-        val t4 = TrainingTypes("Dumbell Lift", "2x5")
-        val t5 = TrainingTypes("Barfix", "3x5")
-        val t6 = TrainingTypes("Squad", "2x6")
+        val tVideos1 = TrainingVideos(
+            "Başlangıç Seviye",
+            "Dead Lift",
+            "Set Sayısı: 3x5",
+            "15 dakika",
+            "1VrZ1QLTdUs",
+            R.drawable.iv_dead_lift
+        )
 
-        listOfTrainingTypes.add(t1)
-        listOfTrainingTypes.add(t2)
-        listOfTrainingTypes.add(t3)
-        listOfTrainingTypes.add(t4)
-        listOfTrainingTypes.add(t5)
-        listOfTrainingTypes.add(t6)
+        val tVideos2 = TrainingVideos(
+            "Orta Seviye",
+            "Bench Press",
+            "Set Sayısı: 2x10",
+            "12 dakika",
+            "cHwutxa3XLY",
+            R.drawable.iv_benc_press
+        )
+
+        val tVideos3 = TrainingVideos(
+            "İleri Seviye",
+            "Dumbell Lift",
+            "Set Sayısı: 3x10",
+            "8 dakika",
+            "DQnFG4-SVys",
+            R.drawable.iv_dumbell_lift
+        )
+
+        val tVideos4 = TrainingVideos(
+            "İleri Seviye",
+            "Dumbell Lift",
+            "Set Sayısı: 3x10",
+            "8 dakika",
+            "DQnFG4-SVys",
+            R.drawable.iv_dumbell_lift
+        )
+
+        val tVideos5 = TrainingVideos(
+            "Orta Seviye",
+            "Bench Press",
+            "Set Sayısı: 2x10",
+            "12 dakika",
+            "DQnFG4-SVys",
+            R.drawable.iv_benc_press
+        )
+
+        val tVideos6 = TrainingVideos(
+            "Başlangıç Seviye",
+            "Dead Lift",
+            "Set Sayısı: 3x5",
+            "15 dakika",
+            "DQnFG4-SVys",
+            R.drawable.iv_dead_lift
+        )
+
+        val tVideos7 = TrainingVideos(
+            "İleri Seviye",
+            "Dumbell Lift",
+            "Set Sayısı: 3x10",
+            "8 dakika",
+            "DQnFG4-SVys",
+            R.drawable.iv_dumbell_lift
+        )
+
+        val tVideos8 = TrainingVideos(
+            "Orta Seviye",
+            "Bench Press",
+            "Set Sayısı: 2x10",
+            "12 dakika",
+            "DQnFG4-SVys",
+            R.drawable.iv_benc_press
+        )
+
+        val tVideos9 = TrainingVideos(
+            "Başlangıç Seviye",
+            "Dead Lift",
+            "Set Sayısı: 3x5",
+            "15 dakika",
+            "DQnFG4-SVys",
+            R.drawable.iv_dead_lift
+        )
+
+        listOfTrainingVideos1.add(tVideos1)
+        listOfTrainingVideos1.add(tVideos2)
+        listOfTrainingVideos1.add(tVideos3)
+        listOfTrainingVideos1.add(tVideos4)
+        listOfTrainingVideos1.add(tVideos5)
+        listOfTrainingVideos1.add(tVideos6)
+        listOfTrainingVideos1.add(tVideos7)
+        listOfTrainingVideos1.add(tVideos8)
+        listOfTrainingVideos1.add(tVideos9)
+
 
     }
 
-    private fun inizilatizeRv() {
+
+    private fun initializeRv() {
+
         createTrainTypes()
+
         recyclerview_homepage.layoutManager = LinearLayoutManager(activity)
-        recyclerview_homepage.adapter = Homepage_RVAdapter(requireContext(), listOfTrainingTypes)
+        recyclerview_homepage.adapter = Homepage_RVAdapter(requireContext(), listOfTrainingVideos1)
+        { trainingVideos ->
+            val videospgFr: VideospageFragment = VideospageFragment(trainingVideos)
+            loadFragment(videospgFr)
+        }
     }
 
-    private fun userInfoLoad(){
+    private fun userInfoLoad() {
         val reference = FirebaseDatabase.getInstance().reference
         val currentUser = FirebaseAuth.getInstance().currentUser
         val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
@@ -186,9 +271,10 @@ class HomepageFragment : Fragment() {
         })
 
     }
-    private fun minippLoad(photoUrl:String?) {
 
-        if (photoUrl != ""){
+    private fun minippLoad(photoUrl: String?) {
+
+        if (photoUrl != "") {
             iv_homepage_photo.load(photoUrl)
         }
         homepage_cl.Visible()

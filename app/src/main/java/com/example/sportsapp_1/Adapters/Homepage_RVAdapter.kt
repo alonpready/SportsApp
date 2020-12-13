@@ -9,10 +9,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sportsapp_1.DataClasses.TrainingVideos
 import com.example.sportsapp_1.R
-import com.example.sportsapp_1.DataClasses.TrainingTypes
 
-class Homepage_RVAdapter(private val mContext: Context, private val trainingList: List<TrainingTypes>) :
+class Homepage_RVAdapter(private val mContext: Context,
+                         private val trainingList: List<TrainingVideos>,
+                         private val urlListener:(trainingVideos: TrainingVideos)-> Unit) :
     RecyclerView.Adapter<Homepage_RVAdapter.CardViewHolderOfDesignObjects>() {
 
     inner class CardViewHolderOfDesignObjects(view: View) : RecyclerView.ViewHolder(view) {
@@ -41,15 +43,12 @@ class Homepage_RVAdapter(private val mContext: Context, private val trainingList
 
         val training = trainingList[position]
 
-        holder.tv_training_type.text = training.trainingName
+        holder.tv_training_type.text = training.trName
 
-        holder.tv_training_repetition.text = training.trainingRepetition
+        holder.tv_training_repetition.text = training.trPeriod
 
         holder.homepageCardView.setOnClickListener {
-            Toast.makeText(
-                mContext, "Bu işlem ${training.trainingName} url'sine gidecek.", Toast
-                    .LENGTH_SHORT
-            ).show()
+            urlListener.invoke(trainingList[position])
 
         }
     }
