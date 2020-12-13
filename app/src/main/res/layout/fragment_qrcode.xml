@@ -10,7 +10,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/qrpage_cl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_time"
+        app:layout_constraintStart_toStartOf="@+id/tv_time">
 
         <TextView
             android:id="@+id/tv_header_qrcode"
@@ -37,7 +39,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/bt_qrcode"
+            app:layout_constraintBottom_toTopOf="@+id/bt_qrcodegiris"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +48,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_qrcode_homepage_photo"
-            android:layout_width="41dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
@@ -57,17 +59,28 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/bt_qrcode"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
+            android:id="@+id/bt_qrcodegiris"
+            android:layout_width="154dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginBottom="65dp"
             android:background="@drawable/rounded_corners_green"
-            android:text="Kod Oluştur"
+            android:text="GİRİŞ"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/iv_qrcode"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/iv_qrcode" />
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/bt_qrcodecikis"
+            android:layout_width="154dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/rounded_corners_orange"
+            android:text="ÇIKIŞ"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_qrcode" />
 
         <TextView
             android:id="@+id/tv_time"

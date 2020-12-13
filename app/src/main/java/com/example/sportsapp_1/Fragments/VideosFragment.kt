@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +32,7 @@ class VideosFragment : Fragment() {
     private var listOfTrainingVideos2 = ArrayList<TrainingVideos>()
     private var listOfTrainingVideos3 = ArrayList<TrainingVideos>()
     private var userValues: UserValues? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
@@ -85,7 +85,7 @@ class VideosFragment : Fragment() {
                 //Bu kod neden çalışmıyor incele, konu: Fragmentlar arası veri aktarımı
 
                 view?.findViewById<TextView>(R.id.tv_Videospage_training_period_buttom)?.text =
-                    trainingVideos.data_trainingPeriod
+                    trainingVideos.trPeriod
 
                 loadFragment(VideospageFragment())
             }
