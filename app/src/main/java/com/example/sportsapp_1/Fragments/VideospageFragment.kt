@@ -13,13 +13,14 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import kotlinx.android.synthetic.main.fragment_videospage.*
 
 
-class VideospageFragment(val data: TrainingVideos) : Fragment() {
+class VideospageFragment(val data: TrainingVideos, val x: Int) : Fragment() {
 
-    private var videoId = ""
-    private var listOfTrainingVideos = ArrayList<TrainingVideos>()
+    private var theVideoHasCome =data
+    private var thelastfragmentid = x
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        videoId = data.trVideoId
+
     }
 
 
@@ -41,19 +42,29 @@ class VideospageFragment(val data: TrainingVideos) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         iv_Videopage_back_button.setOnClickListener {
-            loadFragment(VideosFragment())
+                if (thelastfragmentid == 0)
+                {
+                    loadFragment(HomepageFragment())
+                }
+                else{
+                    loadFragment(VideosFragment())
+                }
         }
+
+
+
 
         val youTubePlayerView: YouTubePlayerView = view.findViewById(R.id.youtube_player_view)
         lifecycle.addObserver(youTubePlayerView)
 
-        //XXINCELEXX
-        //Buradaki videoId kısmından video dinamik hale getirilecek
-        //videoId = youtube video linkinin eşittirden sonraki kısmı
+        tv_video_name.text = theVideoHasCome.trName
+        tv_Videospage_training_level_buttom.text = theVideoHasCome.trLevel
+        tv_Videospage_training_period_buttom.text = theVideoHasCome.trPeriod
+        tv_Videospage_training_time_buttom.text = theVideoHasCome.trTime
 
         youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
-                val videoId = videoId
+                val videoId = theVideoHasCome.trVideoId
                 youTubePlayer.loadVideo(videoId, 0f)
             }
         })

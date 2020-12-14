@@ -116,6 +116,8 @@ class HomepageFragment() : Fragment() {
         userInfoLoad()
         circularProgressBar()
 
+
+
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -246,7 +248,7 @@ class HomepageFragment() : Fragment() {
         recyclerview_homepage.layoutManager = LinearLayoutManager(activity)
         recyclerview_homepage.adapter = Homepage_RVAdapter(requireContext(), listOfTrainingVideos1)
         { trainingVideos ->
-            val videospgFr: VideospageFragment = VideospageFragment(trainingVideos)
+            val videospgFr: VideospageFragment = VideospageFragment(trainingVideos,0)
             loadFragment(videospgFr)
         }
     }
@@ -262,6 +264,7 @@ class HomepageFragment() : Fragment() {
 
                     minippLoad(userValues?.userPhotoUrl)
                 }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -277,9 +280,8 @@ class HomepageFragment() : Fragment() {
         if (photoUrl != "") {
             iv_homepage_photo.load(photoUrl)
         }
-        homepage_cl.Visible()
         homePage_progressbar.Gone()
-
+        homepage_cl.Visible()
     }
 
 

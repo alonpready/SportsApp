@@ -60,6 +60,8 @@ class RezervationFragment : Fragment() {
             loadFragment(UserFragment())
         }
 
+
+
     }
 
 
@@ -82,6 +84,7 @@ class RezervationFragment : Fragment() {
 
                     minippLoad(userValues?.userPhotoUrl)
                 }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -95,8 +98,8 @@ class RezervationFragment : Fragment() {
         if (photoUrl != ""){
             iv_rezervation_profile_photo.load(photoUrl)
         }
-        rezpage_cl.Visible()
         rezPage_progressbar.Gone()
+        rezpage_cl.Visible()
     }
 }
 

@@ -82,8 +82,14 @@ class UserFragment : Fragment() {
 
         setClicks()
         circularProgressBar()
+        userInfoLoad()
 
-        userPageTextView = view.findViewById(R.id.tv_userPage_username)
+
+    }
+
+    private fun userInfoLoad(){
+
+        userPageTextView = view!!.findViewById(R.id.tv_userPage_username)
         val reference = FirebaseDatabase.getInstance().reference
         val currentUser = FirebaseAuth.getInstance().currentUser
         val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
@@ -93,8 +99,11 @@ class UserFragment : Fragment() {
                     userValues = singleSnapshot.getValue(UserValues::class.java)
 
                     setUser(userValues?.userName?.capitalize(Locale.getDefault()), userValues?.userPhotoUrl)
+
+
                 }
             }
+
 
             override fun onCancelled(error: DatabaseError) {
 
@@ -103,6 +112,8 @@ class UserFragment : Fragment() {
         })
 
     }
+
+
 
     private fun signOut() {
         auth.signOut()
@@ -221,8 +232,9 @@ class UserFragment : Fragment() {
         if (photoUrl != "") {
             iv_profile_photo3.load(photoUrl)
         }
-        user_cl.Visible()
         userPage_progressbar.Gone()
+        user_cl.Visible()
+
     }
 
     private fun circularProgressBar() {

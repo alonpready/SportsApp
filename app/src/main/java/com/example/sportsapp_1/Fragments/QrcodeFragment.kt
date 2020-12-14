@@ -71,6 +71,8 @@ class QrcodeFragment : Fragment() {
             bt_qrcodecikis.isEnabled = false
         }
 
+
+
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -90,6 +92,7 @@ class QrcodeFragment : Fragment() {
                     userValues = singleSnapshot.getValue(UserValues::class.java)
 
                     minippLoad(userValues?.userPhotoUrl)
+
                 }
             }
 
@@ -104,8 +107,8 @@ class QrcodeFragment : Fragment() {
         if (photoUrl != ""){
             iv_qrcode_homepage_photo.load(photoUrl)
         }
-        qrpage_cl.Visible()
         qrPage_progressbar.Gone()
+        qrpage_cl.Visible()
 
     }
 

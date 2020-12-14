@@ -64,6 +64,7 @@ class VideosFragment() : Fragment() {
             loadFragment(UserFragment())
         }
 
+
     }
 
     private fun setUI() {
@@ -82,7 +83,7 @@ class VideosFragment() : Fragment() {
             TrainingTypesAdapter(requireContext(), listOfTrainingVideos1) {trainingVideos ->
 
 
-                val videospgFr : VideospageFragment = VideospageFragment(trainingVideos)
+                val videospgFr : VideospageFragment = VideospageFragment(trainingVideos,1)
                 loadFragment(videospgFr)
             }
     }
@@ -95,7 +96,7 @@ class VideosFragment() : Fragment() {
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_2.adapter =
             TrainingTypesAdapter(requireContext(), listOfTrainingVideos2)  { trainingVideos ->
-                val videospgFr : VideospageFragment = VideospageFragment(trainingVideos)
+                val videospgFr : VideospageFragment = VideospageFragment(trainingVideos,1)
                 loadFragment(videospgFr)
             }
     }
@@ -108,7 +109,7 @@ class VideosFragment() : Fragment() {
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_3.adapter =
             TrainingTypesAdapter(requireContext(), listOfTrainingVideos3)  { trainingVideos ->
-                val videospgFr : VideospageFragment = VideospageFragment(trainingVideos)
+                val videospgFr : VideospageFragment = VideospageFragment(trainingVideos,1)
                 loadFragment(videospgFr)
             }
     }
@@ -238,6 +239,8 @@ class VideosFragment() : Fragment() {
 
                     minippLoad(userValues?.userPhotoUrl)
                 }
+
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -252,8 +255,8 @@ class VideosFragment() : Fragment() {
         if (photoUrl != "") {
             iv_videos_profile_photo.load(photoUrl)
         }
-        videospage_cl.Visible()
         videosPage_progressbar.Gone()
+        videospage_cl.Visible()
     }
 
 
