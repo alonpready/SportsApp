@@ -24,13 +24,17 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlinx.android.synthetic.main.fragment_homepage.*
+import java.util.*
+import java.util.concurrent.ThreadLocalRandom
+import kotlin.collections.ArrayList
 
 
 class HomepageFragment() : Fragment() {
 
-    private var listOfTrainingVideos1 = ArrayList<TrainingVideos>()
+    private var listOfTrainingVideos = ArrayList<TrainingVideos>()
     private lateinit var circularProgressXML: View
     private var userValues: UserValues? = null
+    private var trainingVideos : TrainingVideos? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -145,97 +149,248 @@ class HomepageFragment() : Fragment() {
     }
 
 
-    private fun createTrainTypes() {
-        val tVideos1 = TrainingVideos(
-            "Başlangıç Seviye",
-            "Dead Lift",
-            "Set Sayısı: 3x5",
-            "15 dakika",
-            "1VrZ1QLTdUs",
-            R.drawable.iv_dead_lift
+    fun Random.nextInt(range: IntRange): Int {
+        return range.start + nextInt(range.last - range.start)
+    }
+
+
+
+    private fun takenewList(){
+
+
+        var reference = FirebaseDatabase.getInstance().reference
+        var onKol = reference.child("videos").child("onKol")
+        var Gogus = reference.child("videos").child("Gogus")
+        var Sirt = reference.child("videos").child("Sırt")
+        var ArkaKol = reference.child("videos").child("arkaKol")
+        var Bacak = reference.child("videos").child("Bacak")
+        var Karın = reference.child("videos").child("Karın")
+        var Omuz = reference.child("videos").child("Omuz")
+
+        for(i in 0..15) {
+            val random = Random()
+            var r = (random.nextInt(0..7))
+
+            if (r == 0) {
+        onKol.addListenerForSingleValueEvent(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var i = 1
+                for (singleSnapshot in snapshot!!.children) {
+
+                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
+                    while (i > 0) {
+                        createnewList(
+                            trainingVideos!!.trLevel,
+                            trainingVideos!!.trName,
+                            trainingVideos!!.trPeriod,
+                            trainingVideos!!.trTime,
+                            trainingVideos!!.trVideoId,
+                            "onKol"
+                        )
+                        i--
+                    }
+                }
+
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+            if (r == 1) {
+        Gogus.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var i = 1
+                for (singleSnapshot in snapshot!!.children) {
+                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
+                    while (i > 0) {
+                        createnewList(
+                            trainingVideos!!.trLevel,
+                            trainingVideos!!.trName,
+                            trainingVideos!!.trPeriod,
+                            trainingVideos!!.trTime,
+                            trainingVideos!!.trVideoId,
+                            "Gogus"
+                        )
+                        i--
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+            if (r == 2) {
+        Sirt.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                var i = 1
+                for (singleSnapshot in snapshot!!.children) {
+                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
+                    while (i > 0) {
+                        createnewList(
+                            trainingVideos!!.trLevel,
+                            trainingVideos!!.trName,
+                            trainingVideos!!.trPeriod,
+                            trainingVideos!!.trTime,
+                            trainingVideos!!.trVideoId,
+                            "Sırt"
+                        )
+
+                        i--
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+            if (r == 3) {
+        ArkaKol.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                var i = 1
+                for (singleSnapshot in snapshot!!.children) {
+                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
+                    while (i > 0) {
+                        createnewList(
+                            trainingVideos!!.trLevel,
+                            trainingVideos!!.trName,
+                            trainingVideos!!.trPeriod,
+                            trainingVideos!!.trTime,
+                            trainingVideos!!.trVideoId,
+                            "arkaKol"
+                        )
+
+
+                        i--
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+            if (r == 4) {
+        Bacak.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var i = 1
+                for (singleSnapshot in snapshot!!.children) {
+                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
+                    while (i > 0) {
+                        createnewList(
+                            trainingVideos!!.trLevel,
+                            trainingVideos!!.trName,
+                            trainingVideos!!.trPeriod,
+                            trainingVideos!!.trTime,
+                            trainingVideos!!.trVideoId,
+                            "Bacak"
+                        )
+                        i--
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+            if (r == 5) {
+        Karın.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var i = 1
+                for (singleSnapshot in snapshot!!.children) {
+                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
+                    while (i > 0) {
+                        createnewList(
+                            trainingVideos!!.trLevel,
+                            trainingVideos!!.trName,
+                            trainingVideos!!.trPeriod,
+                            trainingVideos!!.trTime,
+                            trainingVideos!!.trVideoId,
+                            "Karın"
+                        )
+
+                        i--
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+            if (r == 6) {
+        Omuz.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                var i = 1
+                for (singleSnapshot in snapshot!!.children) {
+                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
+                    while (i > 0) {
+                        createnewList(
+                            trainingVideos!!.trLevel,
+                            trainingVideos!!.trName,
+                            trainingVideos!!.trPeriod,
+                            trainingVideos!!.trTime,
+                            trainingVideos!!.trVideoId,
+                            "Omuz"
+                        )
+                        i--
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+}
+
+    }
+    private fun createnewList(level: String, name: String, period: String, time: String, videoId: String, type: String){
+
+        var x = true
+        var photo: Int = R.drawable.iv_dumbell_lift
+
+        var newVideo = TrainingVideos(
+            level,
+            name,
+            period,
+            time,
+            videoId,
+            photo
         )
 
-        val tVideos2 = TrainingVideos(
-            "Orta Seviye",
-            "Bench Press",
-            "Set Sayısı: 2x10",
-            "12 dakika",
-            "cHwutxa3XLY",
-            R.drawable.iv_benc_press
-        )
+            for (i in listOfTrainingVideos){
+                if(i.trName == name){
+                    x = false
+                }
+            }
 
-        val tVideos3 = TrainingVideos(
-            "İleri Seviye",
-            "Dumbell Lift",
-            "Set Sayısı: 3x10",
-            "8 dakika",
-            "DQnFG4-SVys",
-            R.drawable.iv_dumbell_lift
-        )
-
-        val tVideos4 = TrainingVideos(
-            "İleri Seviye",
-            "Dumbell Lift",
-            "Set Sayısı: 3x10",
-            "8 dakika",
-            "DQnFG4-SVys",
-            R.drawable.iv_dumbell_lift
-        )
-
-        val tVideos5 = TrainingVideos(
-            "Orta Seviye",
-            "Bench Press",
-            "Set Sayısı: 2x10",
-            "12 dakika",
-            "DQnFG4-SVys",
-            R.drawable.iv_benc_press
-        )
-
-        val tVideos6 = TrainingVideos(
-            "Başlangıç Seviye",
-            "Dead Lift",
-            "Set Sayısı: 3x5",
-            "15 dakika",
-            "DQnFG4-SVys",
-            R.drawable.iv_dead_lift
-        )
-
-        val tVideos7 = TrainingVideos(
-            "İleri Seviye",
-            "Dumbell Lift",
-            "Set Sayısı: 3x10",
-            "8 dakika",
-            "DQnFG4-SVys",
-            R.drawable.iv_dumbell_lift
-        )
-
-        val tVideos8 = TrainingVideos(
-            "Orta Seviye",
-            "Bench Press",
-            "Set Sayısı: 2x10",
-            "12 dakika",
-            "DQnFG4-SVys",
-            R.drawable.iv_benc_press
-        )
-
-        val tVideos9 = TrainingVideos(
-            "Başlangıç Seviye",
-            "Dead Lift",
-            "Set Sayısı: 3x5",
-            "15 dakika",
-            "DQnFG4-SVys",
-            R.drawable.iv_dead_lift
-        )
-
-        listOfTrainingVideos1.add(tVideos1)
-        listOfTrainingVideos1.add(tVideos2)
-        listOfTrainingVideos1.add(tVideos3)
-        listOfTrainingVideos1.add(tVideos4)
-        listOfTrainingVideos1.add(tVideos5)
-        listOfTrainingVideos1.add(tVideos6)
-        listOfTrainingVideos1.add(tVideos7)
-        listOfTrainingVideos1.add(tVideos8)
-        listOfTrainingVideos1.add(tVideos9)
+            if(x)
+            {
+                listOfTrainingVideos.add(newVideo)
+            }
 
 
     }
@@ -243,10 +398,10 @@ class HomepageFragment() : Fragment() {
 
     private fun initializeRv() {
 
-        createTrainTypes()
+        takenewList()
 
         recyclerview_homepage.layoutManager = LinearLayoutManager(activity)
-        recyclerview_homepage.adapter = Homepage_RVAdapter(requireContext(), listOfTrainingVideos1)
+        recyclerview_homepage.adapter = Homepage_RVAdapter(requireContext(), listOfTrainingVideos)
         { trainingVideos ->
             val videospgFr: VideospageFragment = VideospageFragment(trainingVideos,0)
             loadFragment(videospgFr)

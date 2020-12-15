@@ -8,5 +8,6 @@ data class TrainingVideos(
     var trVideoId: String = "",
     var trPhotoUrl: Int = 1,
 
+
     ) {
 }
