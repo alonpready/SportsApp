@@ -509,7 +509,7 @@ class VideosFragment() : Fragment() {
         tv_training_type4.text = "Arka Kol Hareketleri"
         tv_training_type5.text = "Bacak Hareketleri"
         tv_training_type6.text = "Karın Hareketleri"
-        tv_training_type6.text = "Omuz Hareketleri"
+        tv_training_type7.text = "Omuz Hareketleri"
     }
 
 
