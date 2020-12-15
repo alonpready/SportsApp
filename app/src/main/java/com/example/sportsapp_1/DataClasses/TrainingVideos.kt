@@ -7,6 +7,7 @@ data class TrainingVideos(
     var trTime:String = "",
     var trVideoId: String = "",
     var trPhotoUrl: Int = 1,
+    var trVideoNumber: Int = 0
 
 
     ) {

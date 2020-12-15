@@ -25,13 +25,14 @@ import com.google.firebase.database.ValueEventListener
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlinx.android.synthetic.main.fragment_homepage.*
 import java.util.*
-import java.util.concurrent.ThreadLocalRandom
 import kotlin.collections.ArrayList
+import kotlin.random.Random
 
 
 class HomepageFragment() : Fragment() {
 
     private var listOfTrainingVideos = ArrayList<TrainingVideos>()
+    private var listOfrandomTrVideos  = ArrayList<TrainingVideos>()
     private lateinit var circularProgressXML: View
     private var userValues: UserValues? = null
     private var trainingVideos : TrainingVideos? = null
@@ -149,9 +150,9 @@ class HomepageFragment() : Fragment() {
     }
 
 
-    fun Random.nextInt(range: IntRange): Int {
-        return range.start + nextInt(range.last - range.start)
-    }
+
+
+
 
 
 
@@ -167,29 +168,26 @@ class HomepageFragment() : Fragment() {
         var Karın = reference.child("videos").child("Karın")
         var Omuz = reference.child("videos").child("Omuz")
 
-        for(i in 0..10) {
-            val random = Random()
-            var r = (random.nextInt(0..7))
 
-            if (r == 0) {
         onKol.addListenerForSingleValueEvent(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                var i = 2
+
                 for (singleSnapshot in snapshot!!.children) {
 
                     trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-                    while (i > 0) {
-                        createnewList(
-                            trainingVideos!!.trLevel,
-                            trainingVideos!!.trName,
-                            trainingVideos!!.trPeriod,
-                            trainingVideos!!.trTime,
-                            trainingVideos!!.trVideoId,
-                            "onKol"
-                        )
-                        i--
-                    }
+
+                    createnewList(
+                        trainingVideos!!.trLevel,
+                        trainingVideos!!.trName,
+                        trainingVideos!!.trPeriod,
+                        trainingVideos!!.trTime,
+                        trainingVideos!!.trVideoId,
+                        "onKol",
+                        trainingVideos!!.trVideoNumber
+                    )
+
+
                 }
 
 
@@ -200,24 +198,23 @@ class HomepageFragment() : Fragment() {
             }
 
         })
-    }
-            if (r == 1) {
         Gogus.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var i = 1
+
                 for (singleSnapshot in snapshot!!.children) {
                     trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-                    while (i > 0) {
-                        createnewList(
-                            trainingVideos!!.trLevel,
-                            trainingVideos!!.trName,
-                            trainingVideos!!.trPeriod,
-                            trainingVideos!!.trTime,
-                            trainingVideos!!.trVideoId,
-                            "Gogus"
-                        )
-                        i--
-                    }
+
+                    createnewList(
+                        trainingVideos!!.trLevel,
+                        trainingVideos!!.trName,
+                        trainingVideos!!.trPeriod,
+                        trainingVideos!!.trTime,
+                        trainingVideos!!.trVideoId,
+                        "Gogus",
+                        trainingVideos!!.trVideoNumber
+                    )
+
+
                 }
 
             }
@@ -226,26 +223,24 @@ class HomepageFragment() : Fragment() {
                 TODO("Not yet implemented")
             }
         })
-    }
-            if (r == 2) {
         Sirt.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                var i = 2
+
                 for (singleSnapshot in snapshot!!.children) {
                     trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-                    while (i > 0) {
-                        createnewList(
-                            trainingVideos!!.trLevel,
-                            trainingVideos!!.trName,
-                            trainingVideos!!.trPeriod,
-                            trainingVideos!!.trTime,
-                            trainingVideos!!.trVideoId,
-                            "Sırt"
-                        )
 
-                        i--
-                    }
+                    createnewList(
+                        trainingVideos!!.trLevel,
+                        trainingVideos!!.trName,
+                        trainingVideos!!.trPeriod,
+                        trainingVideos!!.trTime,
+                        trainingVideos!!.trVideoId,
+                        "Sırt",
+                        trainingVideos!!.trVideoNumber
+                    )
+
+
                 }
 
             }
@@ -254,27 +249,24 @@ class HomepageFragment() : Fragment() {
                 TODO("Not yet implemented")
             }
         })
-    }
-            if (r == 3) {
         ArkaKol.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                var i = 1
+
                 for (singleSnapshot in snapshot!!.children) {
                     trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-                    while (i > 0) {
-                        createnewList(
-                            trainingVideos!!.trLevel,
-                            trainingVideos!!.trName,
-                            trainingVideos!!.trPeriod,
-                            trainingVideos!!.trTime,
-                            trainingVideos!!.trVideoId,
-                            "arkaKol"
-                        )
+
+                    createnewList(
+                        trainingVideos!!.trLevel,
+                        trainingVideos!!.trName,
+                        trainingVideos!!.trPeriod,
+                        trainingVideos!!.trTime,
+                        trainingVideos!!.trVideoId,
+                        "arkaKol",
+                        trainingVideos!!.trVideoNumber
+                    )
 
 
-                        i--
-                    }
                 }
 
             }
@@ -283,24 +275,22 @@ class HomepageFragment() : Fragment() {
                 TODO("Not yet implemented")
             }
         })
-    }
-            if (r == 4) {
         Bacak.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var i = 1
+
                 for (singleSnapshot in snapshot!!.children) {
                     trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-                    while (i > 0) {
-                        createnewList(
-                            trainingVideos!!.trLevel,
-                            trainingVideos!!.trName,
-                            trainingVideos!!.trPeriod,
-                            trainingVideos!!.trTime,
-                            trainingVideos!!.trVideoId,
-                            "Bacak"
-                        )
-                        i--
-                    }
+
+                    createnewList(
+                        trainingVideos!!.trLevel,
+                        trainingVideos!!.trName,
+                        trainingVideos!!.trPeriod,
+                        trainingVideos!!.trTime,
+                        trainingVideos!!.trVideoId,
+                        "Bacak",
+                        trainingVideos!!.trVideoNumber
+                    )
+
                 }
 
             }
@@ -309,25 +299,23 @@ class HomepageFragment() : Fragment() {
                 TODO("Not yet implemented")
             }
         })
-    }
-            if (r == 5) {
         Karın.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var i = 2
+
                 for (singleSnapshot in snapshot!!.children) {
                     trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-                    while (i > 0) {
-                        createnewList(
-                            trainingVideos!!.trLevel,
-                            trainingVideos!!.trName,
-                            trainingVideos!!.trPeriod,
-                            trainingVideos!!.trTime,
-                            trainingVideos!!.trVideoId,
-                            "Karın"
-                        )
 
-                        i--
-                    }
+                    createnewList(
+                        trainingVideos!!.trLevel,
+                        trainingVideos!!.trName,
+                        trainingVideos!!.trPeriod,
+                        trainingVideos!!.trTime,
+                        trainingVideos!!.trVideoId,
+                        "Karın",
+                        trainingVideos!!.trVideoNumber
+                    )
+
+
                 }
 
             }
@@ -336,25 +324,23 @@ class HomepageFragment() : Fragment() {
                 TODO("Not yet implemented")
             }
         })
-    }
-            if (r == 6) {
         Omuz.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                var i = 2
+
                 for (singleSnapshot in snapshot!!.children) {
                     trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-                    while (i > 0) {
-                        createnewList(
-                            trainingVideos!!.trLevel,
-                            trainingVideos!!.trName,
-                            trainingVideos!!.trPeriod,
-                            trainingVideos!!.trTime,
-                            trainingVideos!!.trVideoId,
-                            "Omuz"
-                        )
-                        i--
-                    }
+
+                    createnewList(
+                        trainingVideos!!.trLevel,
+                        trainingVideos!!.trName,
+                        trainingVideos!!.trPeriod,
+                        trainingVideos!!.trTime,
+                        trainingVideos!!.trVideoId,
+                        "Omuz",
+                        trainingVideos!!.trVideoNumber
+                    )
+
                 }
 
             }
@@ -363,11 +349,19 @@ class HomepageFragment() : Fragment() {
                 TODO("Not yet implemented")
             }
         })
-    }
-}
+
+
 
     }
-    private fun createnewList(level: String, name: String, period: String, time: String, videoId: String, type: String){
+    private fun createnewList(
+        level: String,
+        name: String,
+        period: String,
+        time: String,
+        videoId: String,
+        type: String,
+        vNumber: Int
+    ){
 
         var x = true
         var photo: Int = R.drawable.iv_dumbell_lift
@@ -378,7 +372,8 @@ class HomepageFragment() : Fragment() {
             period,
             time,
             videoId,
-            photo
+            photo,
+            vNumber
         )
 
             for (i in listOfTrainingVideos){
@@ -390,20 +385,26 @@ class HomepageFragment() : Fragment() {
             if(x)
             {
                 listOfTrainingVideos.add(newVideo)
+
+
+                    val random = Random
+                    var r =random.nextInt(0, 5)
+                    if (r == 2 ) {
+                        listOfrandomTrVideos.add(newVideo)
+                    }
             }
 
-
     }
-
-
+    
     private fun initializeRv() {
 
         takenewList()
 
+
         recyclerview_homepage.layoutManager = LinearLayoutManager(activity)
-        recyclerview_homepage.adapter = Homepage_RVAdapter(requireContext(), listOfTrainingVideos)
+        recyclerview_homepage.adapter = Homepage_RVAdapter(requireContext(), listOfrandomTrVideos)
         { trainingVideos ->
-            val videospgFr: VideospageFragment = VideospageFragment(trainingVideos,0)
+            val videospgFr: VideospageFragment = VideospageFragment(trainingVideos, 0)
             loadFragment(videospgFr)
         }
     }
