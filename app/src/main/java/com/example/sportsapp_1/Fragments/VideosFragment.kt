@@ -336,8 +336,16 @@ class VideosFragment() : Fragment() {
         var photo: Int = R.drawable.iv_dumbell_lift
 
 
-
-        if (type == "onKol"){
+        when(type){
+            "onKol" ->photo = R.drawable.iv_dumbell_lift
+            "Gogus" -> photo = R.drawable.iv_benc_press
+            "Sırt" ->photo = R.drawable.iv_dead_lift
+            "arkaKol" ->photo = R.drawable.iv_dumbell_lift
+            "Bacak" -> photo = R.drawable.iv_dead_lift
+            "Karın" ->  photo = R.drawable.iv_dead_lift
+            "Omuz" ->  photo = R.drawable.iv_benc_press
+        }
+       /* if (type == "onKol"){
             photo = R.drawable.iv_dumbell_lift
         }
         else if (type == "Gogus"){
@@ -358,7 +366,7 @@ class VideosFragment() : Fragment() {
         else if (type == "Omuz"){
             photo = R.drawable.iv_benc_press
         }
-
+        */
 
 
         var newVideo = TrainingVideos(

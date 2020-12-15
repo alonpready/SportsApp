@@ -395,7 +395,7 @@ class HomepageFragment() : Fragment() {
             }
 
     }
-    
+
     private fun initializeRv() {
 
         takenewList()
