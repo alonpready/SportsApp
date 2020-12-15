@@ -167,7 +167,7 @@ class HomepageFragment() : Fragment() {
         var Karın = reference.child("videos").child("Karın")
         var Omuz = reference.child("videos").child("Omuz")
 
-        for(i in 0..15) {
+        for(i in 0..10) {
             val random = Random()
             var r = (random.nextInt(0..7))
 
@@ -175,7 +175,7 @@ class HomepageFragment() : Fragment() {
         onKol.addListenerForSingleValueEvent(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                var i = 1
+                var i = 2
                 for (singleSnapshot in snapshot!!.children) {
 
                     trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
@@ -231,7 +231,7 @@ class HomepageFragment() : Fragment() {
         Sirt.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                var i = 1
+                var i = 2
                 for (singleSnapshot in snapshot!!.children) {
                     trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
                     while (i > 0) {
@@ -313,7 +313,7 @@ class HomepageFragment() : Fragment() {
             if (r == 5) {
         Karın.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var i = 1
+                var i = 2
                 for (singleSnapshot in snapshot!!.children) {
                     trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
                     while (i > 0) {
@@ -341,7 +341,7 @@ class HomepageFragment() : Fragment() {
         Omuz.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                var i = 1
+                var i = 2
                 for (singleSnapshot in snapshot!!.children) {
                     trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
                     while (i > 0) {
