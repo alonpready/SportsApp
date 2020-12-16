@@ -11,76 +11,74 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
-            android:id="@+id/v_user_backround"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:background="@drawable/rounded_corners_userpage_top"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/rezervation_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimaryGreen"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:menu="@menu/userpage_top_menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/bt_logOut"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="right"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="#00FFFFFF"
-            android:scaleType="fitXY"
-            android:src="@drawable/exit_icon"
+        <View
+            android:id="@+id/v_user_backround"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:background="@drawable/rounded_corners_userpage_top"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.84"
-            app:layout_constraintStart_toEndOf="@+id/tv_header_user"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rezervation_toolbar" />
 
         <TextView
             android:id="@+id/tv_header_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:fontFamily="sans-serif"
             android:text="Kullanıcı Bilgileri"
-            android:textColor="@color/colorBackgraund"
+            android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/rezervation_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/rezervation_toolbar" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_profile_photo3"
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="48dp"
             android:src="@drawable/profile_photo"
             app:layout_constraintBottom_toBottomOf="@+id/v_user_backround"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rezervation_toolbar" />
 
 
         <TextView
             android:id="@+id/tv_userPage_top_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="52dp"
-            android:layout_marginBottom="52dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="casual"
             android:text="Bugün\nNasılsın?"
             android:textColor="#252525"
             android:textSize="20sp"
             android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="@+id/v_user_backround"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/tv_userPage_username"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rezervation_toolbar"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/tv_userPage_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="52dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginBottom="24dp"
             android:fontFamily="casual"
             android:textColor="#111E02"
             android:textSize="24sp"
@@ -158,9 +156,9 @@
             android:id="@+id/tv_in_graph1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="85\nkg"
             android:textSize="14sp"
-            android:gravity="center"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/v_userpage_CircularProgressBar_1"
             app:layout_constraintEnd_toEndOf="@+id/v_userpage_CircularProgressBar_1"

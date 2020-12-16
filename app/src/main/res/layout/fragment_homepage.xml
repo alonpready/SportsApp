@@ -16,36 +16,47 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/rezervation_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimaryGreen"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <TextView
                 android:id="@+id/tv_header_homepage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:text="Anasayfa"
-                android:textColor="@color/colorTwo"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/rezervation_toolbar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/rezervation_toolbar" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_homepage_photo"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:src="@drawable/profilephp"
+                app:layout_constraintBottom_toBottomOf="@+id/rezervation_toolbar"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.8"
-                app:layout_constraintStart_toEndOf="@+id/tv_header_homepage"
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.mikhaellopez.circularprogressbar.CircularProgressBar
                 android:id="@+id/v_homepage_CircularProgressBar"
                 android:layout_width="275dp"
                 android:layout_height="275dp"
+                android:layout_marginTop="20dp"
                 app:cpb_background_progressbar_color="#b6bbd8"
                 app:cpb_background_progressbar_width="20dp"
                 app:cpb_progress_direction="to_right"
@@ -53,7 +64,7 @@
                 app:cpb_progressbar_width="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_homepage_photo" />
+                app:layout_constraintTop_toBottomOf="@+id/rezervation_toolbar" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_homepage"

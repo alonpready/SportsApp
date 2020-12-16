@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
+import kotlinx.android.synthetic.main.fragment_homepage.*
 import kotlinx.android.synthetic.main.fragment_qrcode.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -64,7 +65,6 @@ class QrcodeFragment : Fragment() {
         qrpage_cl.Gone()
         qrPage_progressbar.Visible()
         userInfoLoad()
-
         setClicks()
 
         if (bt_qrcodegiris.isEnabled && bt_qrcodecikis.isEnabled){
@@ -81,6 +81,7 @@ class QrcodeFragment : Fragment() {
         transaction?.addToBackStack(null)
         transaction?.commit()
     }
+
 
     private fun userInfoLoad(){
         val reference = FirebaseDatabase.getInstance().reference
@@ -105,7 +106,7 @@ class QrcodeFragment : Fragment() {
     }
     private fun minippLoad(photoUrl: String?) {
         if (photoUrl != ""){
-            iv_qrcode_homepage_photo.load(photoUrl)
+            iv_qrcode_profile.load(photoUrl)
         }
         qrPage_progressbar.Gone()
         qrpage_cl.Visible()
@@ -113,14 +114,16 @@ class QrcodeFragment : Fragment() {
     }
 
     private fun setClicks() {
-        iv_qrcode_homepage_photo.setOnClickListener {
+        iv_qrcode_profile.setOnClickListener {
             loadFragment(UserFragment())
+
+
         }
         bt_qrcodegiris.setOnClickListener {
             val bitmap = generateQRCode(keyanddateToString())
             iv_qrcode.setImageBitmap(bitmap)
 
-           userInstantChanging()
+            userInstantChanging()
             //cikisEnable()
         }
 
