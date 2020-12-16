@@ -10,9 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
@@ -51,6 +49,7 @@ class UserFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
 
 
         auth = FirebaseAuth.getInstance()
@@ -128,9 +127,6 @@ class UserFragment : Fragment() {
     private fun setClicks() {
         iv_profile_photo3.setOnClickListener() {
             openGallery()
-        }
-        bt_logOut.setOnClickListener() {
-            signOut()
         }
     }
 
@@ -303,6 +299,21 @@ class UserFragment : Fragment() {
         }
 
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.userpage_top_menu,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_editprofile -> {}
+            R.id.menu_connection -> {}
+            R.id.menu_settings -> {}
+            R.id.menu_signout -> {}
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 

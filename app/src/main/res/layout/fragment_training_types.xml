@@ -21,6 +21,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/rezervation_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/colorPrimaryGreen"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/tv_training_type3"
                     android:layout_width="wrap_content"
@@ -80,29 +91,29 @@
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/recycleview_training_types_6" />
+
                 <TextView
                     android:id="@+id/tv_header_exercises"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:text="Egzersizler"
-                    android:textColor="@color/colorTwo"
+                    android:textColor="#FFFFFF"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/rezervation_toolbar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/rezervation_toolbar" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_videos_profile_photo"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
                     android:src="@drawable/profilephp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.8"
-                    app:layout_constraintStart_toEndOf="@+id/tv_header_exercises"
+                    app:layout_constraintBottom_toBottomOf="@+id/rezervation_toolbar"
+                    app:layout_constraintEnd_toEndOf="@+id/rezervation_toolbar"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -110,12 +121,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="16dp"
                     android:text="Ön Kol Hareketleri"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_header_exercises" />
+                    app:layout_constraintTop_toBottomOf="@+id/rezervation_toolbar" />
 
                 <TextView
                     android:id="@+id/tv_training_type2"

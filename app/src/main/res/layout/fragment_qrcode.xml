@@ -14,15 +14,37 @@
         app:layout_constraintEnd_toStartOf="@+id/tv_time"
         app:layout_constraintStart_toStartOf="@+id/tv_time">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/rezervation_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimaryGreen"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_qrcode_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/profilephp"
+            app:layout_constraintBottom_toBottomOf="@+id/rezervation_toolbar"
+            app:layout_constraintEnd_toEndOf="@+id/rezervation_toolbar"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rezervation_toolbar" />
+
         <TextView
             android:id="@+id/tv_header_qrcode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:text="QR Kod"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/rezervation_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,20 +65,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_header_qrcode"
+            app:layout_constraintTop_toBottomOf="@+id/rezervation_toolbar"
             app:srcCompat="@drawable/rectangleqr" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_qrcode_homepage_photo"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="503dp"
-            android:src="@drawable/profilephp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_time"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/bt_qrcodegiris"
