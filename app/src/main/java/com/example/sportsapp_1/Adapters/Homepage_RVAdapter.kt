@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sportsapp_1.DataClasses.TrainingVideos
+import com.example.sportsapp_1.Model.TrainingVideos
 import com.example.sportsapp_1.R
 
 class Homepage_RVAdapter(private val mContext: Context,

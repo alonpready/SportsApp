@@ -1,4 +1,4 @@
-package com.example.sportsapp_1.DataClasses
+package com.example.sportsapp_1.Model
 
 data class TrainingVideos(
     var trLevel:String = "",

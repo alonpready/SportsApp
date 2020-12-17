@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.sportsapp_1.Adapters.Homepage_RVAdapter
-import com.example.sportsapp_1.DataClasses.TrainingVideos
-import com.example.sportsapp_1.DataClasses.UserValues
+import com.example.sportsapp_1.Model.TrainingVideos
+import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.Visible
@@ -24,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlinx.android.synthetic.main.fragment_homepage.*
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
 

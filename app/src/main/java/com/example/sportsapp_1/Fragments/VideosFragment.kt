@@ -2,20 +2,17 @@ package com.example.sportsapp_1.Fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Adapters.TrainingTypesAdapter
-import com.example.sportsapp_1.DataClasses.TrainingVideos
-import com.example.sportsapp_1.DataClasses.UserValues
-import com.example.sportsapp_1.MainActivity
+import com.example.sportsapp_1.Model.TrainingVideos
+import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Visible
 import com.google.firebase.auth.FirebaseAuth
@@ -24,7 +21,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_training_types.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 

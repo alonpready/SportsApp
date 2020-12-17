@@ -1,12 +1,12 @@
-package com.example.sportsapp_1
+package com.example.sportsapp_1.Activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.sportsapp_1.DataClasses.TrainingVideos
 import com.example.sportsapp_1.Fragments.*
+import com.example.sportsapp_1.R
 import com.google.firebase.auth.FirebaseAuth
 import com.rbddevs.splashy.Splashy
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         setSplashy()
 
     }
-
     private fun setSplashy() { Splashy(this)
             .setLogo(R.drawable.app_logo)
             .setLogoScaleType(ImageView.ScaleType.FIT_XY)
@@ -45,7 +44,6 @@ class MainActivity : AppCompatActivity() {
             .showProgress(true)
             .show()
     }
-
     private fun setBottomNavigation() {
 
         bottom_navigation.setOnNavigationItemSelectedListener {
@@ -72,7 +70,6 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
-
     private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainerView, fragment)
@@ -80,16 +77,10 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
 
     }
-
     override fun onBackPressed() {
         val setIntent = Intent(Intent.ACTION_MAIN)
         setIntent.addCategory(Intent.CATEGORY_HOME)
         setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(setIntent)
     }
-
-
-
-
-
 }
