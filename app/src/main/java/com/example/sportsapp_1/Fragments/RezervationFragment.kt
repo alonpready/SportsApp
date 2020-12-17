@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import coil.load
-import com.example.sportsapp_1.DataClasses.UserValues
+import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.Visible

@@ -1,4 +1,4 @@
-package com.example.sportsapp_1
+package com.example.sportsapp_1.Activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,8 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.sportsapp_1.DataClasses.UserValues
+import com.example.sportsapp_1.Model.UserValues
+import com.example.sportsapp_1.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.signup.*

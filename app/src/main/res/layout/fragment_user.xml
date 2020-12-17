@@ -12,13 +12,14 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/rezervation_toolbar"
+            android:id="@+id/editprofile_toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorPrimaryGreen"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:menu="@menu/userpage_top_menu"
+            app:title=" "
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +31,7 @@
             android:background="@drawable/rounded_corners_userpage_top"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rezervation_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/editprofile_toolbar" />
 
         <TextView
             android:id="@+id/tv_header_user"
@@ -41,10 +42,10 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/rezervation_toolbar"
+            app:layout_constraintBottom_toBottomOf="@+id/editprofile_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rezervation_toolbar" />
+            app:layout_constraintTop_toTopOf="@+id/editprofile_toolbar" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_profile_photo3"
@@ -54,7 +55,7 @@
             android:src="@drawable/profile_photo"
             app:layout_constraintBottom_toBottomOf="@+id/v_user_backround"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rezervation_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/editprofile_toolbar" />
 
 
         <TextView
@@ -70,7 +71,7 @@
             android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@+id/tv_userPage_username"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rezervation_toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/editprofile_toolbar"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView

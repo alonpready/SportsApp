@@ -18,8 +18,8 @@
         <activity
             android:name=".MainPage"
             android:label="@string/title_activity_main_page" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Activities.SignUpActivity" />
+        <activity android:name=".Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +28,7 @@
 
         </activity>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
 
         </activity>
     </application>

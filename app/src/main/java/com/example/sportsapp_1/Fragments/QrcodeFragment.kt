@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import coil.load
-import com.example.sportsapp_1.DataClasses.UserValues
+import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.QrCodeInstantType.FALSE
@@ -26,7 +26,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
-import kotlinx.android.synthetic.main.fragment_homepage.*
 import kotlinx.android.synthetic.main.fragment_qrcode.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

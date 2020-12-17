@@ -1,6 +1,4 @@
-package com.example.sportsapp_1.DataClasses
-
-import android.graphics.Bitmap
+package com.example.sportsapp_1.Model
 
 data class UserValues(var userEmail: String = "",
                       var userKey: String? = "",

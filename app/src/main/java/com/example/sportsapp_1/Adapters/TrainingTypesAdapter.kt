@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsapp_1.R
-import com.example.sportsapp_1.DataClasses.TrainingVideos
+import com.example.sportsapp_1.Model.TrainingVideos
 
 class TrainingTypesAdapter(private val mContext: Context,
                            private val trainingVideosList: List<TrainingVideos>,

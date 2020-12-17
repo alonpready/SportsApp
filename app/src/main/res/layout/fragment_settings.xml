@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.RezervationFragment">
+    tools:context=".Fragments.ToolbarMenuPage.SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rezpage_cl">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/editprofile_toolbar"
+            android:id="@+id/settings_toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorPrimaryGreen"
@@ -23,37 +21,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <TextView
-            android:id="@+id/tv_header_rezervation"
+            android:id="@+id/tv_Settings_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rezervasyonlar"
+            android:text="Ayarlar"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/editprofile_toolbar"
+            app:layout_constraintBottom_toBottomOf="@+id/settings_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/settings_toolbar" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_rezervation_profile_photo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/profilephp"
-            app:layout_constraintBottom_toBottomOf="@+id/editprofile_toolbar"
+        <ImageView
+            android:id="@+id/iv_Connection_back_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/abc_vector_test"
+            app:layout_constraintBottom_toBottomOf="@+id/settings_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="@+id/settings_toolbar"
+            app:layout_constraintTop_toTopOf="@+id/settings_toolbar" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <ProgressBar
-        android:id="@+id/rezPage_progressbar"
-        style="@android:style/Widget.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
 </FrameLayout>

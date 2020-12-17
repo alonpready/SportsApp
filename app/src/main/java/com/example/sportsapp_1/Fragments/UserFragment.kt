@@ -13,14 +13,18 @@ import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import coil.load
-import com.example.sportsapp_1.DataClasses.UserValues
-import com.example.sportsapp_1.LoginActivity
+import com.example.sportsapp_1.Model.UserValues
+import com.example.sportsapp_1.Fragments.ToolbarMenuPage.ConnectionFragment
+import com.example.sportsapp_1.Fragments.ToolbarMenuPage.EditProfileFragment
+import com.example.sportsapp_1.Fragments.ToolbarMenuPage.SettingsFragment
+import com.example.sportsapp_1.Activities.LoginActivity
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.Visible
@@ -78,7 +82,7 @@ class UserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         user_cl.Gone()
         userPage_progressbar.Visible()
-
+        (activity as AppCompatActivity?)!!.setSupportActionBar(editprofile_toolbar)
         setClicks()
         circularProgressBar()
         userInfoLoad()
@@ -88,7 +92,7 @@ class UserFragment : Fragment() {
 
     private fun userInfoLoad(){
 
-        userPageTextView = view!!.findViewById(R.id.tv_userPage_username)
+        userPageTextView = requireView().findViewById(R.id.tv_userPage_username)
         val reference = FirebaseDatabase.getInstance().reference
         val currentUser = FirebaseAuth.getInstance().currentUser
         val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
@@ -97,7 +101,10 @@ class UserFragment : Fragment() {
                 for (singleSnapshot in snapshot!!.children) {
                     userValues = singleSnapshot.getValue(UserValues::class.java)
 
-                    setUser(userValues?.userName?.capitalize(Locale.getDefault()), userValues?.userPhotoUrl)
+                    setUser(
+                        userValues?.userName?.capitalize(Locale.getDefault()),
+                        userValues?.userPhotoUrl
+                    )
 
 
                 }
@@ -118,7 +125,7 @@ class UserFragment : Fragment() {
         auth.signOut()
         val intent = Intent(getActivity(), LoginActivity::class.java)
         activity?.startActivity(intent)
-        val manager: FragmentManager = activity!!.supportFragmentManager
+        val manager: FragmentManager = requireActivity().supportFragmentManager
         val trans: FragmentTransaction = manager.beginTransaction()
         trans.remove(this)
         trans.commit()
@@ -138,7 +145,7 @@ class UserFragment : Fragment() {
                 )
             } != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
-                activity!!,
+                requireActivity(),
                 arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
                 1
             )
@@ -178,7 +185,10 @@ class UserFragment : Fragment() {
 
                     if (Build.VERSION.SDK_INT >= 28) {
                         val source =
-                            ImageDecoder.createSource(activity!!.contentResolver, selectedPicture!!)
+                            ImageDecoder.createSource(
+                                requireActivity().contentResolver,
+                                selectedPicture!!
+                            )
                         val bitmap = ImageDecoder.decodeBitmap(source)
                         iv_profile_photo3.setImageBitmap(bitmap)
                     } else {
@@ -239,7 +249,7 @@ class UserFragment : Fragment() {
         gymCurrentUser = 12
 
         circularProgressXML = v_userpage_CircularProgressBar_1
-        circularProgressXML = view!!.findViewById(R.id.v_userpage_CircularProgressBar_1)
+        circularProgressXML = requireView().findViewById(R.id.v_userpage_CircularProgressBar_1)
 
         v_userpage_CircularProgressBar_1.apply {
             progress = gymCurrentUser.toFloat()
@@ -302,18 +312,33 @@ class UserFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.userpage_top_menu,menu)
+        inflater.inflate(R.menu.userpage_top_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_editprofile -> {}
-            R.id.menu_connection -> {}
-            R.id.menu_settings -> {}
-            R.id.menu_signout -> {}
+            R.id.menu_editprofile -> {
+                loadFragment(EditProfileFragment())
+            }
+            R.id.menu_connection -> {
+                loadFragment(ConnectionFragment())
+            }
+            R.id.menu_settings -> {
+                loadFragment(SettingsFragment())
+            }
+            R.id.menu_signout -> {
+                signOut()
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        transaction?.replace(R.id.fragmentContainerView, fragment)
+        transaction?.addToBackStack(null)
+        transaction?.commit()
     }
 }
 
