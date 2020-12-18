@@ -35,6 +35,7 @@ class HomepageFragment() : Fragment() {
     private lateinit var circularProgressXML: View
     private var userValues: UserValues? = null
     private var trainingVideos : TrainingVideos? = null
+    private var trNames = ArrayList<String>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -158,198 +159,46 @@ class HomepageFragment() : Fragment() {
     private fun takenewList(){
 
 
-        var reference = FirebaseDatabase.getInstance().reference
-        var onKol = reference.child("videos").child("onKol")
-        var Gogus = reference.child("videos").child("Gogus")
-        var Sirt = reference.child("videos").child("Sırt")
-        var ArkaKol = reference.child("videos").child("arkaKol")
-        var Bacak = reference.child("videos").child("Bacak")
-        var Karın = reference.child("videos").child("Karın")
-        var Omuz = reference.child("videos").child("Omuz")
+        trNames.add("onKol")
+        trNames.add("Gogus")
+        trNames.add("Sırt")
+        trNames.add("arkaKol")
+        trNames.add("Bacak")
+        trNames.add("Karın")
+        trNames.add("Omuz")
+
+        for (video in trNames) {
 
 
-        onKol.addListenerForSingleValueEvent(object : ValueEventListener {
+            var reference = FirebaseDatabase.getInstance().reference
+            var query = reference.child("videos").child(video)
 
-            override fun onDataChange(snapshot: DataSnapshot) {
+            query.addListenerForSingleValueEvent(object : ValueEventListener {
 
-                for (singleSnapshot in snapshot!!.children) {
+                override fun onDataChange(snapshot: DataSnapshot) {
 
-                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
+                    for (singleSnapshot in snapshot!!.children) {
+                        trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
 
-                    createnewList(
-                        trainingVideos!!.trLevel,
-                        trainingVideos!!.trName,
-                        trainingVideos!!.trPeriod,
-                        trainingVideos!!.trTime,
-                        trainingVideos!!.trVideoId,
-                        "onKol",
-                        trainingVideos!!.trVideoNumber
-                    )
+                        createnewList(
+                            trainingVideos!!.trLevel,
+                            trainingVideos!!.trName,
+                            trainingVideos!!.trPeriod,
+                            trainingVideos!!.trTime,
+                            trainingVideos!!.trVideoId
+                        )
 
-
-                }
-
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
-        Gogus.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                for (singleSnapshot in snapshot!!.children) {
-                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-
-                    createnewList(
-                        trainingVideos!!.trLevel,
-                        trainingVideos!!.trName,
-                        trainingVideos!!.trPeriod,
-                        trainingVideos!!.trTime,
-                        trainingVideos!!.trVideoId,
-                        "Gogus",
-                        trainingVideos!!.trVideoNumber
-                    )
+                    }
 
 
                 }
 
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-        Sirt.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-
-                for (singleSnapshot in snapshot!!.children) {
-                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-
-                    createnewList(
-                        trainingVideos!!.trLevel,
-                        trainingVideos!!.trName,
-                        trainingVideos!!.trPeriod,
-                        trainingVideos!!.trTime,
-                        trainingVideos!!.trVideoId,
-                        "Sırt",
-                        trainingVideos!!.trVideoNumber
-                    )
-
-
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
                 }
 
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-        ArkaKol.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-
-                for (singleSnapshot in snapshot!!.children) {
-                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-
-                    createnewList(
-                        trainingVideos!!.trLevel,
-                        trainingVideos!!.trName,
-                        trainingVideos!!.trPeriod,
-                        trainingVideos!!.trTime,
-                        trainingVideos!!.trVideoId,
-                        "arkaKol",
-                        trainingVideos!!.trVideoNumber
-                    )
-
-
-                }
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-        Bacak.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                for (singleSnapshot in snapshot!!.children) {
-                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-
-                    createnewList(
-                        trainingVideos!!.trLevel,
-                        trainingVideos!!.trName,
-                        trainingVideos!!.trPeriod,
-                        trainingVideos!!.trTime,
-                        trainingVideos!!.trVideoId,
-                        "Bacak",
-                        trainingVideos!!.trVideoNumber
-                    )
-
-                }
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-        Karın.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                for (singleSnapshot in snapshot!!.children) {
-                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-
-                    createnewList(
-                        trainingVideos!!.trLevel,
-                        trainingVideos!!.trName,
-                        trainingVideos!!.trPeriod,
-                        trainingVideos!!.trTime,
-                        trainingVideos!!.trVideoId,
-                        "Karın",
-                        trainingVideos!!.trVideoNumber
-                    )
-
-
-                }
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-        Omuz.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-
-                for (singleSnapshot in snapshot!!.children) {
-                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-
-                    createnewList(
-                        trainingVideos!!.trLevel,
-                        trainingVideos!!.trName,
-                        trainingVideos!!.trPeriod,
-                        trainingVideos!!.trTime,
-                        trainingVideos!!.trVideoId,
-                        "Omuz",
-                        trainingVideos!!.trVideoNumber
-                    )
-
-                }
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-
-
+            })
+        }
 
     }
     private fun createnewList(
@@ -357,13 +206,11 @@ class HomepageFragment() : Fragment() {
         name: String,
         period: String,
         time: String,
-        videoId: String,
-        type: String,
-        vNumber: Int
-    ){
+        videoId: String
+        ){
 
         var x = true
-        var photo: Int = R.drawable.iv_dumbell_lift
+
 
         var newVideo = TrainingVideos(
             level,
@@ -371,9 +218,7 @@ class HomepageFragment() : Fragment() {
             period,
             time,
             videoId,
-            photo,
-            vNumber
-        )
+            )
 
             for (i in listOfTrainingVideos){
                 if(i.trName == name){
@@ -387,7 +232,7 @@ class HomepageFragment() : Fragment() {
 
 
                     val random = Random
-                    var r =random.nextInt(0, 5)
+                    var r =random.nextInt(0, 7)
                     if (r == 2 ) {
                         listOfrandomTrVideos.add(newVideo)
                     }

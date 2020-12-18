@@ -34,6 +34,7 @@ class VideosFragment() : Fragment() {
     private var listOfBacak = ArrayList<TrainingVideos>()
     private var listOfKarın = ArrayList<TrainingVideos>()
     private var listOfOmuz = ArrayList<TrainingVideos>()
+    private var trNames = ArrayList<String>()
 
 
     private var userValues: UserValues? = null
@@ -178,154 +179,50 @@ class VideosFragment() : Fragment() {
     private fun takenewList(){
 
 
-            var reference = FirebaseDatabase.getInstance().reference
-            var onKol = reference.child("videos").child("onKol")
-            var Gogus = reference.child("videos").child("Gogus")
-            var Sirt = reference.child("videos").child("Sırt")
-            var ArkaKol = reference.child("videos").child("arkaKol")
-            var Bacak = reference.child("videos").child("Bacak")
-            var Karın = reference.child("videos").child("Karın")
-            var Omuz = reference.child("videos").child("Omuz")
+            trNames.add("onKol")
+            trNames.add("Gogus")
+            trNames.add("Sırt")
+            trNames.add("arkaKol")
+            trNames.add("Bacak")
+            trNames.add("Karın")
+            trNames.add("Omuz")
 
-            onKol.addListenerForSingleValueEvent(object : ValueEventListener {
+        for (video in trNames) {
+
+
+            var reference = FirebaseDatabase.getInstance().reference
+            var query = reference.child("videos").child(video)
+
+            query.addListenerForSingleValueEvent(object : ValueEventListener {
 
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     for (singleSnapshot in snapshot!!.children) {
                         trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
 
-                        createnewList(trainingVideos!!.trLevel,
-                                    trainingVideos!!.trName,
-                                    trainingVideos!!.trPeriod,
-                                    trainingVideos!!.trTime,
-                                    trainingVideos!!.trVideoId,
-                            "onKol"
+                        createnewList(
+                            trainingVideos!!.trLevel,
+                            trainingVideos!!.trName,
+                            trainingVideos!!.trPeriod,
+                            trainingVideos!!.trTime,
+                            trainingVideos!!.trVideoId,
+                            video
                         )
 
                     }
 
 
                 }
+
                 override fun onCancelled(error: DatabaseError) {
                     TODO("Not yet implemented")
                 }
 
             })
-            Gogus.addListenerForSingleValueEvent(object : ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (singleSnapshot in snapshot!!.children) {
-                        trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-
-                        createnewList(trainingVideos!!.trLevel,
-                            trainingVideos!!.trName,
-                            trainingVideos!!.trPeriod,
-                            trainingVideos!!.trTime,
-                            trainingVideos!!.trVideoId,
-                            "Gogus")
-                    }
-
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-            })
-            Sirt.addListenerForSingleValueEvent(object : ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (singleSnapshot in snapshot!!.children) {
-                        trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-
-                           createnewList(trainingVideos!!.trLevel,
-                            trainingVideos!!.trName,
-                            trainingVideos!!.trPeriod,
-                            trainingVideos!!.trTime,
-                            trainingVideos!!.trVideoId,
-                            "Sırt")
-
-                    }
-
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-            })
-            ArkaKol.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (singleSnapshot in snapshot!!.children) {
-                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-
-                    createnewList(trainingVideos!!.trLevel,
-                        trainingVideos!!.trName,
-                        trainingVideos!!.trPeriod,
-                        trainingVideos!!.trTime,
-                        trainingVideos!!.trVideoId,
-                        "arkaKol")
-
-                }
-
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-            Bacak.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (singleSnapshot in snapshot!!.children) {
-                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-
-                    createnewList(trainingVideos!!.trLevel,
-                        trainingVideos!!.trName,
-                        trainingVideos!!.trPeriod,
-                        trainingVideos!!.trTime,
-                        trainingVideos!!.trVideoId,
-                        "Bacak")
-
-                }
-
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-            Karın.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (singleSnapshot in snapshot!!.children) {
-                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-
-                    createnewList(trainingVideos!!.trLevel,
-                        trainingVideos!!.trName,
-                        trainingVideos!!.trPeriod,
-                        trainingVideos!!.trTime,
-                        trainingVideos!!.trVideoId,
-                        "Karın")
-
-                }
-
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-            Omuz.addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (singleSnapshot in snapshot!!.children) {
-                    trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
-
-                    createnewList(trainingVideos!!.trLevel,
-                        trainingVideos!!.trName,
-                        trainingVideos!!.trPeriod,
-                        trainingVideos!!.trTime,
-                        trainingVideos!!.trVideoId,
-                        "Omuz")
-
-                }
-
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-
         }
+
+    }
+
     private fun createnewList(level: String, name: String, period: String, time: String, videoId: String, type: String){
 
         var x = true
@@ -341,29 +238,6 @@ class VideosFragment() : Fragment() {
             "Karın" ->  photo = R.drawable.iv_dead_lift
             "Omuz" ->  photo = R.drawable.iv_benc_press
         }
-       /* if (type == "onKol"){
-            photo = R.drawable.iv_dumbell_lift
-        }
-        else if (type == "Gogus"){
-            photo = R.drawable.iv_benc_press
-        }
-        else if (type == "Sırt"){
-            photo = R.drawable.iv_dead_lift
-        }
-        else if (type == "arkaKol"){
-            photo = R.drawable.iv_dumbell_lift
-        }
-        else if (type == "Bacak"){
-            photo = R.drawable.iv_dead_lift
-        }
-        else if (type == "Karın"){
-            photo = R.drawable.iv_dead_lift
-        }
-        else if (type == "Omuz"){
-            photo = R.drawable.iv_benc_press
-        }
-        */
-
 
         var newVideo = TrainingVideos(
             level,
@@ -374,93 +248,88 @@ class VideosFragment() : Fragment() {
             photo
         )
 
+        when (type){
+            "onKol" ->{
+                for (i in listOfOnKol){
+                    if(i.trName == name){
+                        x = false
+                    }
+                }
 
-        if (type == "onKol") {
-
-           for (i in listOfOnKol){
-               if(i.trName == name){
-                   x = false
-               }
-           }
-
-            if(x)
-            {
-                listOfOnKol.add(newVideo)
-            }
-
-        }
-        else if (type == "Gogus") {
-            for (i in listOfGogus){
-                if(i.trName == name){
-                    x = false
+                if(x)
+                {
+                    listOfOnKol.add(newVideo)
                 }
             }
-            if(x)
-            {
-                listOfGogus.add(newVideo)
-            }
-
-        }
-        else if (type == "Sırt") {
-
-            for (i in listOfSirt){
-                if(i.trName == name){
-                    x = false
+            "Gogus" -> {
+                for (i in listOfGogus){
+                    if(i.trName == name){
+                        x = false
+                    }
+                }
+                if(x)
+                {
+                    listOfGogus.add(newVideo)
                 }
             }
-            if(x)
-            {
-                listOfSirt.add(newVideo)
-            }
-        }
-        else if (type == "arkaKol") {
-
-            for (i in listOfArkaKol){
-                if(i.trName == name){
-                    x = false
+            "Sırt" ->{
+                for (i in listOfSirt){
+                    if(i.trName == name){
+                        x = false
+                    }
+                }
+                if(x)
+                {
+                    listOfSirt.add(newVideo)
                 }
             }
-            if(x)
-            {
-                listOfArkaKol.add(newVideo)
-            }
-        }
-        else if (type == "Bacak") {
-
-            for (i in listOfBacak){
-                if(i.trName == name){
-                    x = false
+            "arkaKol" ->{
+                for (i in listOfArkaKol){
+                    if(i.trName == name){
+                        x = false
+                    }
+                }
+                if(x)
+                {
+                    listOfArkaKol.add(newVideo)
                 }
             }
-            if(x)
-            {
-                listOfBacak.add(newVideo)
-            }
-        }
-        else if (type == "Karın") {
-
-            for (i in listOfKarın){
-                if(i.trName == name){
-                    x = false
+            "Bacak" -> {
+                for (i in listOfBacak){
+                    if(i.trName == name){
+                        x = false
+                    }
+                }
+                if(x)
+                {
+                    listOfBacak.add(newVideo)
                 }
             }
-            if(x)
-            {
-                listOfKarın.add(newVideo)
-            }
-        }
-        else if (type == "Omuz") {
-
-            for (i in listOfOmuz){
-                if(i.trName == name){
-                    x = false
+            "Karın" -> {
+                for (i in listOfKarın){
+                    if(i.trName == name){
+                        x = false
+                    }
+                }
+                if(x)
+                {
+                    listOfKarın.add(newVideo)
                 }
             }
-            if(x)
-            {
-                listOfOmuz.add(newVideo)
+            "Omuz" -> {
+
+                for (i in listOfOmuz){
+                    if(i.trName == name){
+                        x = false
+                    }
+                }
+                if(x)
+                {
+                    listOfOmuz.add(newVideo)
+                }
             }
         }
+
 
     }
 
