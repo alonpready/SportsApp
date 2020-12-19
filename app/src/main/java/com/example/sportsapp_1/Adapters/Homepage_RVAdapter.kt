@@ -24,7 +24,7 @@ class Homepage_RVAdapter(private val mContext: Context,
         var iv_training_playIcon: ImageView
 
         init {
-            homepageCardView = view.findViewById(R.id.cv_homepage_cardview)
+            homepageCardView = view.findViewById(R.id.cv_reservation_cardview)
             tv_training_type = view.findViewById(R.id.tv_training_type)
             tv_training_repetition = view.findViewById(R.id.tv_training_repetition)
             iv_training_playIcon = view.findViewById(R.id.iv_training_playIcon)

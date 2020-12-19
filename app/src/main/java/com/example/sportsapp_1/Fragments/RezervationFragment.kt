@@ -1,16 +1,20 @@
 package com.example.sportsapp_1.Fragments
 
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
+import com.example.sportsapp_1.Adapters.Reservation_RVAdapter
+import com.example.sportsapp_1.Model.ReservationInfo
 import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
@@ -20,6 +24,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.cardview_rv_reservation.*
+import kotlinx.android.synthetic.main.fragment_homepage.*
 import kotlinx.android.synthetic.main.fragment_rezervation.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -27,7 +33,9 @@ import java.util.*
 
 
 class RezervationFragment : Fragment() {
-    private var userValues : UserValues? = null
+
+    private var reservationList = ArrayList<ReservationInfo>()
+    private var userValues: UserValues? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,8 +48,6 @@ class RezervationFragment : Fragment() {
                 startActivity(setIntent)
             }
         })
-
-
 
 
     }
@@ -61,41 +67,64 @@ class RezervationFragment : Fragment() {
         rezpage_cl.Gone()
         rezPage_progressbar.Visible()
         userInfoLoad()
+        initializeRv()
         iv_rezervation_profile_photo.setOnClickListener() {
             loadFragment(UserFragment())
         }
+    }
 
+    private fun initializeRv() {
+        takenewList()
+        reservation_rv.layoutManager = LinearLayoutManager(activity)
+        reservation_rv.adapter = Reservation_RVAdapter(requireContext(), reservationList) {
 
+        }
+    }
 
+    private fun takenewList() {
 
+        val t0 = ReservationInfo("07:30 - 09:00", 4, 10)
+        val t1 = ReservationInfo("09:00 - 10:30", 4, 10)
+        val t2 = ReservationInfo("10:30 - 12:00", 4, 10)
+        val t3 = ReservationInfo("12:00 - 13:30", 4, 10)
+        val t4 = ReservationInfo("13:30 - 15:00", 4, 10)
+        val t5 = ReservationInfo("15:00 - 16:30", 4, 10)
+        val t6 = ReservationInfo("16:30 - 18:00", 4, 10)
+        val t7 = ReservationInfo("18:00 - 19:30", 4, 10)
+        val t8 = ReservationInfo("19:30 - 21:00", 4, 10)
+        val t9 = ReservationInfo("21:00 - 22:30", 4, 10)
+        val t10 = ReservationInfo("22:30 - 00:00", 4, 10)
+
+        reservationList.add(t0)
+        reservationList.add(t1)
+        reservationList.add(t2)
+        reservationList.add(t3)
+        reservationList.add(t4)
+        reservationList.add(t5)
+        reservationList.add(t6)
+        reservationList.add(t7)
+        reservationList.add(t8)
+        reservationList.add(t9)
+        reservationList.add(t10)
     }
 
 
     private fun setClicks() {
-        button.setOnClickListener { pickDateTime() }
+        bt_select_date.setOnClickListener { pickDateTime() }
     }
+
     private fun pickDateTime() {
         val currentDateTime = Calendar.getInstance()
         val startYear = currentDateTime.get(Calendar.YEAR)
         val startMonth = currentDateTime.get(Calendar.MONTH)
         val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
-        val startHour = currentDateTime.get(Calendar.HOUR_OF_DAY)
-        val startMinute = currentDateTime.get(Calendar.MINUTE)
 
         DatePickerDialog(
             requireContext(),
             DatePickerDialog.OnDateSetListener { _, year, month, day ->
-                TimePickerDialog(
-                    requireContext(),
-                    TimePickerDialog.OnTimeSetListener { _, hour, minute ->
-                        val pickedDateTime = Calendar.getInstance()
-                        pickedDateTime.set(year, month, day, hour, minute)
-                        doSomethingWith(pickedDateTime)
-                    },
-                    startHour,
-                    startMinute,
-                    true
-                ).show()
+                val pickedDateTime = Calendar.getInstance()
+                pickedDateTime.set(year, month, day)
+                doSomethingWith(pickedDateTime)
             },
             startYear,
             startMonth,
@@ -105,7 +134,7 @@ class RezervationFragment : Fragment() {
 
     private fun doSomethingWith(pickedDateTime: Calendar) {
         val date = pickedDateTime.time
-        val dateFormat: DateFormat = SimpleDateFormat("yyyy-mm-dd hh:mm")
+        val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy")
         val strDate: String = dateFormat.format(date)
 
         editTextDate.setText(strDate)
@@ -119,7 +148,7 @@ class RezervationFragment : Fragment() {
         transaction?.commit()
     }
 
-    private fun userInfoLoad(){
+    private fun userInfoLoad() {
         val reference = FirebaseDatabase.getInstance().reference
         val currentUser = FirebaseAuth.getInstance().currentUser
         val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
@@ -140,12 +169,12 @@ class RezervationFragment : Fragment() {
         })
 
     }
+
     private fun minippLoad(photoUrl: String?) {
-        if (photoUrl != ""){
+        if (photoUrl != "") {
             iv_rezervation_profile_photo.load(photoUrl)
         }
         rezPage_progressbar.Gone()
         rezpage_cl.Visible()
     }
 }
-
