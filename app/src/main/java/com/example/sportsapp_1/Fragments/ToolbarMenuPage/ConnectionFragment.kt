@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.sportsapp_1.Fragments.UserFragment
 import com.example.sportsapp_1.R
-import kotlinx.android.synthetic.main.fragment_connection.*
+import kotlinx.android.synthetic.main.inside_fragment_connection.*
 
 
 class ConnectionFragment : Fragment() {
@@ -23,7 +23,7 @@ class ConnectionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_connection, container, false)
+        return inflater.inflate(R.layout.inside_fragment_connection, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

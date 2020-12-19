@@ -10,7 +10,7 @@ import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.signup.*
+import kotlinx.android.synthetic.main.activity_signup.*
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -19,7 +19,7 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.signup)
+        setContentView(R.layout.activity_signup)
         auth = FirebaseAuth.getInstance()
 
         val textView = findViewById<TextView>(R.id.tv_backto_login)

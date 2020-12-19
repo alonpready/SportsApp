@@ -3,13 +3,14 @@ package com.example.sportsapp_1.Activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.login.*
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -18,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login)
+        setContentView(R.layout.activity_login)
         setClicks()
 
         auth = FirebaseAuth.getInstance()
@@ -90,6 +91,5 @@ class LoginActivity : AppCompatActivity() {
         setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(setIntent)
     }
-
 
 }

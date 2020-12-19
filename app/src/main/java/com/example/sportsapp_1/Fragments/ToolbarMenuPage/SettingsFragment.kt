@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.sportsapp_1.Fragments.UserFragment
 import com.example.sportsapp_1.R
-import kotlinx.android.synthetic.main.fragment_connection.*
+import kotlinx.android.synthetic.main.inside_fragment_connection.*
 
 
 class SettingsFragment : Fragment() {
@@ -22,7 +22,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        return inflater.inflate(R.layout.inside_fragment_settings, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -10,7 +10,7 @@ import com.example.sportsapp_1.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-import kotlinx.android.synthetic.main.fragment_videospage.*
+import kotlinx.android.synthetic.main.inside_fragment_videospage.*
 
 
 class VideospageFragment(val data: TrainingVideos, val x: Int) : Fragment() {
@@ -30,7 +30,7 @@ class VideospageFragment(val data: TrainingVideos, val x: Int) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(
-            R.layout.fragment_videospage,
+            R.layout.inside_fragment_videospage,
             container,
             false
         )

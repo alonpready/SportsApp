@@ -33,7 +33,7 @@ class Homepage_RVAdapter(private val mContext: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolderOfDesignObjects {
 
-        val view = LayoutInflater.from(mContext).inflate(R.layout.homepage_rv_cardview, parent, false)
+        val view = LayoutInflater.from(mContext).inflate(R.layout.cardview_rv_homepage, parent, false)
         return CardViewHolderOfDesignObjects(view)
 
     }
