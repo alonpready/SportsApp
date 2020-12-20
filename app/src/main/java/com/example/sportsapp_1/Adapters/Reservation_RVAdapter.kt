@@ -4,37 +4,46 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsapp_1.Model.ReservationInfo
-import com.example.sportsapp_1.Model.TrainingVideos
 import com.example.sportsapp_1.R
 
-class Reservation_RVAdapter(private val mContext: Context,
-                            private val reservationList: ArrayList<ReservationInfo>,
-                            private val urlListener:(reservationList: ReservationInfo)-> Unit) :
+class Reservation_RVAdapter(
+    private val mContext: Context,
+    private val reservationList: ArrayList<ReservationInfo>,
+    private val urlListener: (reservationList: ReservationInfo) -> Unit
+) :
     RecyclerView.Adapter<Reservation_RVAdapter.CardViewHolderOfDesignObjects>() {
+
 
     inner class CardViewHolderOfDesignObjects(view: View) : RecyclerView.ViewHolder(view) {
 
         var reservationCardView: CardView
-        var reservationHour : TextView
-        
+        var reservationHour: TextView
+        var reservationProgressBar: ProgressBar
+        var reservationRatio: TextView
+        var reservationIcon: ImageView
 
 
         init {
             reservationCardView = view.findViewById(R.id.cv_reservation_cardview)
             reservationHour = view.findViewById(R.id.tv_Reservation_hours)
-            
+            reservationProgressBar = view.findViewById(R.id.pb_Reservation_progressBar)
+            reservationRatio = view.findViewById(R.id.tv_Reservation_ratio)
+            reservationIcon = view.findViewById(R.id.iv_Reservation_reserve)
+
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolderOfDesignObjects {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CardViewHolderOfDesignObjects {
 
-        val view = LayoutInflater.from(mContext).inflate(R.layout.cardview_rv_reservation, parent, false)
+        val view =
+            LayoutInflater.from(mContext).inflate(R.layout.cardview_rv_reservation, parent, false)
         return CardViewHolderOfDesignObjects(view)
 
     }
@@ -44,14 +53,20 @@ class Reservation_RVAdapter(private val mContext: Context,
         val reservation = reservationList[position]
 
         holder.reservationHour.text = reservation.reservationHour
-        
-        holder.reservationCardView.setOnClickListener {
-            urlListener.invoke(reservationList[position])
-            Toast.makeText(mContext,reservationList[position].reservationHour,Toast.LENGTH_SHORT).show()}
+        holder.reservationProgressBar.progress = reservationList[position].reservationCurrent
+        holder.reservationProgressBar.max = reservationList[position].reservationQuota
+        holder.reservationRatio.text =
+            "${reservationList[position].reservationCurrent}/${reservationList[position].reservationQuota}"
+        holder.reservationIcon.setOnClickListener {
+            urlListener.invoke(reservation)
+        }
+
     }
 
     override fun getItemCount(): Int {
 
         return reservationList.size
     }
+
+
 }

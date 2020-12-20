@@ -1,14 +1,14 @@
 package com.example.sportsapp_1.Fragments
 
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SeekBar
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,8 +24,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.cardview_rv_reservation.*
-import kotlinx.android.synthetic.main.fragment_homepage.*
 import kotlinx.android.synthetic.main.fragment_rezervation.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -36,21 +34,26 @@ class RezervationFragment : Fragment() {
 
     private var reservationList = ArrayList<ReservationInfo>()
     private var userValues: UserValues? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    lateinit var btnGoster:Button
 
-        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                Log.d("CDA", "onBackPressed Called")
-                val setIntent = Intent(Intent.ACTION_MAIN)
-                setIntent.addCategory(Intent.CATEGORY_HOME)
-                setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(setIntent)
-            }
-        })
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        val addCallback = activity?.onBackPressedDispatcher?.addCallback(this, object:
+            OnBackPressedCallback(true) { override fun handleOnBackPressed() {
+                    Log.d("CDA", "onBackPressed Called")
+                    val setIntent = Intent(Intent.ACTION_MAIN)
+                    setIntent.addCategory(Intent.CATEGORY_HOME)
+                    setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(setIntent)
+                } })
+
+
+
 
 
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,14 +64,33 @@ class RezervationFragment : Fragment() {
 
     }
 
+    private fun showMyCustomAlertDialog() {
+
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.custom_dialog_reservation)
+
+        val btSave = dialog.findViewById(R.id.bt_Dialog_save) as Button
+        val btCancel = dialog.findViewById(R.id.bt_Dialog_cancel) as Button
+        val tvText = dialog.findViewById(R.id.tv_Dialog_text) as TextView
+
+
+        btSave.setOnClickListener {
+            Toast.makeText(requireContext(), "Rezervasyonunuz kaydedildi.", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()}
+
+        btCancel.setOnClickListener { dialog.dismiss() }
+        dialog.show()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setClicks()
         rezpage_cl.Gone()
         rezPage_progressbar.Visible()
         userInfoLoad()
         initializeRv()
-        iv_rezervation_profile_photo.setOnClickListener() {
+        iv_rezervation_profile_photo.setOnClickListener{
             loadFragment(UserFragment())
         }
     }
@@ -77,23 +99,24 @@ class RezervationFragment : Fragment() {
         takenewList()
         reservation_rv.layoutManager = LinearLayoutManager(activity)
         reservation_rv.adapter = Reservation_RVAdapter(requireContext(), reservationList) {
-
+            showMyCustomAlertDialog()
         }
+
     }
 
     private fun takenewList() {
 
         val t0 = ReservationInfo("07:30 - 09:00", 4, 10)
-        val t1 = ReservationInfo("09:00 - 10:30", 4, 10)
-        val t2 = ReservationInfo("10:30 - 12:00", 4, 10)
-        val t3 = ReservationInfo("12:00 - 13:30", 4, 10)
-        val t4 = ReservationInfo("13:30 - 15:00", 4, 10)
-        val t5 = ReservationInfo("15:00 - 16:30", 4, 10)
-        val t6 = ReservationInfo("16:30 - 18:00", 4, 10)
-        val t7 = ReservationInfo("18:00 - 19:30", 4, 10)
-        val t8 = ReservationInfo("19:30 - 21:00", 4, 10)
-        val t9 = ReservationInfo("21:00 - 22:30", 4, 10)
-        val t10 = ReservationInfo("22:30 - 00:00", 4, 10)
+        val t1 = ReservationInfo("09:00 - 10:30", 5, 12)
+        val t2 = ReservationInfo("10:30 - 12:00", 3, 13)
+        val t3 = ReservationInfo("12:00 - 13:30", 1, 9)
+        val t4 = ReservationInfo("13:30 - 15:00", 9, 10)
+        val t5 = ReservationInfo("15:00 - 16:30", 8, 11)
+        val t6 = ReservationInfo("16:30 - 18:00", 4, 9)
+        val t7 = ReservationInfo("18:00 - 19:30", 3, 8)
+        val t8 = ReservationInfo("19:30 - 21:00", 9, 11)
+        val t9 = ReservationInfo("21:00 - 22:30", 10, 13)
+        val t10 = ReservationInfo("22:30 - 00:00", 2, 8)
 
         reservationList.add(t0)
         reservationList.add(t1)
@@ -125,11 +148,13 @@ class RezervationFragment : Fragment() {
                 val pickedDateTime = Calendar.getInstance()
                 pickedDateTime.set(year, month, day)
                 doSomethingWith(pickedDateTime)
+                Toast.makeText(requireContext(),"Seçilen tarihe göre doluluk oranları",Toast.LENGTH_SHORT).show()
             },
             startYear,
             startMonth,
             startDay
         ).show()
+
     }
 
     private fun doSomethingWith(pickedDateTime: Calendar) {
@@ -137,7 +162,9 @@ class RezervationFragment : Fragment() {
         val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy")
         val strDate: String = dateFormat.format(date)
 
+
         editTextDate.setText(strDate)
+
     }
 
 
