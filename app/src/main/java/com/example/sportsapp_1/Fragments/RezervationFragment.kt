@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.sportsapp_1.Adapters.Reservation_RVAdapter
 import com.example.sportsapp_1.Model.ReservationInfo
+import com.example.sportsapp_1.Model.TrainingVideos
 import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
@@ -30,6 +31,7 @@ import kotlinx.android.synthetic.main.fragment_rezervation.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class RezervationFragment : Fragment() {
@@ -67,35 +69,38 @@ class RezervationFragment : Fragment() {
         rezpage_cl.Gone()
         rezPage_progressbar.Visible()
         userInfoLoad()
-        initializeRv()
+
         iv_rezervation_profile_photo.setOnClickListener() {
             loadFragment(UserFragment())
         }
     }
 
-    private fun initializeRv() {
-        takenewList()
-        reservation_rv.layoutManager = LinearLayoutManager(activity)
-        reservation_rv.adapter = Reservation_RVAdapter(requireContext(), reservationList) {
 
-        }
+
+    private fun takenewList(strDate: String) {
+
+        var strDate = strDate
+
+        reservationList = createdefaultResList(strDate)
+
+
+
     }
 
-    private fun takenewList() {
 
-        val t0 = ReservationInfo("07:30 - 09:00", 4, 10)
-        val t1 = ReservationInfo("09:00 - 10:30", 4, 10)
-        val t2 = ReservationInfo("10:30 - 12:00", 4, 10)
-        val t3 = ReservationInfo("12:00 - 13:30", 4, 10)
-        val t4 = ReservationInfo("13:30 - 15:00", 4, 10)
-        val t5 = ReservationInfo("15:00 - 16:30", 4, 10)
-        val t6 = ReservationInfo("16:30 - 18:00", 4, 10)
-        val t7 = ReservationInfo("18:00 - 19:30", 4, 10)
-        val t8 = ReservationInfo("19:30 - 21:00", 4, 10)
-        val t9 = ReservationInfo("21:00 - 22:30", 4, 10)
-        val t10 = ReservationInfo("22:30 - 00:00", 4, 10)
+    private fun createdefaultResList(x: String): ArrayList<ReservationInfo>{
 
-        reservationList.add(t0)
+        var strDate = x
+        val t1 = ReservationInfo("09:00 - 10:30")
+        val t2 = ReservationInfo("10:30 - 12:00")
+        val t3 = ReservationInfo("12:00 - 13:30")
+        val t4 = ReservationInfo("13:30 - 15:00")
+        val t5 = ReservationInfo("15:00 - 16:30")
+        val t6 = ReservationInfo("16:30 - 18:00")
+        val t7 = ReservationInfo("18:00 - 19:30")
+        val t8 = ReservationInfo("19:30 - 21:00")
+        val t9 = ReservationInfo("21:00 - 22:30")
+
         reservationList.add(t1)
         reservationList.add(t2)
         reservationList.add(t3)
@@ -105,12 +110,22 @@ class RezervationFragment : Fragment() {
         reservationList.add(t7)
         reservationList.add(t8)
         reservationList.add(t9)
-        reservationList.add(t10)
+
+        for (i in 0 until reservationList.size) {
+            var reference = FirebaseDatabase.getInstance().reference
+            reference.child("reservations").child(strDate)
+                .child(reservationList[i].reservationHour)
+                .setValue(reservationList[i])
+        }
+
+        return reservationList
     }
 
 
     private fun setClicks() {
-        bt_select_date.setOnClickListener { pickDateTime() }
+        bt_select_date.setOnClickListener { pickDateTime()
+
+        }
     }
 
     private fun pickDateTime() {
@@ -135,9 +150,16 @@ class RezervationFragment : Fragment() {
     private fun doSomethingWith(pickedDateTime: Calendar) {
         val date = pickedDateTime.time
         val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy")
+        val dateFormat2: DateFormat = SimpleDateFormat("ddMMyyyy")
         val strDate: String = dateFormat.format(date)
-
+        val strDate2: String = dateFormat2.format(date)
         editTextDate.setText(strDate)
+
+        takenewList(strDate2)
+        reservation_rv.layoutManager = LinearLayoutManager(activity)
+        reservation_rv.adapter = Reservation_RVAdapter(requireContext(), reservationList, strDate2) {
+
+        }
     }
 
 

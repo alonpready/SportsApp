@@ -12,9 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsapp_1.Model.ReservationInfo
 import com.example.sportsapp_1.Model.TrainingVideos
 import com.example.sportsapp_1.R
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class Reservation_RVAdapter(private val mContext: Context,
                             private val reservationList: ArrayList<ReservationInfo>,
+                            private val takingdate: String,
                             private val urlListener:(reservationList: ReservationInfo)-> Unit) :
     RecyclerView.Adapter<Reservation_RVAdapter.CardViewHolderOfDesignObjects>() {
 
@@ -22,13 +27,12 @@ class Reservation_RVAdapter(private val mContext: Context,
 
         var reservationCardView: CardView
         var reservationHour : TextView
-        
-
+        var strDate2: String
 
         init {
             reservationCardView = view.findViewById(R.id.cv_reservation_cardview)
             reservationHour = view.findViewById(R.id.tv_Reservation_hours)
-            
+            strDate2 = takingdate
         }
     }
 
@@ -42,12 +46,48 @@ class Reservation_RVAdapter(private val mContext: Context,
     override fun onBindViewHolder(holder: CardViewHolderOfDesignObjects, position: Int) {
 
         val reservation = reservationList[position]
-
+        var newReservation: ReservationInfo ?= null
+        val strDate2 = takingdate
         holder.reservationHour.text = reservation.reservationHour
         
         holder.reservationCardView.setOnClickListener {
             urlListener.invoke(reservationList[position])
-            Toast.makeText(mContext,reservationList[position].reservationHour,Toast.LENGTH_SHORT).show()}
+            var reference = FirebaseDatabase.getInstance().reference
+            var query = reference.child("reservations").child(strDate2).child(reservationList[position].reservationHour)
+
+            query.addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    newReservation = snapshot.getValue(ReservationInfo::class.java)
+
+                    var newRes = createnewRes(
+                        newReservation!!.reservationHour,
+                        newReservation!!.reservationCurrent,
+                        newReservation!!.reservationQuota
+                    )
+                    if (newRes.reservationCurrent>newRes.reservationQuota){
+                        Toast. makeText(mContext,"Kota Doldu!",Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        query.setValue(newRes)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+
+        }
+    }
+
+    private fun createnewRes(hour: String, resCurrent: Int, resQuota: Int): ReservationInfo{
+
+        var newRes = ReservationInfo(
+            hour,
+            resCurrent + 1,
+            resQuota
+        )
+        return newRes
     }
 
     override fun getItemCount(): Int {
