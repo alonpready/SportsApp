@@ -194,9 +194,7 @@ class VideosFragment() : Fragment() {
             var query = reference.child("videos").child(video)
 
             query.addListenerForSingleValueEvent(object : ValueEventListener {
-
                 override fun onDataChange(snapshot: DataSnapshot) {
-
                     for (singleSnapshot in snapshot!!.children) {
                         trainingVideos = singleSnapshot.getValue(TrainingVideos::class.java)
 
@@ -208,7 +206,6 @@ class VideosFragment() : Fragment() {
                             trainingVideos!!.trVideoId,
                             video
                         )
-
                     }
 
 

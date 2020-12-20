@@ -67,9 +67,6 @@ class Reservation_RVAdapter(private val mContext: Context,
             "${reservationList[position].reservationCurrent}/${reservationList[position].reservationQuota}"
         holder.reservationIcon.setOnClickListener {
             urlListener.invoke(reservation)
-        }
-        holder.reservationCardView.setOnClickListener {
-            urlListener.invoke(reservationList[position])
             var reference = FirebaseDatabase.getInstance().reference
             var query = reference.child("reservations").child(strDate2).child(reservationList[position].reservationHour)
 
@@ -94,10 +91,8 @@ class Reservation_RVAdapter(private val mContext: Context,
                     TODO("Not yet implemented")
                 }
             })
-
         }
     }
-
     private fun createnewRes(hour: String, resCurrent: Int, resQuota: Int): ReservationInfo{
 
         var newRes = ReservationInfo(
@@ -114,6 +109,10 @@ class Reservation_RVAdapter(private val mContext: Context,
 
         return reservationList.size
     }
+    }
 
 
-}
+
+
+
+
