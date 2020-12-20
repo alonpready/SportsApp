@@ -232,10 +232,16 @@ class HomepageFragment() : Fragment() {
 
 
                     val random = Random
-                    var r =random.nextInt(0, 7)
+                    var r =random.nextInt(0, 6)
                     if (r == 2 ) {
+                        if (listOfrandomTrVideos.size < 6){
                         listOfrandomTrVideos.add(newVideo)
+                        }
+                        if (listOfrandomTrVideos.size>6){
+
+                        }
                     }
+
             }
 
     }
