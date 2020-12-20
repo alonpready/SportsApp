@@ -1,11 +1,13 @@
 package com.example.sportsapp_1.Adapters
 
+import android.app.Dialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsapp_1.Model.ReservationInfo
 import com.example.sportsapp_1.Model.TrainingVideos
@@ -15,17 +17,19 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class Reservation_RVAdapter(private val mContext: Context,
-                            private val reservationList: ArrayList<ReservationInfo>,
-                            private val takingdate: String,
-                            private val urlListener:(reservationList: ReservationInfo)-> Unit) :
+class Reservation_RVAdapter(
+    private val mContext: Context,
+    private val reservationList: ArrayList<ReservationInfo>,
+    private val takingdate: String,
+    private val urlListener: (reservationList: ReservationInfo) -> Unit
+) :
     RecyclerView.Adapter<Reservation_RVAdapter.CardViewHolderOfDesignObjects>() {
 
 
     inner class CardViewHolderOfDesignObjects(view: View) : RecyclerView.ViewHolder(view) {
 
         var reservationCardView: CardView
-        var reservationHour : TextView
+        var reservationHour: TextView
         var strDate2: String
 
         var reservationProgressBar: ProgressBar
@@ -48,7 +52,6 @@ class Reservation_RVAdapter(private val mContext: Context,
         parent: ViewGroup,
         viewType: Int
     ): CardViewHolderOfDesignObjects {
-
         val view =
             LayoutInflater.from(mContext).inflate(R.layout.cardview_rv_reservation, parent, false)
         return CardViewHolderOfDesignObjects(view)
@@ -58,44 +61,62 @@ class Reservation_RVAdapter(private val mContext: Context,
     override fun onBindViewHolder(holder: CardViewHolderOfDesignObjects, position: Int) {
 
         val reservation = reservationList[position]
-        var newReservation: ReservationInfo ?= null
+        var newReservation: ReservationInfo? = null
         val strDate2 = takingdate
         holder.reservationHour.text = reservation.reservationHour
         holder.reservationProgressBar.progress = reservationList[position].reservationCurrent
         holder.reservationProgressBar.max = reservationList[position].reservationQuota
         holder.reservationRatio.text =
             "${reservationList[position].reservationCurrent}/${reservationList[position].reservationQuota}"
+
         holder.reservationIcon.setOnClickListener {
             urlListener.invoke(reservation)
-            var reference = FirebaseDatabase.getInstance().reference
-            var query = reference.child("reservations").child(strDate2).child(reservationList[position].reservationHour)
 
-            query.addListenerForSingleValueEvent(object : ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    newReservation = snapshot.getValue(ReservationInfo::class.java)
+            val dialog = Dialog(mContext)
+            dialog.setContentView(R.layout.custom_dialog_reservation)
 
-                    var newRes = createnewRes(
-                        newReservation!!.reservationHour,
-                        newReservation!!.reservationCurrent,
-                        newReservation!!.reservationQuota
-                    )
-                    if (newRes.reservationCurrent>newRes.reservationQuota){
-                        Toast. makeText(mContext,"Kota Doldu!",Toast.LENGTH_SHORT).show()
+            val btSave = dialog.findViewById(R.id.bt_Dialog_save) as Button
+            val btCancel = dialog.findViewById(R.id.bt_Dialog_cancel) as Button
+            val tvText = dialog.findViewById(R.id.tv_Dialog_text) as TextView
+
+
+            btSave.setOnClickListener {
+                val reference = FirebaseDatabase.getInstance().reference
+                val query = reference.child("reservations").child(strDate2)
+                    .child(reservationList[position].reservationHour)
+
+                query.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        newReservation = snapshot.getValue(ReservationInfo::class.java)
+
+                        val newRes = createnewRes(
+                            newReservation!!.reservationHour,
+                            newReservation!!.reservationCurrent,
+                            newReservation!!.reservationQuota
+                        )
+                        if (newRes.reservationCurrent > newRes.reservationQuota) {
+                            Toast.makeText(mContext, "Kota Doldu!", Toast.LENGTH_SHORT).show()
+                        } else {
+                            query.setValue(newRes)
+                        }
                     }
-                    else {
-                        query.setValue(newRes)
-                    }
-                }
 
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-            })
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
+                dialog.dismiss()
+            }
+
+            btCancel.setOnClickListener { dialog.dismiss() }
+            dialog.show()
+
         }
     }
-    private fun createnewRes(hour: String, resCurrent: Int, resQuota: Int): ReservationInfo{
 
-        var newRes = ReservationInfo(
+    private fun createnewRes(hour: String, resCurrent: Int, resQuota: Int): ReservationInfo {
+
+        val newRes = ReservationInfo(
             hour,
             resCurrent + 1,
             resQuota
@@ -109,7 +130,12 @@ class Reservation_RVAdapter(private val mContext: Context,
 
         return reservationList.size
     }
+
+    private fun showMyCustomAlertDialog()  {
+
+
     }
+}
 
 
 

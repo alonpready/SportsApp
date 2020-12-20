@@ -1,13 +1,16 @@
 package com.example.sportsapp_1.Fragments
 
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.SeekBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -156,10 +159,8 @@ class RezervationFragment : Fragment() {
         takenewList(strDate2)
         reservation_rv.layoutManager = LinearLayoutManager(activity)
         reservation_rv.adapter = Reservation_RVAdapter(requireContext(), reservationList, strDate2) {
-
         }
     }
-
 
     private fun loadFragment(fragment: Fragment) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
