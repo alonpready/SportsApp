@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.sportsapp_1.Adapters.Reservation_RVAdapter
 import com.example.sportsapp_1.Model.ReservationInfo
-import com.example.sportsapp_1.Model.TrainingVideos
 import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
@@ -31,7 +30,6 @@ import kotlinx.android.synthetic.main.fragment_rezervation.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class RezervationFragment : Fragment() {
