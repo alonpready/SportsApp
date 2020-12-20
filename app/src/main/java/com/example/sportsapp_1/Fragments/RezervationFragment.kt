@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.sportsapp_1.Adapters.Reservation_RVAdapter
 import com.example.sportsapp_1.Model.ReservationInfo
+import com.example.sportsapp_1.Model.TrainingVideos
 import com.example.sportsapp_1.Model.UserValues
+import com.example.sportsapp_1.Model.userResValue
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.Visible
@@ -25,11 +27,13 @@ import kotlinx.android.synthetic.main.fragment_rezervation.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class RezervationFragment : Fragment() {
 
     private var reservationList = ArrayList<ReservationInfo>()
+    private var reservationTempList = ArrayList<ReservationInfo>()
     private var userValues: UserValues? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,22 +75,30 @@ class RezervationFragment : Fragment() {
 
     private fun takenewList(strDate: String) {
 
+        var strDate = strDate
+
         reservationList = createdefaultResList(strDate)
+
+
     }
 
 
     private fun createdefaultResList(x: String): ArrayList<ReservationInfo> {
 
         val strDate = x
-        val t1 = ReservationInfo("09:00 - 10:30")
-        val t2 = ReservationInfo("10:30 - 12:00")
-        val t3 = ReservationInfo("12:00 - 13:30")
-        val t4 = ReservationInfo("13:30 - 15:00")
-        val t5 = ReservationInfo("15:00 - 16:30")
-        val t6 = ReservationInfo("16:30 - 18:00")
-        val t7 = ReservationInfo("18:00 - 19:30")
-        val t8 = ReservationInfo("19:30 - 21:00")
-        val t9 = ReservationInfo("21:00 - 22:30")
+        var res: ReservationInfo ?= null
+        var users: userResValue ? = null
+
+
+        var t1 = ReservationInfo("09:00 - 10:30",reservationDate = strDate)
+        var t2 = ReservationInfo("10:30 - 12:00",reservationDate = strDate)
+        var t3 = ReservationInfo("12:00 - 13:30",reservationDate = strDate)
+        var t4 = ReservationInfo("13:30 - 15:00",reservationDate = strDate)
+        var t5 = ReservationInfo("15:00 - 16:30",reservationDate = strDate)
+        var t6 = ReservationInfo("16:30 - 18:00",reservationDate = strDate)
+        var t7 = ReservationInfo("18:00 - 19:30",reservationDate = strDate)
+        var t8 = ReservationInfo("19:30 - 21:00",reservationDate = strDate)
+        var t9 = ReservationInfo("21:00 - 22:30",reservationDate = strDate)
 
         reservationList.add(t1)
         reservationList.add(t2)
@@ -98,13 +110,56 @@ class RezervationFragment : Fragment() {
         reservationList.add(t8)
         reservationList.add(t9)
 
-        for (i in 0 until reservationList.size) {
+        reservationTempList.add(t1)
+        reservationTempList.add(t2)
+        reservationTempList.add(t3)
+        reservationTempList.add(t4)
+        reservationTempList.add(t5)
+        reservationTempList.add(t6)
+        reservationTempList.add(t7)
+        reservationTempList.add(t8)
+        reservationTempList.add(t9)
+
+
+        for (i in 0 until reservationList.size-1) {
             val reference = FirebaseDatabase.getInstance().reference
-            reference.child("reservations").child(strDate)
+            val query = reference.child("reservations").child(strDate)
                 .child(reservationList[i].reservationHour)
-                .setValue(reservationList[i])
+
+                query.addListenerForSingleValueEvent(object : ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        res = snapshot.getValue(ReservationInfo::class.java)
+                        if (null != res?.reservationCurrent){
+                            var changeRes = ReservationInfo(
+                                res!!.reservationHour,
+                                res!!.reservationCurrent,
+                                res!!.reservationQuota,
+                                res!!.reservationDate
+                            )
+
+                            reservationList[i] = changeRes
+                        }
+                        query.setValue(reservationList[i])
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
         }
         return reservationList
+    }
+
+    private fun pullCreatedResList(hour: String, current: Int, quota: Int): ReservationInfo{
+        val newRestValue = ReservationInfo(
+            hour,
+            current,
+            quota
+
+        )
+        return newRestValue
     }
 
     private fun setClicks() {

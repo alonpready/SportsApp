@@ -11,7 +11,10 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsapp_1.Model.ReservationInfo
 import com.example.sportsapp_1.Model.TrainingVideos
+import com.example.sportsapp_1.Model.userResValue
 import com.example.sportsapp_1.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserInfo
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -60,9 +63,11 @@ class Reservation_RVAdapter(
 
     override fun onBindViewHolder(holder: CardViewHolderOfDesignObjects, position: Int) {
 
+        var auth = FirebaseAuth.getInstance()
         val reservation = reservationList[position]
         var newReservation: ReservationInfo? = null
         val strDate2 = takingdate
+        var newUserRes : userResValue? = null
         holder.reservationHour.text = reservation.reservationHour
         holder.reservationProgressBar.progress = reservationList[position].reservationCurrent
         holder.reservationProgressBar.max = reservationList[position].reservationQuota
@@ -94,12 +99,28 @@ class Reservation_RVAdapter(
                         val newRes = createnewRes(
                             newReservation!!.reservationHour,
                             newReservation!!.reservationCurrent,
-                            newReservation!!.reservationQuota
+                            newReservation!!.reservationQuota,
+                            newReservation!!.reservationDate
                         )
                         if (newRes.reservationCurrent > newRes.reservationQuota) {
                             Toast.makeText(mContext, "Kota Doldu!", Toast.LENGTH_SHORT).show()
                         } else {
                             query.setValue(newRes)
+                            var query2= query.child("users").child(auth.currentUser!!.uid)
+
+                            query2.addListenerForSingleValueEvent(object : ValueEventListener{
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    newUserRes = snapshot.getValue(userResValue::class.java)
+
+                                    val newUserRes1 = createnewUserRes()
+                                    query2.setValue(newUserRes1)
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    TODO("Not yet implemented")
+                                }
+
+                            })
                             Toast.makeText(
                                 mContext,
                                 "${reservation.reservationHour} saatleri arasına rezervasyon yapılmıştır.",
@@ -118,27 +139,32 @@ class Reservation_RVAdapter(
         }
     }
 
-    private fun createnewRes(hour: String, resCurrent: Int, resQuota: Int): ReservationInfo {
+    private fun createnewRes(hour: String, resCurrent: Int, resQuota: Int, date: String): ReservationInfo {
 
         val newRes = ReservationInfo(
             hour,
             resCurrent + 1,
-            resQuota
+            resQuota,
+            date
         )
         return newRes
 
 
     }
 
+    private fun createnewUserRes(): userResValue{
+        var auth = FirebaseAuth.getInstance()
+        val newUserRes = userResValue(
+            auth.currentUser!!.uid
+        )
+        return newUserRes
+    }
     override fun getItemCount(): Int {
 
         return reservationList.size
     }
 
-    private fun showMyCustomAlertDialog()  {
 
-
-    }
 }
 
 
