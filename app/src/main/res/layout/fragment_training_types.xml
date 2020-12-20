@@ -121,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="20dp"
                     android:text="Ön Kol Hareketleri"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
@@ -184,6 +184,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_training_type4" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleview_training_types_5"
                     android:layout_width="match_parent"
@@ -194,6 +195,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_training_type5" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleview_training_types_6"
                     android:layout_width="match_parent"
@@ -204,6 +206,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_training_type6" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleview_training_types_7"
                     android:layout_width="match_parent"
@@ -215,6 +218,77 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_training_type7" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:background="#36D6D6D6"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_training_type1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_training_type1"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="411dp"
+                    android:layout_height="25dp"
+                    android:background="#36D6D6D6"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_training_type2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_training_type2" />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="411dp"
+                    android:layout_height="25dp"
+                    android:background="#36D6D6D6"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_training_type3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_training_type3" />
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="411dp"
+                    android:layout_height="25dp"
+                    android:background="#36D6D6D6"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_training_type4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_training_type4" />
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="411dp"
+                    android:layout_height="25dp"
+                    android:background="#36D6D6D6"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_training_type5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_training_type5" />
+
+                <View
+                    android:id="@+id/view6"
+                    android:layout_width="411dp"
+                    android:layout_height="25dp"
+                    android:background="#36D6D6D6"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_training_type6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_training_type6" />
+
+                <View
+                    android:id="@+id/view7"
+                    android:layout_width="411dp"
+                    android:layout_height="25dp"
+                    android:background="#36D6D6D6"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_training_type7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_training_type7" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

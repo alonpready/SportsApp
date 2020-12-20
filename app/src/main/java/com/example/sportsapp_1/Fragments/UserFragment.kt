@@ -253,14 +253,14 @@ class UserFragment : Fragment() {
 
         v_userpage_CircularProgressBar_1.apply {
             progress = gymCurrentUser.toFloat()
-            setProgressWithAnimation(85f, 3000)
+            setProgressWithAnimation(85f, 1900)
             progressMax = 150f
-            progressBarColorStart = Color.GREEN
-            progressBarColorEnd = Color.GREEN
+            progressBarColorStart = Color.parseColor("#84AC28")
+            progressBarColorEnd = Color.parseColor("#84AC28")
             progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
-            backgroundProgressBarColor = Color.DKGRAY
-            backgroundProgressBarColorStart = Color.DKGRAY
-            backgroundProgressBarColorEnd = Color.DKGRAY
+            backgroundProgressBarColor = Color.parseColor("#45FFFFFF")
+            backgroundProgressBarColorStart = Color.parseColor("#45FFFFFF")
+            backgroundProgressBarColorEnd = Color.parseColor("#45FFFFFF")
             backgroundProgressBarColorDirection =
                 CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
             progressBarWidth = 7f // in DP
@@ -272,14 +272,14 @@ class UserFragment : Fragment() {
 
         v_userpage_CircularProgressBar_2.apply {
             progress = gymCurrentUser.toFloat()
-            setProgressWithAnimation(183.toFloat(), 3000)
+            setProgressWithAnimation(183.toFloat(), 1900)
             progressMax = 200f
-            progressBarColorStart = Color.GREEN
-            progressBarColorEnd = Color.GREEN
+            progressBarColorStart = Color.parseColor("#84AC28")
+            progressBarColorEnd = Color.parseColor("#84AC28")
             progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
-            backgroundProgressBarColor = Color.DKGRAY
-            backgroundProgressBarColorStart = Color.DKGRAY
-            backgroundProgressBarColorEnd = Color.DKGRAY
+            backgroundProgressBarColor = Color.parseColor("#45FFFFFF")
+            backgroundProgressBarColorStart = Color.parseColor("#45FFFFFF")
+            backgroundProgressBarColorEnd = Color.parseColor("#45FFFFFF")
             backgroundProgressBarColorDirection =
                 CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
             progressBarWidth = 7f // in DP
@@ -291,14 +291,14 @@ class UserFragment : Fragment() {
 
         v_userpage_CircularProgressBar_3.apply {
             progress = gymCurrentUser.toFloat()
-            setProgressWithAnimation(19.4f, 3000)
+            setProgressWithAnimation(19.4f, 1900)
             progressMax = 25f
-            progressBarColorStart = Color.GREEN
-            progressBarColorEnd = Color.GREEN
+            progressBarColorStart = Color.parseColor("#84AC28")
+            progressBarColorEnd = Color.parseColor("#84AC28")
             progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
-            backgroundProgressBarColor = Color.DKGRAY
-            backgroundProgressBarColorStart = Color.DKGRAY
-            backgroundProgressBarColorEnd = Color.DKGRAY
+            backgroundProgressBarColor = Color.parseColor("#45FFFFFF")
+            backgroundProgressBarColorStart = Color.parseColor("#45FFFFFF")
+            backgroundProgressBarColorEnd = Color.parseColor("#45FFFFFF")
             backgroundProgressBarColorDirection =
                 CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
             progressBarWidth = 7f // in DP

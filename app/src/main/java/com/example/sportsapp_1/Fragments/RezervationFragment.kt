@@ -1,17 +1,11 @@
 package com.example.sportsapp_1.Fragments
 
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,8 +21,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.cardview_rv_reservation.*
-import kotlinx.android.synthetic.main.fragment_homepage.*
 import kotlinx.android.synthetic.main.fragment_rezervation.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -39,33 +31,33 @@ class RezervationFragment : Fragment() {
 
     private var reservationList = ArrayList<ReservationInfo>()
     private var userValues: UserValues? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                Log.d("CDA", "onBackPressed Called")
                 val setIntent = Intent(Intent.ACTION_MAIN)
                 setIntent.addCategory(Intent.CATEGORY_HOME)
                 setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(setIntent)
             }
         })
-
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_rezervation, container, false)
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
+
         setClicks()
         rezpage_cl.Gone()
         rezPage_progressbar.Visible()
@@ -77,21 +69,15 @@ class RezervationFragment : Fragment() {
     }
 
 
-
     private fun takenewList(strDate: String) {
 
-        var strDate = strDate
-
         reservationList = createdefaultResList(strDate)
-
-
-
     }
 
 
-    private fun createdefaultResList(x: String): ArrayList<ReservationInfo>{
+    private fun createdefaultResList(x: String): ArrayList<ReservationInfo> {
 
-        var strDate = x
+        val strDate = x
         val t1 = ReservationInfo("09:00 - 10:30")
         val t2 = ReservationInfo("10:30 - 12:00")
         val t3 = ReservationInfo("12:00 - 13:30")
@@ -113,19 +99,17 @@ class RezervationFragment : Fragment() {
         reservationList.add(t9)
 
         for (i in 0 until reservationList.size) {
-            var reference = FirebaseDatabase.getInstance().reference
+            val reference = FirebaseDatabase.getInstance().reference
             reference.child("reservations").child(strDate)
                 .child(reservationList[i].reservationHour)
                 .setValue(reservationList[i])
         }
-
         return reservationList
     }
 
-
     private fun setClicks() {
-        bt_select_date.setOnClickListener { pickDateTime()
-
+        bt_select_date.setOnClickListener {
+            pickDateTime()
         }
     }
 
@@ -158,8 +142,9 @@ class RezervationFragment : Fragment() {
 
         takenewList(strDate2)
         reservation_rv.layoutManager = LinearLayoutManager(activity)
-        reservation_rv.adapter = Reservation_RVAdapter(requireContext(), reservationList, strDate2) {
-        }
+        reservation_rv.adapter =
+            Reservation_RVAdapter(requireContext(), reservationList, strDate2) {
+            }
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -177,18 +162,13 @@ class RezervationFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (singleSnapshot in snapshot!!.children) {
                     userValues = singleSnapshot.getValue(UserValues::class.java)
-
                     minippLoad(userValues?.userPhotoUrl)
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
-
             }
-
         })
-
     }
 
     private fun minippLoad(photoUrl: String?) {

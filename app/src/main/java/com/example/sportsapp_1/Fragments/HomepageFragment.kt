@@ -59,7 +59,7 @@ class HomepageFragment() : Fragment() {
 
         val reference = FirebaseDatabase.getInstance().reference
         val queryCurrentUserVal = reference.child("gymCurrentUser").child("value")
-        var gymCapacity = 4
+        var gymCapacity = 30
         var gymCurrentUser = 5
 
         queryCurrentUserVal.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -78,12 +78,12 @@ class HomepageFragment() : Fragment() {
                     progress = gymCurrentUser.toFloat()
                     setProgressWithAnimation(gymCurrentUser.toFloat(), 3000)
                     progressMax = gymCapacity.toFloat()
-                    progressBarColorStart = Color.GREEN
-                    progressBarColorEnd = Color.GREEN
+                    progressBarColorStart = Color.parseColor("#84AC28")
+                    progressBarColorEnd = Color.parseColor("#84AC28")
                     progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
-                    backgroundProgressBarColor = Color.DKGRAY
-                    backgroundProgressBarColorStart = Color.DKGRAY
-                    backgroundProgressBarColorEnd = Color.DKGRAY
+                    backgroundProgressBarColor = Color.parseColor("#45FFFFFF")
+                    backgroundProgressBarColorStart = Color.parseColor("#45FFFFFF")
+                    backgroundProgressBarColorEnd = Color.parseColor("#45FFFFFF")
                     backgroundProgressBarColorDirection =
                         CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
                     progressBarWidth = 24f // in DP
@@ -170,8 +170,8 @@ class HomepageFragment() : Fragment() {
         for (video in trNames) {
 
 
-            var reference = FirebaseDatabase.getInstance().reference
-            var query = reference.child("videos").child(video)
+            val reference = FirebaseDatabase.getInstance().reference
+            val query = reference.child("videos").child(video)
 
             query.addListenerForSingleValueEvent(object : ValueEventListener {
 
@@ -232,13 +232,12 @@ class HomepageFragment() : Fragment() {
 
 
                     val random = Random
-                    var r =random.nextInt(0, 6)
+                    val r =random.nextInt(0, 5)
                     if (r == 2 ) {
                         if (listOfrandomTrVideos.size < 6){
                         listOfrandomTrVideos.add(newVideo)
                         }
                         if (listOfrandomTrVideos.size>6){
-
                         }
                     }
 

@@ -79,6 +79,8 @@ class Reservation_RVAdapter(
             val btCancel = dialog.findViewById(R.id.bt_Dialog_cancel) as Button
             val tvText = dialog.findViewById(R.id.tv_Dialog_text) as TextView
 
+            tvText.text = "${reservation.reservationHour} saatleri arasına rezervasyon yapmak istiyor musunuz?"
+
 
             btSave.setOnClickListener {
                 val reference = FirebaseDatabase.getInstance().reference
@@ -98,19 +100,21 @@ class Reservation_RVAdapter(
                             Toast.makeText(mContext, "Kota Doldu!", Toast.LENGTH_SHORT).show()
                         } else {
                             query.setValue(newRes)
+                            Toast.makeText(
+                                mContext,
+                                "${reservation.reservationHour} saatleri arasına rezervasyon yapılmıştır.",
+                                Toast.LENGTH_SHORT).show()
                         }
                     }
-
                     override fun onCancelled(error: DatabaseError) {
                         TODO("Not yet implemented")
                     }
                 })
                 dialog.dismiss()
-            }
 
+            }
             btCancel.setOnClickListener { dialog.dismiss() }
             dialog.show()
-
         }
     }
 

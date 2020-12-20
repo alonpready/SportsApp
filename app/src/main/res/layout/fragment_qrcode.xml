@@ -50,46 +50,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_qrcode"
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/bt_qrcodegiris"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.491"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editprofile_toolbar"
-            app:srcCompat="@drawable/rectangleqr" />
 
         <Button
             android:id="@+id/bt_qrcodegiris"
             android:layout_width="154dp"
             android:layout_height="54dp"
-            android:layout_marginStart="35dp"
-            android:layout_marginBottom="65dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/rounded_corners_green"
             android:text="GİRİŞ"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/iv_qrcode"
+            app:layout_constraintTop_toBottomOf="@+id/iv_qrcode" />
 
         <Button
             android:id="@+id/bt_qrcodecikis"
             android:layout_width="154dp"
             android:layout_height="54dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/rounded_corners_orange"
             android:text="ÇIKIŞ"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/iv_qrcode"
             app:layout_constraintTop_toBottomOf="@+id/iv_qrcode" />
 
         <TextView
@@ -100,6 +81,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_qrcode"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_marginTop="64dp"
+            android:src="@drawable/ic_baseline_qr_code_2_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editprofile_toolbar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <ProgressBar
