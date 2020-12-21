@@ -24,7 +24,7 @@ import kotlinx.coroutines.joinAll
 
 class Reservation_RVAdapter(
     private val mContext: Context,
-    private val reservationList: ArrayList<ReservationInfo>,
+    private var reservationList: ArrayList<ReservationInfo>,
     private val takingdate: String,
     private val urlListener: (reservationList: ReservationInfo) -> Unit
 ) :
@@ -51,6 +51,7 @@ class Reservation_RVAdapter(
             reservationRatio = view.findViewById(R.id.tv_Reservation_ratio)
             reservationIcon = view.findViewById(R.id.iv_Reservation_reserve)
             reservationCancelIcon = view.findViewById((R.id.iv_Reservation_canceled))
+
         }
     }
 
@@ -71,8 +72,8 @@ class Reservation_RVAdapter(
         var newReservation: ReservationInfo? = null
 
         val strDate2 = takingdate
-
         var referenceF = FirebaseDatabase.getInstance().reference
+
         var queryF = referenceF.child("users").child(auth.currentUser!!.uid).child("UserResId")
         queryF.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -82,12 +83,12 @@ class Reservation_RVAdapter(
 
                     holder.reservationIcon.Gone()
                     holder.reservationCancelIcon.Visible()
-
+                    break
                 }
                 else{
-                        holder.reservationIcon.Visible()
-                        holder.reservationCancelIcon.Gone()
-                    }
+                    holder.reservationIcon.Visible()
+                    holder.reservationCancelIcon.Gone()
+                }
                 }
             }
 
@@ -96,7 +97,6 @@ class Reservation_RVAdapter(
             }
 
         })
-
 
         holder.reservationHour.text = reservation.reservationHour
         holder.reservationProgressBar.progress = reservationList[position].reservationCurrent
@@ -189,8 +189,10 @@ class Reservation_RVAdapter(
             val dialog = Dialog(mContext)
             dialog.setContentView(R.layout.custom_dialog_reservation)
 
-            val btSave = dialog.findViewById(R.id.bt_Dialog_save) as Button
-            val btCancel = dialog.findViewById(R.id.bt_Dialog_cancel) as Button
+            var btSave = dialog.findViewById(R.id.bt_Dialog_save) as Button
+            btSave.text = "Evet"
+            var btCancel = dialog.findViewById(R.id.bt_Dialog_cancel) as Button
+            btCancel.text = "Hayır"
             val tvText = dialog.findViewById(R.id.tv_Dialog_text) as TextView
 
             tvText.text = "${reservation.reservationHour} saatleri arasındaki rezervasyon kaydını silmek istiyor musunuz?"
