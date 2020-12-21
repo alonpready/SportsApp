@@ -48,6 +48,9 @@ class SignUpActivity : AppCompatActivity() {
                 val user = UserValues(mail, auth.currentUser?.uid, surname, name, password)
                 FirebaseDatabase.getInstance().reference.child("users")
                     .child(auth.currentUser?.uid ?: "").setValue(user)
+                FirebaseDatabase.getInstance().reference.child("users")
+                    .child(auth.currentUser?.uid ?: "").child("UserResId")
+                    .child("defaultId").setValue("defaultId")
                 auth.signOut()
                 startActivity(Intent(this, LoginActivity::class.java))
             }

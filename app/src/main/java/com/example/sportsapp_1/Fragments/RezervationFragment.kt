@@ -31,7 +31,6 @@ import kotlin.collections.ArrayList
 class RezervationFragment : Fragment() {
 
     private var reservationList = ArrayList<ReservationInfo>()
-    private var reservationTempList = ArrayList<ReservationInfo>()
     private var userValues: UserValues? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
