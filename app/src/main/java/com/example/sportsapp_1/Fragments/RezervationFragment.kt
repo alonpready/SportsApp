@@ -12,9 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.sportsapp_1.Adapters.Reservation_RVAdapter
 import com.example.sportsapp_1.Model.ReservationInfo
-import com.example.sportsapp_1.Model.TrainingVideos
 import com.example.sportsapp_1.Model.UserValues
-import com.example.sportsapp_1.Model.userResValue
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.Visible
@@ -87,44 +85,34 @@ class RezervationFragment : Fragment() {
 
         val strDate = x
         var res: ReservationInfo ?= null
-        var users: userResValue ? = null
+
+        var reservationList1 = ArrayList<ReservationInfo>()
+
+        var t1 = ReservationInfo("09:00 - 10:30",reservationDate = strDate,reservationId = "${strDate} - 09:00 - 10:30")
+        var t2 = ReservationInfo("10:30 - 12:00",reservationDate = strDate,reservationId = "${strDate} - 10:30 - 12:00")
+        var t3 = ReservationInfo("12:00 - 13:30",reservationDate = strDate,reservationId = "${strDate} - 12:00 - 13:30")
+        var t4 = ReservationInfo("13:30 - 15:00",reservationDate = strDate,reservationId = "${strDate} - 13:30 - 15:00")
+        var t5 = ReservationInfo("15:00 - 16:30",reservationDate = strDate,reservationId = "${strDate} - 15:00 - 16:30")
+        var t6 = ReservationInfo("16:30 - 18:00",reservationDate = strDate,reservationId = "${strDate} - 16:30 - 18:00")
+        var t7 = ReservationInfo("18:00 - 19:30",reservationDate = strDate,reservationId = "${strDate} - 18:00 - 19:30")
+        var t8 = ReservationInfo("19:30 - 21:00",reservationDate = strDate,reservationId = "${strDate} - 19:30 - 21:00")
+        var t9 = ReservationInfo("21:00 - 22:30",reservationDate = strDate,reservationId = "${strDate} - 21:00 - 22:30")
+
+        reservationList1.add(t1)
+        reservationList1.add(t2)
+        reservationList1.add(t3)
+        reservationList1.add(t4)
+        reservationList1.add(t5)
+        reservationList1.add(t6)
+        reservationList1.add(t7)
+        reservationList1.add(t8)
+        reservationList1.add(t9)
 
 
-        var t1 = ReservationInfo("09:00 - 10:30",reservationDate = strDate)
-        var t2 = ReservationInfo("10:30 - 12:00",reservationDate = strDate)
-        var t3 = ReservationInfo("12:00 - 13:30",reservationDate = strDate)
-        var t4 = ReservationInfo("13:30 - 15:00",reservationDate = strDate)
-        var t5 = ReservationInfo("15:00 - 16:30",reservationDate = strDate)
-        var t6 = ReservationInfo("16:30 - 18:00",reservationDate = strDate)
-        var t7 = ReservationInfo("18:00 - 19:30",reservationDate = strDate)
-        var t8 = ReservationInfo("19:30 - 21:00",reservationDate = strDate)
-        var t9 = ReservationInfo("21:00 - 22:30",reservationDate = strDate)
-
-        reservationList.add(t1)
-        reservationList.add(t2)
-        reservationList.add(t3)
-        reservationList.add(t4)
-        reservationList.add(t5)
-        reservationList.add(t6)
-        reservationList.add(t7)
-        reservationList.add(t8)
-        reservationList.add(t9)
-
-        reservationTempList.add(t1)
-        reservationTempList.add(t2)
-        reservationTempList.add(t3)
-        reservationTempList.add(t4)
-        reservationTempList.add(t5)
-        reservationTempList.add(t6)
-        reservationTempList.add(t7)
-        reservationTempList.add(t8)
-        reservationTempList.add(t9)
-
-
-        for (i in 0 until reservationList.size-1) {
+        for (i in 0 until reservationList1.size) {
             val reference = FirebaseDatabase.getInstance().reference
             val query = reference.child("reservations").child(strDate)
-                .child(reservationList[i].reservationHour)
+                .child(reservationList1[i].reservationHour)
 
                 query.addListenerForSingleValueEvent(object : ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
@@ -134,12 +122,13 @@ class RezervationFragment : Fragment() {
                                 res!!.reservationHour,
                                 res!!.reservationCurrent,
                                 res!!.reservationQuota,
-                                res!!.reservationDate
+                                res!!.reservationDate,
+                                res!!.reservationId
                             )
 
-                            reservationList[i] = changeRes
+                            reservationList1[i] = changeRes
                         }
-                        query.setValue(reservationList[i])
+                        query.setValue(reservationList1[i])
                     }
 
                     override fun onCancelled(error: DatabaseError) {
@@ -149,18 +138,9 @@ class RezervationFragment : Fragment() {
                 })
 
         }
-        return reservationList
+        return reservationList1
     }
 
-    private fun pullCreatedResList(hour: String, current: Int, quota: Int): ReservationInfo{
-        val newRestValue = ReservationInfo(
-            hour,
-            current,
-            quota
-
-        )
-        return newRestValue
-    }
 
     private fun setClicks() {
         bt_select_date.setOnClickListener {
@@ -189,7 +169,7 @@ class RezervationFragment : Fragment() {
 
     private fun doSomethingWith(pickedDateTime: Calendar) {
         val date = pickedDateTime.time
-        val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy")
+        val dateFormat: DateFormat = SimpleDateFormat("dd  MMMM  EEEE yyyy ")
         val dateFormat2: DateFormat = SimpleDateFormat("ddMMyyyy")
         val strDate: String = dateFormat.format(date)
         val strDate2: String = dateFormat2.format(date)

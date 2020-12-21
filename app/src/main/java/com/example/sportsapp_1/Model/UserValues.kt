@@ -6,7 +6,8 @@ data class UserValues(var userEmail: String = "",
                       var userName:String = "",
                       var userPassword:String  ="",
                       var userPhotoUrl:String ="",
-                      var userInstant:Int = 0
+                      var userInstant:Int = 0,
+
 )
 
 
