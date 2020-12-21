@@ -83,10 +83,10 @@ class Reservation_RVAdapter(
                     holder.reservationIcon.Gone()
                     holder.reservationCancelIcon.Visible()
 
-                    }
-                    else{
-                        holder.reservationCancelIcon.Gone()
+                }
+                else{
                         holder.reservationIcon.Visible()
+                        holder.reservationCancelIcon.Gone()
                     }
                 }
             }
