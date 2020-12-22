@@ -24,15 +24,18 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_rezervation.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class RezervationFragment : Fragment() {
-
+    
     private var reservationList = ArrayList<ReservationInfo>()
     private var userValues: UserValues? = null
-
+    private lateinit var datePickerDate : LocalDate
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -70,42 +73,138 @@ class RezervationFragment : Fragment() {
     }
 
 
-    private fun takenewList(strDate: String) {
-
-        var strDate = strDate
-
-        reservationList = createdefaultResList(strDate)
-
-
-    }
-
-
     private fun createdefaultResList(x: String): ArrayList<ReservationInfo> {
 
         val strDate = x
         var res: ReservationInfo ?= null
 
         var reservationList1 = ArrayList<ReservationInfo>()
+        var formatter = DateTimeFormatter.ofPattern("HH:mm")
+        var now = LocalTime.now()
+        var nowDate = LocalDate.now()
 
-        var t1 = ReservationInfo("09:00 - 10:30",reservationDate = strDate,reservationId = "${strDate} - 09:00 - 10:30")
-        var t2 = ReservationInfo("10:30 - 12:00",reservationDate = strDate,reservationId = "${strDate} - 10:30 - 12:00")
-        var t3 = ReservationInfo("12:00 - 13:30",reservationDate = strDate,reservationId = "${strDate} - 12:00 - 13:30")
-        var t4 = ReservationInfo("13:30 - 15:00",reservationDate = strDate,reservationId = "${strDate} - 13:30 - 15:00")
-        var t5 = ReservationInfo("15:00 - 16:30",reservationDate = strDate,reservationId = "${strDate} - 15:00 - 16:30")
-        var t6 = ReservationInfo("16:30 - 18:00",reservationDate = strDate,reservationId = "${strDate} - 16:30 - 18:00")
-        var t7 = ReservationInfo("18:00 - 19:30",reservationDate = strDate,reservationId = "${strDate} - 18:00 - 19:30")
-        var t8 = ReservationInfo("19:30 - 21:00",reservationDate = strDate,reservationId = "${strDate} - 19:30 - 21:00")
-        var t9 = ReservationInfo("21:00 - 22:30",reservationDate = strDate,reservationId = "${strDate} - 21:00 - 22:30")
 
-        reservationList1.add(t1)
-        reservationList1.add(t2)
-        reservationList1.add(t3)
-        reservationList1.add(t4)
-        reservationList1.add(t5)
-        reservationList1.add(t6)
-        reservationList1.add(t7)
-        reservationList1.add(t8)
-        reservationList1.add(t9)
+        var t1 = ReservationInfo(
+            "09:00 - 10:30",
+            reservationDate = strDate,
+            reservationId = "${strDate} - 09:00 - 10:30")
+
+        var t2 = ReservationInfo(
+            "10:30 - 12:00",
+            reservationDate = strDate,
+            reservationId = "${strDate} - 10:30 - 12:00")
+
+        var t3 = ReservationInfo(
+            "12:00 - 13:30",
+            reservationDate = strDate,
+            reservationId = "${strDate} - 12:00 - 13:30")
+
+        var t4 = ReservationInfo(
+            "13:30 - 15:00",
+            reservationDate = strDate,
+            reservationId = "${strDate} - 13:30 - 15:00")
+
+        var t5 = ReservationInfo(
+            "15:00 - 16:30",
+            reservationDate = strDate,
+            reservationId = "${strDate} - 15:00 - 16:30")
+
+        var t6 = ReservationInfo(
+            "16:30 - 18:00",
+            reservationDate = strDate,
+            reservationId = "${strDate} - 16:30 - 18:00")
+
+        var t7 = ReservationInfo(
+            "18:00 - 19:30",
+            reservationDate = strDate,
+            reservationId = "${strDate} - 18:00 - 19:30")
+
+        var t8 = ReservationInfo(
+            "19:30 - 21:00",
+            reservationDate = strDate,
+            reservationId = "${strDate} - 19:30 - 21:00")
+
+        var t9 = ReservationInfo(
+            "21:00 - 22:30",
+            reservationDate = strDate,
+            reservationId = "${strDate} - 21:00 - 22:30")
+
+
+        when {
+
+            now.isBefore(LocalTime.parse("09:00", formatter))  || !nowDate.isEqual(datePickerDate)->  {
+                reservationList1.add(t1)
+                reservationList1.add(t2)
+                reservationList1.add(t3)
+                reservationList1.add(t4)
+                reservationList1.add(t5)
+                reservationList1.add(t6)
+                reservationList1.add(t7)
+                reservationList1.add(t8)
+                reservationList1.add(t9)
+            }
+
+
+            now.isBefore(LocalTime.parse("10:30",formatter)) -> {
+                reservationList1.add(t2)
+                reservationList1.add(t3)
+                reservationList1.add(t4)
+                reservationList1.add(t5)
+                reservationList1.add(t6)
+                reservationList1.add(t7)
+                reservationList1.add(t8)
+                reservationList1.add(t9)
+            }
+
+            now.isBefore(LocalTime.parse("12:00",formatter))-> {
+                reservationList1.add(t3)
+                reservationList1.add(t4)
+                reservationList1.add(t5)
+                reservationList1.add(t6)
+                reservationList1.add(t7)
+                reservationList1.add(t8)
+                reservationList1.add(t9)
+            }
+
+            now.isBefore(LocalTime.parse("13:30",formatter))-> {
+                reservationList1.add(t4)
+                reservationList1.add(t5)
+                reservationList1.add(t6)
+                reservationList1.add(t7)
+                reservationList1.add(t8)
+                reservationList1.add(t9)
+            }
+
+            now.isBefore(LocalTime.parse("15:00",formatter)) -> {
+                reservationList1.add(t5)
+                reservationList1.add(t6)
+                reservationList1.add(t7)
+                reservationList1.add(t8)
+                reservationList1.add(t9)
+            }
+
+            now.isBefore(LocalTime.parse("16:30",formatter)) -> {
+                reservationList1.add(t6)
+                reservationList1.add(t7)
+                reservationList1.add(t8)
+                reservationList1.add(t9)
+            }
+
+            now.isBefore(LocalTime.parse("18:00",formatter))-> {
+                reservationList1.add(t7)
+                reservationList1.add(t8)
+                reservationList1.add(t9)
+            }
+
+            now.isBefore(LocalTime.parse("19:30",formatter)) -> {
+                reservationList1.add(t8)
+                reservationList1.add(t9)
+            }
+
+            now.isBefore(LocalTime.parse("21:00",formatter)) -> {
+                reservationList1.add(t9)
+            }
+        }
 
 
         for (i in 0 until reservationList1.size) {
@@ -147,6 +246,11 @@ class RezervationFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        pickDateTime()
+    }
+
     private fun pickDateTime() {
         val currentDateTime = Calendar.getInstance()
         val startYear = currentDateTime.get(Calendar.YEAR)
@@ -160,6 +264,13 @@ class RezervationFragment : Fragment() {
                 val pickedDateTime = Calendar.getInstance()
                 pickedDateTime.set(year, month, day)
                 doSomethingWith(pickedDateTime)
+                /*
+                var dFormatCal = SimpleDateFormat("dd/MM/yyyy")
+                var dFormatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                var datePickerDateStr = dFormatCal.format(pickedDateTime.time)
+                datePickerDate = LocalDate.parse(datePickerDateStr, dFormatDate)
+                */
+
             },
             startYear,
             startMonth,
@@ -172,13 +283,25 @@ class RezervationFragment : Fragment() {
 
     }
 
+    private fun takenewList(strDate: String) {
+        var strDate = strDate
+        reservationList = createdefaultResList(strDate)
+    }
+
     private fun doSomethingWith(pickedDateTime: Calendar) {
         val date = pickedDateTime.time
-        val dateFormat: DateFormat = SimpleDateFormat("dd  MMMM  EEEE yyyy ")
+
+        var dFormatCal = SimpleDateFormat("dd/MM/yyyy")
+        var dFormatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        var datePickerDateStr = dFormatCal.format(pickedDateTime.time)
+        datePickerDate = LocalDate.parse(datePickerDateStr, dFormatDate)
+
+        val dateFormat: DateFormat = SimpleDateFormat("dd  MMMM yyyy EEEE")
         val dateFormat2: DateFormat = SimpleDateFormat("ddMMyyyy")
         val strDate: String = dateFormat.format(date)
         val strDate2: String = dateFormat2.format(date)
         editTextDate.setText(strDate)
+
 
         takenewList(strDate2)
         reservation_rv.layoutManager = LinearLayoutManager(activity)
