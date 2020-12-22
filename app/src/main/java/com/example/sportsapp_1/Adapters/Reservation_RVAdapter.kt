@@ -20,7 +20,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.coroutines.joinAll
+
 
 class Reservation_RVAdapter(
     private val mContext: Context,
@@ -96,13 +96,7 @@ class Reservation_RVAdapter(
                     override fun onDataChange(snapshot: DataSnapshot) {
                         res = snapshot.getValue(ReservationInfo::class.java)
                         if (res?.reservationCurrent != 0) {
-                            var changeRes = ReservationInfo(
-                                res!!.reservationHour,
-                                res!!.reservationCurrent,
-                                res!!.reservationQuota,
-                                res!!.reservationDate,
-                                res!!.reservationId
-                            )
+
                             holder.reservationProgressBar.progress = res!!.reservationCurrent
                             holder.reservationProgressBar.max = res!!.reservationQuota
                             holder.reservationRatio.text =
