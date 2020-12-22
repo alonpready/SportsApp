@@ -70,7 +70,7 @@ class Reservation_RVAdapter(
         var auth = FirebaseAuth.getInstance()
         val reservation = reservationList[position]
         var newReservation: ReservationInfo? = null
-
+        var res: ReservationInfo? = null
         val strDate2 = takingdate
         var referenceF = FirebaseDatabase.getInstance().reference
 
@@ -90,6 +90,36 @@ class Reservation_RVAdapter(
                     holder.reservationCancelIcon.Gone()
                 }
                 }
+                var queryQ = referenceF.child("reservations").child(strDate2)
+                    .child(reservationList[position].reservationHour)
+                queryQ.addListenerForSingleValueEvent(object : ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        res = snapshot.getValue(ReservationInfo::class.java)
+                        if (res?.reservationCurrent != 0) {
+                            var changeRes = ReservationInfo(
+                                res!!.reservationHour,
+                                res!!.reservationCurrent,
+                                res!!.reservationQuota,
+                                res!!.reservationDate,
+                                res!!.reservationId
+                            )
+                            holder.reservationProgressBar.progress = res!!.reservationCurrent
+                            holder.reservationProgressBar.max = res!!.reservationQuota
+                            holder.reservationRatio.text =
+                                "${res!!.reservationCurrent}/${res!!.reservationQuota}}"
+                        }
+                        else{
+                            holder.reservationProgressBar.progress = reservationList[position].reservationCurrent
+                            holder.reservationProgressBar.max = reservationList[position].reservationQuota
+                            holder.reservationRatio.text =
+                                "${reservationList[position].reservationCurrent}/${reservationList[position].reservationQuota}"
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -99,10 +129,9 @@ class Reservation_RVAdapter(
         })
 
         holder.reservationHour.text = reservation.reservationHour
-        holder.reservationProgressBar.progress = reservationList[position].reservationCurrent
-        holder.reservationProgressBar.max = reservationList[position].reservationQuota
-        holder.reservationRatio.text =
-            "${reservationList[position].reservationCurrent}/${reservationList[position].reservationQuota}"
+
+
+
 
         holder.reservationIcon.setOnClickListener {
             urlListener.invoke(reservation)

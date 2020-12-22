@@ -116,7 +116,7 @@ class RezervationFragment : Fragment() {
                 query.addListenerForSingleValueEvent(object : ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
                         res = snapshot.getValue(ReservationInfo::class.java)
-                        if (null != res?.reservationCurrent){
+                        if  (res?.reservationCurrent != null){
                             var changeRes = ReservationInfo(
                                 res!!.reservationHour,
                                 res!!.reservationCurrent,
