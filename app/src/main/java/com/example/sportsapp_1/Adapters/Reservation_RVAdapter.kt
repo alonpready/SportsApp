@@ -84,11 +84,10 @@ class Reservation_RVAdapter(
                     holder.reservationIcon.Gone()
                     holder.reservationCancelIcon.Visible()
                     break
-                }
-                else{
+                } else{
                     holder.reservationIcon.Visible()
                     holder.reservationCancelIcon.Gone()
-                }
+                    }
                 }
                 var queryQ = referenceF.child("reservations").child(strDate2)
                     .child(reservationList[position].reservationHour)
@@ -139,7 +138,6 @@ class Reservation_RVAdapter(
 
             tvText.text = "${reservation.reservationHour} saatleri arasına rezervasyon yapmak istiyor musunuz?"
 
-
             btSave.setOnClickListener {
                 val reference = FirebaseDatabase.getInstance().reference
                 val query = reference.child("reservations").child(strDate2)
@@ -158,14 +156,16 @@ class Reservation_RVAdapter(
                         )
                         if (newRes.reservationCurrent > newRes.reservationQuota) {
                             Toast.makeText(mContext, "Kota Doldu!", Toast.LENGTH_SHORT).show()
-                        } else {
+                        }
+
+                        else {
 
                             var query2 = reference.child("users").child(auth.currentUser!!.uid).child("UserResId")
                             query2.addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onDataChange(snapshot: DataSnapshot) {
                                     for (singleSnapshot in snapshot!!.children) {
                                         var checkid = singleSnapshot.getValue(String::class.java)
-                                        if (checkid == newRes.reservationId){
+                                        if (checkid == newRes.reservationId ){
                                             x = false
                                             Toast.makeText(
                                                 mContext,
@@ -173,6 +173,16 @@ class Reservation_RVAdapter(
                                                 Toast.LENGTH_SHORT
                                             ).show()
                                         }
+                                        else if(checkid?.substring(0, 8) == newRes.reservationDate){
+                                            x = false
+                                            Toast.makeText(
+                                                mContext,
+                                                "Aynı tarih için yalnızca 1 rezervasyon yapılabilir!",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+
+
                                     }
                                     if (x){
                                         query2.child(newRes.reservationId).
@@ -280,7 +290,6 @@ class Reservation_RVAdapter(
 
         }
     }
-
 
 
     private fun createnewRes(hour: String, resCurrent: Int, resQuota: Int, date: String, id: String): ReservationInfo {
