@@ -153,7 +153,8 @@ class RezervationFragment : Fragment() {
         val startMonth = currentDateTime.get(Calendar.MONTH)
         val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
 
-        DatePickerDialog(
+
+        var datePickerDialog = DatePickerDialog(
             requireContext(),
             DatePickerDialog.OnDateSetListener { _, year, month, day ->
                 val pickedDateTime = Calendar.getInstance()
@@ -163,7 +164,12 @@ class RezervationFragment : Fragment() {
             startYear,
             startMonth,
             startDay
-        ).show()
+        )
+
+        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+        datePickerDialog.show()
+
+
     }
 
     private fun doSomethingWith(pickedDateTime: Calendar) {
