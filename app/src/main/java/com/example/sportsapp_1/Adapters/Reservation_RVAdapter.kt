@@ -99,7 +99,7 @@ class Reservation_RVAdapter(
                             holder.reservationProgressBar.progress = res!!.reservationCurrent
                             holder.reservationProgressBar.max = res!!.reservationQuota
                             holder.reservationRatio.text =
-                                "${res!!.reservationCurrent}/${res!!.reservationQuota}}"
+                                "${res!!.reservationCurrent}/${res!!.reservationQuota}"
                         }
                         else{
                             holder.reservationProgressBar.progress = reservationList[position].reservationCurrent
