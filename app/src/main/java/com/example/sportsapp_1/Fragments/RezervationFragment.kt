@@ -32,10 +32,13 @@ import kotlin.collections.ArrayList
 
 
 class RezervationFragment : Fragment() {
-    
+
+    private lateinit var date: Date
     private var reservationList = ArrayList<ReservationInfo>()
     private var userValues: UserValues? = null
     private lateinit var datePickerDate : LocalDate
+
+    private var pickedDateTime = Calendar.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -204,6 +207,7 @@ class RezervationFragment : Fragment() {
             now.isBefore(LocalTime.parse("21:00",formatter)) -> {
                 reservationList1.add(t9)
             }
+
         }
 
 
@@ -212,28 +216,28 @@ class RezervationFragment : Fragment() {
             val query = reference.child("reservations").child(strDate)
                 .child(reservationList1[i].reservationHour)
 
-                query.addListenerForSingleValueEvent(object : ValueEventListener{
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        res = snapshot.getValue(ReservationInfo::class.java)
-                        if  (res?.reservationCurrent != null){
-                            var changeRes = ReservationInfo(
-                                res!!.reservationHour,
-                                res!!.reservationCurrent,
-                                res!!.reservationQuota,
-                                res!!.reservationDate,
-                                res!!.reservationId
-                            )
+            query.addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    res = snapshot.getValue(ReservationInfo::class.java)
+                    if  (res?.reservationCurrent != null){
+                        var changeRes = ReservationInfo(
+                            res!!.reservationHour,
+                            res!!.reservationCurrent,
+                            res!!.reservationQuota,
+                            res!!.reservationDate,
+                            res!!.reservationId
+                        )
 
-                            reservationList1[i] = changeRes
-                        }
-                        query.setValue(reservationList1[i])
+                        reservationList1[i] = changeRes
                     }
+                    query.setValue(reservationList1[i])
+                }
 
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
-                    }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
 
-                })
+            })
 
         }
         return reservationList1
@@ -248,7 +252,9 @@ class RezervationFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        pickDateTime()
+
+        doSomethingWith(pickedDateTime)
+
     }
 
     private fun pickDateTime() {
@@ -261,16 +267,10 @@ class RezervationFragment : Fragment() {
         var datePickerDialog = DatePickerDialog(
             requireContext(),
             DatePickerDialog.OnDateSetListener { _, year, month, day ->
-                val pickedDateTime = Calendar.getInstance()
+                pickedDateTime = Calendar.getInstance()
                 pickedDateTime.set(year, month, day)
-                doSomethingWith(pickedDateTime)
-                /*
-                var dFormatCal = SimpleDateFormat("dd/MM/yyyy")
-                var dFormatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                var datePickerDateStr = dFormatCal.format(pickedDateTime.time)
-                datePickerDate = LocalDate.parse(datePickerDateStr, dFormatDate)
-                */
 
+                doSomethingWith(pickedDateTime)
             },
             startYear,
             startMonth,
@@ -289,7 +289,7 @@ class RezervationFragment : Fragment() {
     }
 
     private fun doSomethingWith(pickedDateTime: Calendar) {
-        val date = pickedDateTime.time
+        date = pickedDateTime.time
 
         var dFormatCal = SimpleDateFormat("dd/MM/yyyy")
         var dFormatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy")
