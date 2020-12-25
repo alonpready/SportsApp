@@ -25,6 +25,7 @@ import com.example.sportsapp_1.Fragments.ToolbarMenuPage.ConnectionFragment
 import com.example.sportsapp_1.Fragments.ToolbarMenuPage.EditProfileFragment
 import com.example.sportsapp_1.Fragments.ToolbarMenuPage.SettingsFragment
 import com.example.sportsapp_1.Activities.LoginActivity
+import com.example.sportsapp_1.Fragments.ToolbarMenuPage.AccountInfoFragment
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.Visible
@@ -46,10 +47,11 @@ class UserFragment : Fragment() {
     var selectedPicture: Uri? = null
     var storaged = FirebaseStorage.getInstance()
     private lateinit var db: FirebaseDatabase
-    private var gymCapacity: Int = 0
-    private var gymCurrentUser: Int = 0
     private lateinit var circularProgressXML: View
     private var userValues: UserValues? = null
+    var userWeight : Int = 1
+    var userHeight : Int = 1
+    var userMassIndex : Double = 1.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,11 +73,14 @@ class UserFragment : Fragment() {
 
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_user, container, false)
+
+            return inflater.inflate(R.layout.fragment_user, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -245,15 +250,12 @@ class UserFragment : Fragment() {
 
     private fun circularProgressBar() {
 
-        gymCapacity = 34
-        gymCurrentUser = 12
-
         circularProgressXML = v_userpage_CircularProgressBar_1
         circularProgressXML = requireView().findViewById(R.id.v_userpage_CircularProgressBar_1)
 
         v_userpage_CircularProgressBar_1.apply {
-            progress = gymCurrentUser.toFloat()
-            setProgressWithAnimation(85f, 1900)
+
+            setProgressWithAnimation(userWeight.toFloat(), 1900)
             progressMax = 150f
             progressBarColorStart = Color.parseColor("#84AC28")
             progressBarColorEnd = Color.parseColor("#84AC28")
@@ -271,8 +273,8 @@ class UserFragment : Fragment() {
         }
 
         v_userpage_CircularProgressBar_2.apply {
-            progress = gymCurrentUser.toFloat()
-            setProgressWithAnimation(183.toFloat(), 1900)
+
+            setProgressWithAnimation(userHeight.toFloat(), 1900)
             progressMax = 200f
             progressBarColorStart = Color.parseColor("#84AC28")
             progressBarColorEnd = Color.parseColor("#84AC28")
@@ -290,8 +292,8 @@ class UserFragment : Fragment() {
         }
 
         v_userpage_CircularProgressBar_3.apply {
-            progress = gymCurrentUser.toFloat()
-            setProgressWithAnimation(19.4f, 1900)
+
+            setProgressWithAnimation(userMassIndex.toFloat(), 1900)
             progressMax = 25f
             progressBarColorStart = Color.parseColor("#84AC28")
             progressBarColorEnd = Color.parseColor("#84AC28")
@@ -321,6 +323,9 @@ class UserFragment : Fragment() {
             R.id.menu_editprofile -> {
                 loadFragment(EditProfileFragment())
             }
+            R.id.menu_account_info -> {
+                loadFragment(AccountInfoFragment())
+            }
             R.id.menu_connection -> {
                 loadFragment(ConnectionFragment())
             }
@@ -328,10 +333,21 @@ class UserFragment : Fragment() {
                 loadFragment(SettingsFragment())
             }
             R.id.menu_signout -> {
-                signOut()
+                signOutAlertDialog()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+    private fun signOutAlertDialog() {
+
+        val alert = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+        alert
+            .setPositiveButton("Evet") {_,_-> signOut()}
+            .setNegativeButton("Hayır") {_,_->}
+            .setTitle("Uyarı")
+            .setMessage("Çıkış yapmak istediğinize emin misiniz?")
+            .create()
+            .show()
     }
 
     private fun loadFragment(fragment: Fragment) {

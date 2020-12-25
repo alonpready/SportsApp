@@ -88,11 +88,11 @@
                 android:layout_marginBottom="24dp"
                 android:fontFamily="casual"
                 android:textColor="@color/colorTwo"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/v_user_backround"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="Alpay Güler" />
+                tools:text="Alpay" />
 
             <TextView
                 android:id="@+id/tv_health_information"
@@ -165,7 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="85\nkg"
+                android:text="0\nkg"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/v_userpage_CircularProgressBar_1"
@@ -189,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="183\ncm"
+                android:text="0\ncm"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/v_userpage_CircularProgressBar_2"
@@ -212,7 +212,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="19,4\nkg/m²"
+                android:text="0\nkg/m²"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/v_userpage_CircularProgressBar_3"
@@ -242,20 +242,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_under_graph2" />
 
-            <TextView
-                android:id="@+id/tv_last_gym_entrances"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="14sp"
-                android:fontFamily="sans-serif-smallcaps"
-                android:text="SON SALON GİRİŞLERİ"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/v_user_backround2"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/v_user_backround2"
-                app:layout_constraintTop_toTopOf="@+id/v_user_backround2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
