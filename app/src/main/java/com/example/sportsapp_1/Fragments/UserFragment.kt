@@ -44,14 +44,16 @@ class UserFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var userPageTextView: TextView
+    private var userWeight: TextView? = null
+    private var userHeight: TextView? = null
+    private var userMassIndex: TextView? = null
     var selectedPicture: Uri? = null
     var storaged = FirebaseStorage.getInstance()
     private lateinit var db: FirebaseDatabase
     private lateinit var circularProgressXML: View
     private var userValues: UserValues? = null
-    var userWeight : Int = 1
-    var userHeight : Int = 1
-    var userMassIndex : Double = 1.0
+    private var mHeight: Int = 0
+    private var mWeight: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,14 +86,16 @@ class UserFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
+
         user_cl.Gone()
         userPage_progressbar.Visible()
         (activity as AppCompatActivity?)!!.setSupportActionBar(editprofile_toolbar)
         setClicks()
         circularProgressBar()
         userInfoLoad()
-
+        userPhysicalInfoLoad()
 
     }
 
@@ -123,12 +127,53 @@ class UserFragment : Fragment() {
         })
 
     }
+    private fun userPhysicalInfoLoad(){
+
+        userWeight = requireView().findViewById(R.id.tv_in_graph1)
+        userHeight = requireView().findViewById(R.id.tv_in_graph2)
+        userMassIndex = requireView().findViewById(R.id.tv_in_graph3)
+        val reference = FirebaseDatabase.getInstance().reference
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (singleSnapshot in snapshot!!.children) {
+                    userValues = singleSnapshot.getValue(UserValues::class.java)
+
+                    setPhysicalInfo(
+                        userValues?.userWeight!!,
+                        userValues?.userHeight!!,
+                    )
+
+
+                }
+            }
+
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
+    }
+
+    private fun setPhysicalInfo(weight: Int, height: Int) {
+        userWeight?.text = "${weight}\nkg"
+        userHeight?.text = "${height}\ncm"
+        var message : Double = (weight.toDouble()/((height.toDouble()/100)*(height.toDouble()/100)))
+        var message2 = String.format("%.2f", message)
+        if (height == 0 || weight == 0) {
+            userMassIndex?.text = "0\nkg/m2"
+        }
+        else userMassIndex?.text ="$message2\nkg/m2"
+    }
 
 
 
     private fun signOut() {
         auth.signOut()
-        val intent = Intent(getActivity(), LoginActivity::class.java)
+        val intent = Intent(activity, LoginActivity::class.java)
         activity?.startActivity(intent)
         val manager: FragmentManager = requireActivity().supportFragmentManager
         val trans: FragmentTransaction = manager.beginTransaction()
@@ -250,12 +295,31 @@ class UserFragment : Fragment() {
 
     private fun circularProgressBar() {
 
+        val reference = FirebaseDatabase.getInstance().reference
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (singleSnapshot in snapshot!!.children) {
+                    userValues = singleSnapshot.getValue(UserValues::class.java)
+                    mWeight = userValues!!.userWeight
+                    mHeight = userValues!!.userHeight
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
+
         circularProgressXML = v_userpage_CircularProgressBar_1
         circularProgressXML = requireView().findViewById(R.id.v_userpage_CircularProgressBar_1)
 
         v_userpage_CircularProgressBar_1.apply {
 
-            setProgressWithAnimation(userWeight.toFloat(), 1900)
+            setProgressWithAnimation(mWeight.toDouble().toFloat(), 1900)
             progressMax = 150f
             progressBarColorStart = Color.parseColor("#84AC28")
             progressBarColorEnd = Color.parseColor("#84AC28")
@@ -274,7 +338,7 @@ class UserFragment : Fragment() {
 
         v_userpage_CircularProgressBar_2.apply {
 
-            setProgressWithAnimation(userHeight.toFloat(), 1900)
+            setProgressWithAnimation(mHeight.toFloat(), 1900)
             progressMax = 200f
             progressBarColorStart = Color.parseColor("#84AC28")
             progressBarColorEnd = Color.parseColor("#84AC28")
@@ -293,7 +357,7 @@ class UserFragment : Fragment() {
 
         v_userpage_CircularProgressBar_3.apply {
 
-            setProgressWithAnimation(userMassIndex.toFloat(), 1900)
+            setProgressWithAnimation(mHeight.toFloat(), 1900)
             progressMax = 25f
             progressBarColorStart = Color.parseColor("#84AC28")
             progressBarColorEnd = Color.parseColor("#84AC28")
@@ -338,6 +402,7 @@ class UserFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
+
     private fun signOutAlertDialog() {
 
         val alert = androidx.appcompat.app.AlertDialog.Builder(requireContext())
