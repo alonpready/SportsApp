@@ -1,3 +1,5 @@
+
+
 package com.example.sportsapp_1.Activities
 
 import android.content.Intent
@@ -6,6 +8,7 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sportsapp_1.Model.UserBodydInfo
 import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
 import com.google.firebase.auth.FirebaseAuth
@@ -45,12 +48,18 @@ class SignUpActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                var reference = FirebaseDatabase.getInstance().reference
                 val user = UserValues(mail, auth.currentUser?.uid, surname, name, password)
                 FirebaseDatabase.getInstance().reference.child("users")
                     .child(auth.currentUser?.uid ?: "").setValue(user)
                 FirebaseDatabase.getInstance().reference.child("users")
                     .child(auth.currentUser?.uid ?: "").child("UserResId")
                     .child("defaultId").setValue("defaultId")
+
+                val userBodyInfo = UserBodydInfo()
+
+                var query =  reference.child("users").child(auth.currentUser!!.uid)
+                    .child("userBodyInfo").setValue(userBodyInfo)
                 auth.signOut()
                 startActivity(Intent(this, LoginActivity::class.java))
             }

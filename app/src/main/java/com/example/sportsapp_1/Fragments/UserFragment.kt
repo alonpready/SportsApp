@@ -26,6 +26,7 @@ import com.example.sportsapp_1.Fragments.ToolbarMenuPage.EditProfileFragment
 import com.example.sportsapp_1.Fragments.ToolbarMenuPage.SettingsFragment
 import com.example.sportsapp_1.Activities.LoginActivity
 import com.example.sportsapp_1.Fragments.ToolbarMenuPage.AccountInfoFragment
+import com.example.sportsapp_1.Model.UserBodydInfo
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.Visible
@@ -44,16 +45,13 @@ class UserFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var userPageTextView: TextView
-    private var userWeight: TextView? = null
-    private var userHeight: TextView? = null
-    private var userMassIndex: TextView? = null
     var selectedPicture: Uri? = null
     var storaged = FirebaseStorage.getInstance()
     private lateinit var db: FirebaseDatabase
     private lateinit var circularProgressXML: View
     private var userValues: UserValues? = null
-    private var mHeight: Int = 0
-    private var mWeight: Int = 0
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +79,7 @@ class UserFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-            return inflater.inflate(R.layout.fragment_user, container, false)
+        return inflater.inflate(R.layout.fragment_user, container, false)
 
     }
 
@@ -95,7 +93,7 @@ class UserFragment : Fragment() {
         setClicks()
         circularProgressBar()
         userInfoLoad()
-        userPhysicalInfoLoad()
+        //userPhysicalInfoLoad()
 
     }
 
@@ -111,7 +109,7 @@ class UserFragment : Fragment() {
                     userValues = singleSnapshot.getValue(UserValues::class.java)
 
                     setUser(
-                        userValues?.userName?.capitalize(Locale.getDefault()),
+                        userValues?.userName,
                         userValues?.userPhotoUrl
                     )
 
@@ -127,48 +125,6 @@ class UserFragment : Fragment() {
         })
 
     }
-    private fun userPhysicalInfoLoad(){
-
-        userWeight = requireView().findViewById(R.id.tv_in_graph1)
-        userHeight = requireView().findViewById(R.id.tv_in_graph2)
-        userMassIndex = requireView().findViewById(R.id.tv_in_graph3)
-        val reference = FirebaseDatabase.getInstance().reference
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
-        query.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (singleSnapshot in snapshot!!.children) {
-                    userValues = singleSnapshot.getValue(UserValues::class.java)
-
-                    setPhysicalInfo(
-                        userValues?.userWeight!!,
-                        userValues?.userHeight!!,
-                    )
-
-
-                }
-            }
-
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-        })
-
-    }
-
-    private fun setPhysicalInfo(weight: Int, height: Int) {
-        userWeight?.text = "${weight}\nkg"
-        userHeight?.text = "${height}\ncm"
-        var message : Double = (weight.toDouble()/((height.toDouble()/100)*(height.toDouble()/100)))
-        var message2 = String.format("%.2f", message)
-        if (height == 0 || weight == 0) {
-            userMassIndex?.text = "0\nkg/m2"
-        }
-        else userMassIndex?.text ="$message2\nkg/m2"
-    }
-
 
 
     private fun signOut() {
@@ -293,86 +249,92 @@ class UserFragment : Fragment() {
 
     }
 
-    private fun circularProgressBar() {
 
-        val reference = FirebaseDatabase.getInstance().reference
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
-        query.addListenerForSingleValueEvent(object : ValueEventListener {
+    private fun circularProgressBar() {
+        var userBodyInfo: UserBodydInfo ?= null
+        var reference = FirebaseDatabase.getInstance().reference
+        var query = reference.child("users").child(auth.currentUser!!.uid)
+            .child("userBodyInfo")
+        query.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (singleSnapshot in snapshot!!.children) {
-                    userValues = singleSnapshot.getValue(UserValues::class.java)
-                    mWeight = userValues!!.userWeight
-                    mHeight = userValues!!.userHeight
+                userBodyInfo = snapshot.getValue(UserBodydInfo::class.java)
+
+                var changeUserBodyInfo1 = UserBodydInfo(
+                    userBodyInfo!!.userWeight,
+                    userBodyInfo!!.userHeight,
+                    userBodyInfo!!.userMassIndex
+                )
+
+                circularProgressXML = v_userpage_CircularProgressBar_1
+                circularProgressXML = requireView().findViewById(R.id.v_userpage_CircularProgressBar_1)
+
+                v_userpage_CircularProgressBar_1.apply {
+
+                    setProgressWithAnimation(changeUserBodyInfo1.userWeight, 1900)
+                    progressMax = 150f
+                    progressBarColorStart = Color.parseColor("#84AC28")
+                    progressBarColorEnd = Color.parseColor("#84AC28")
+                    progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                    backgroundProgressBarColor = Color.parseColor("#45FFFFFF")
+                    backgroundProgressBarColorStart = Color.parseColor("#45FFFFFF")
+                    backgroundProgressBarColorEnd = Color.parseColor("#45FFFFFF")
+                    backgroundProgressBarColorDirection =
+                        CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                    progressBarWidth = 7f // in DP
+                    backgroundProgressBarWidth = 7f // in DP
+                    roundBorder = true
+                    startAngle = 0f
+                    progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
                 }
+                tv_in_graph1.text = "${changeUserBodyInfo1.userWeight}\n kg"
+
+                v_userpage_CircularProgressBar_2.apply {
+
+                    setProgressWithAnimation(changeUserBodyInfo1.userHeight, 1900)
+                    progressMax = 200f
+                    progressBarColorStart = Color.parseColor("#84AC28")
+                    progressBarColorEnd = Color.parseColor("#84AC28")
+                    progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                    backgroundProgressBarColor = Color.parseColor("#45FFFFFF")
+                    backgroundProgressBarColorStart = Color.parseColor("#45FFFFFF")
+                    backgroundProgressBarColorEnd = Color.parseColor("#45FFFFFF")
+                    backgroundProgressBarColorDirection =
+                        CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                    progressBarWidth = 7f // in DP
+                    backgroundProgressBarWidth = 7f // in DP
+                    roundBorder = true
+                    startAngle = 0f
+                    progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+                }
+                tv_in_graph2.text = "${changeUserBodyInfo1.userHeight}\n cm"
+                v_userpage_CircularProgressBar_3.apply {
+
+                    setProgressWithAnimation(changeUserBodyInfo1.userMassIndex, 1900)
+                    progressMax = 25f
+                    progressBarColorStart = Color.parseColor("#84AC28")
+                    progressBarColorEnd = Color.parseColor("#84AC28")
+                    progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                    backgroundProgressBarColor = Color.parseColor("#45FFFFFF")
+                    backgroundProgressBarColorStart = Color.parseColor("#45FFFFFF")
+                    backgroundProgressBarColorEnd = Color.parseColor("#45FFFFFF")
+                    backgroundProgressBarColorDirection =
+                        CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                    progressBarWidth = 7f // in DP
+                    backgroundProgressBarWidth = 7f // in DP
+                    roundBorder = true
+                    startAngle = 0f
+                    progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+                }
+                tv_in_graph3.text = String.format("%.2f \n kg/m2",changeUserBodyInfo1.userMassIndex)
 
             }
-
             override fun onCancelled(error: DatabaseError) {
-
+                TODO("Not yet implemented")
             }
         })
 
 
-        circularProgressXML = v_userpage_CircularProgressBar_1
-        circularProgressXML = requireView().findViewById(R.id.v_userpage_CircularProgressBar_1)
 
-        v_userpage_CircularProgressBar_1.apply {
-
-            setProgressWithAnimation(mWeight.toDouble().toFloat(), 1900)
-            progressMax = 150f
-            progressBarColorStart = Color.parseColor("#84AC28")
-            progressBarColorEnd = Color.parseColor("#84AC28")
-            progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
-            backgroundProgressBarColor = Color.parseColor("#45FFFFFF")
-            backgroundProgressBarColorStart = Color.parseColor("#45FFFFFF")
-            backgroundProgressBarColorEnd = Color.parseColor("#45FFFFFF")
-            backgroundProgressBarColorDirection =
-                CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
-            progressBarWidth = 7f // in DP
-            backgroundProgressBarWidth = 7f // in DP
-            roundBorder = true
-            startAngle = 0f
-            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
-        }
-
-        v_userpage_CircularProgressBar_2.apply {
-
-            setProgressWithAnimation(mHeight.toFloat(), 1900)
-            progressMax = 200f
-            progressBarColorStart = Color.parseColor("#84AC28")
-            progressBarColorEnd = Color.parseColor("#84AC28")
-            progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
-            backgroundProgressBarColor = Color.parseColor("#45FFFFFF")
-            backgroundProgressBarColorStart = Color.parseColor("#45FFFFFF")
-            backgroundProgressBarColorEnd = Color.parseColor("#45FFFFFF")
-            backgroundProgressBarColorDirection =
-                CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
-            progressBarWidth = 7f // in DP
-            backgroundProgressBarWidth = 7f // in DP
-            roundBorder = true
-            startAngle = 0f
-            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
-        }
-
-        v_userpage_CircularProgressBar_3.apply {
-
-            setProgressWithAnimation(mHeight.toFloat(), 1900)
-            progressMax = 25f
-            progressBarColorStart = Color.parseColor("#84AC28")
-            progressBarColorEnd = Color.parseColor("#84AC28")
-            progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
-            backgroundProgressBarColor = Color.parseColor("#45FFFFFF")
-            backgroundProgressBarColorStart = Color.parseColor("#45FFFFFF")
-            backgroundProgressBarColorEnd = Color.parseColor("#45FFFFFF")
-            backgroundProgressBarColorDirection =
-                CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
-            progressBarWidth = 7f // in DP
-            backgroundProgressBarWidth = 7f // in DP
-            roundBorder = true
-            startAngle = 0f
-            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
-        }
 
 
     }
@@ -422,6 +384,3 @@ class UserFragment : Fragment() {
         transaction?.commit()
     }
 }
-
-
-

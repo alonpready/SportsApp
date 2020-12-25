@@ -8,59 +8,102 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_Settings_header"
+        app:layout_constraintStart_toStartOf="@+id/tv_Settings_header">
 
         <TextView
-            android:id="@+id/tv_Gym_phone2"
+            android:id="@+id/tv_headerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
             android:text="Adınız :"
             android:textColor="@color/colorPrimaryGreen"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_Account_line2" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_editName"
+            app:layout_constraintStart_toStartOf="@+id/v_Account_line2" />
 
         <TextView
-            android:id="@+id/tv_Gym_phone3"
+            android:id="@+id/tv_headerWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:text="Soyadınız :"
-            android:textColor="@color/colorPrimaryGreen"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Gym_phone2" />
-
-        <TextView
-            android:id="@+id/tv_Gym_phone4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
             android:text="Kilonuz :"
             android:textColor="@color/colorPrimaryGreen"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Gym_phone3" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_editWeight"
+            app:layout_constraintStart_toStartOf="@+id/tv_headerLastName" />
 
         <TextView
-            android:id="@+id/tv_Gym_phone5"
+            android:id="@+id/tv_headerHeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
             android:text="Boyunuz :"
             android:textColor="@color/colorPrimaryGreen"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_editHeight"
+            app:layout_constraintStart_toStartOf="@+id/tv_headerWeight" />
+
+        <TextView
+            android:id="@+id/tv_headerMassIndex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="31dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="33dp"
+            android:text="Vücut Kitle Endeksiniz :"
+            android:textColor="@color/colorTwo"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/bt_changeprofileinfos"
+            app:layout_constraintEnd_toStartOf="@+id/tv_calculatedMassIndex2"
+            app:layout_constraintStart_toStartOf="@+id/tv_headerHeight"
+            app:layout_constraintTop_toBottomOf="@+id/tv_headerHeight" />
+
+        <TextView
+            android:id="@+id/tv_calculatedMassIndex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="189dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginEnd="190dp"
+            android:layout_marginBottom="1dp"
+            android:text="24.5"
+            android:textColor="@color/colorPrimaryGreen"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Gym_phone4" />
+            app:layout_constraintTop_toBottomOf="@+id/bt_changeprofileinfos" />
+
+        <TextView
+            android:id="@+id/tv_calculatedMassIndex2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="60dp"
+            android:text="24.5"
+            android:textColor="@color/colorPrimaryGreen"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/bt_calculate"
+            app:layout_constraintEnd_toStartOf="@+id/bt_calculate"
+            app:layout_constraintTop_toBottomOf="@+id/tv_editHeight"
+            app:layout_constraintVertical_bias="0.538" />
+
+        <TextView
+            android:id="@+id/tv_headerLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Soyadınız :"
+            android:textColor="@color/colorPrimaryGreen"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_editLastName"
+            app:layout_constraintStart_toStartOf="@+id/tv_headerName" />
 
         <View
             android:id="@+id/v_Account_line2"
@@ -134,48 +177,70 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_Account_profile_photo" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/tv_editName"
+            android:layout_width="254dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_Gym_phone2"
             app:layout_constraintEnd_toEndOf="@+id/v_Account_line2"
-            app:layout_constraintStart_toStartOf="@+id/textView2" />
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/v_Account_line2" />
+
+        <Button
+            android:id="@+id/bt_changeprofileinfos"
+            android:layout_width="140dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="34dp"
+            android:backgroundTint="#8BC34A"
+            android:text="Kaydet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_headerMassIndex" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/tv_editLastName"
+            android:layout_width="254dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_Gym_phone3"
             app:layout_constraintEnd_toEndOf="@+id/v_Account_line2"
-            app:layout_constraintStart_toStartOf="@+id/textView2" />
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_editName" />
 
         <EditText
-            android:id="@+id/editTextNumber"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/tv_editWeight"
+            android:layout_width="254dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
-            android:inputType="number"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_Gym_phone4"
+            android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="@+id/v_Account_line2"
-            app:layout_constraintStart_toStartOf="@+id/textView2" />
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_editLastName" />
 
         <EditText
-            android:id="@+id/editTextNumber2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/tv_editHeight"
+            android:layout_width="254dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
-            android:inputType="number"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_Gym_phone5"
+            android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="@+id/v_Account_line2"
-            app:layout_constraintStart_toStartOf="@+id/textView2" />
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_editWeight" />
+
+        <Button
+            android:id="@+id/bt_calculate"
+            android:layout_width="105dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#FF5722"
+            android:text="Hesapla"
+            app:layout_constraintEnd_toEndOf="@+id/v_Account_line2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_editHeight" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

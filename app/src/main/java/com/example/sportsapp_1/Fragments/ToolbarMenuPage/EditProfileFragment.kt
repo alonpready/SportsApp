@@ -1,5 +1,6 @@
 package com.example.sportsapp_1.Fragments.ToolbarMenuPage
 
+
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -8,54 +9,54 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+import androidx.core.text.set
+import androidx.fragment.app.Fragment
 import coil.load
-import com.example.sportsapp_1.Activities.LoginActivity
 import com.example.sportsapp_1.Fragments.UserFragment
+import com.example.sportsapp_1.Model.ReservationInfo
+import com.example.sportsapp_1.Model.UserBodydInfo
 import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
-import com.example.sportsapp_1.Utill.Visible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.fragment_user.*
-import kotlinx.android.synthetic.main.fragment_user.editprofile_toolbar
-import kotlinx.android.synthetic.main.inside_fragment_connection.*
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.inside_fragment_connection.iv_Connection_back_button
 import kotlinx.android.synthetic.main.inside_fragment_edit_profile.*
+import org.w3c.dom.Text
 import java.util.*
-import kotlin.properties.Delegates
 
 class EditProfileFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var userPageTextView: TextView
     var selectedPicture: Uri? = null
     var storaged = FirebaseStorage.getInstance()
     private lateinit var db: FirebaseDatabase
-    private var userValues: UserValues? = null
+    var userValues: UserValues? = null
+
+    lateinit var userName: TextView
+    lateinit var userLastName: TextView
+    lateinit var userWeight: TextView
+    lateinit var userHeight: TextView
+    lateinit var userMassIndex: TextView
+    lateinit var userMassIndex2: TextView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
@@ -87,11 +88,12 @@ class EditProfileFragment : Fragment() {
 
         userInfoLoad()
         setClicks()
+        getUserChanges()
     }
 
     private fun userInfoLoad(){
 
-        userPageTextView = requireView().findViewById(R.id.tv_Settings_header)
+
         val reference = FirebaseDatabase.getInstance().reference
         val currentUser = FirebaseAuth.getInstance().currentUser
         val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
@@ -101,8 +103,6 @@ class EditProfileFragment : Fragment() {
                     userValues = singleSnapshot.getValue(UserValues::class.java)
 
                     setUser(
-                        userValues?.userName?.capitalize(Locale.getDefault()),
-                        userValues?.userLastName?.capitalize(Locale.getDefault()),
                         userValues?.userPhotoUrl
                     )
 
@@ -122,7 +122,89 @@ class EditProfileFragment : Fragment() {
         textView2.setOnClickListener() {
             openGallery()
         }
+        bt_changeprofileinfos.setOnClickListener(){
+
+        }
     }
+
+
+    private fun getUserChanges(){
+        userName = view!!.findViewById(R.id.tv_editName)
+        userLastName = view!!.findViewById(R.id.tv_editLastName)
+        userWeight = view!!.findViewById(R.id.tv_editWeight)
+        userHeight = view!!.findViewById(R.id.tv_editHeight)
+        userMassIndex = view!!.findViewById(R.id.tv_calculatedMassIndex)
+        userMassIndex2 = view!!.findViewById(R.id.tv_calculatedMassIndex2)
+
+        userMassIndex.text =""
+        userMassIndex2.text =""
+        userMassIndex.Gone()
+
+        var userBodyInfo: UserBodydInfo ?= null
+
+        bt_calculate.setOnClickListener(){
+            var weight: Float = userWeight.text.toString().toFloat()
+            var height: Float = userHeight.text.toString().toFloat()
+            var massIndex: Float = weight/((height/100)*(height/100))
+            userMassIndex2.text = String.format("%.2f",massIndex)
+            userMassIndex.text = massIndex.toString()
+        }
+
+        bt_changeprofileinfos.setOnClickListener(){
+
+            var reference = FirebaseDatabase.getInstance().reference
+            var query = reference.child("users").child(auth.currentUser!!.uid)
+                .child("userBodyInfo")
+            query.addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    userBodyInfo = snapshot.getValue(UserBodydInfo::class.java)
+
+                    var changeUserBodyInfo = UserBodydInfo(
+                        userBodyInfo!!.userWeight,
+                        userBodyInfo!!.userHeight,
+                        userBodyInfo!!.userMassIndex
+                    )
+                    changeUserBodyInfo.userWeight = userWeight.text.toString().toFloat()
+                    changeUserBodyInfo.userHeight = userHeight.text.toString().toFloat()
+                    changeUserBodyInfo.userMassIndex = userMassIndex.text.toString().toFloat()
+
+                    query.setValue(changeUserBodyInfo)
+
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
+            var query2 = reference.child("users").child(auth.currentUser!!.uid)
+            query.addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    userValues = snapshot.getValue(UserValues::class.java)
+
+                    var changeUserInfo = UserValues(
+                        userValues!!.userName,
+                        userValues!!.userLastName
+                    )
+                    changeUserInfo.userName = userName.text.toString()
+                    changeUserInfo.userLastName = userLastName.text.toString()
+
+
+                    query2.child("userName").setValue(changeUserInfo.userName)
+                    query2.child("userLastName").setValue(changeUserInfo.userLastName)
+
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+            loadFragment(UserFragment())
+        }
+
+    }
+
+
 
     private fun openGallery() {
         if (activity?.let {
@@ -220,8 +302,8 @@ class EditProfileFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun setUser(name: String?, surname: String?, photoUrl: String?) {
-        userPageTextView.text = "$name $surname"
+    private fun setUser(photoUrl: String?) {
+
         if (photoUrl != "") {
             iv_Account_profile_photo.load(photoUrl)
         }
