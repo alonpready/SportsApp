@@ -41,11 +41,13 @@ class MainActivity : AppCompatActivity() {
             .setProgressColor(R.color.colorPrimaryGreen)
             .setFullScreen(true)
             .setClickToHide(true)
-            .setDuration(2000)
+            .setDuration(1500)
             .setFullScreen(true)
             .showProgress(true)
             .show()
     }
+
+
 
     private fun setBottomNavigation() {
 

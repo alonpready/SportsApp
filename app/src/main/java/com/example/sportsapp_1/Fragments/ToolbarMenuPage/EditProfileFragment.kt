@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.fragment_qrcode.*
 import kotlinx.android.synthetic.main.inside_fragment_connection.iv_Connection_back_button
 import kotlinx.android.synthetic.main.inside_fragment_edit_profile.*
 import java.util.*
@@ -86,6 +87,10 @@ class EditProfileFragment : Fragment() {
         userInfoLoad()
         setClicks()
         getUserChanges()
+
+        if (bt_calculate.isEnabled && bt_changeprofileinfos.isEnabled) {
+            bt_changeprofileinfos.isEnabled = false
+        }
     }
 
     private fun userInfoLoad() {
@@ -156,6 +161,8 @@ class EditProfileFragment : Fragment() {
                 val massIndex: Float = weight / ((height / 100) * (height / 100))
                 userMassIndex2.text = String.format("%.2f", massIndex)
                 userMassIndex.text = massIndex.toString()
+
+                bt_changeprofileinfos.isEnabled = true
             }
 
         }
@@ -231,6 +238,8 @@ class EditProfileFragment : Fragment() {
         }
 
     }
+
+
 
 
     private fun openGallery() {

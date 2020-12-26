@@ -9,7 +9,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.sportsapp_1.Fragments.UserFragment
 import com.example.sportsapp_1.R
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.inside_fragment_connection.*
+import kotlinx.android.synthetic.main.inside_fragment_connection.iv_Connection_back_button
+import kotlinx.android.synthetic.main.inside_fragment_settings.*
 
 
 class SettingsFragment : Fragment() {
@@ -36,9 +39,18 @@ class SettingsFragment : Fragment() {
 
         val switch = view.findViewById<Switch>(R.id.s_Settings_swtich)
         switch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                Toast.makeText(requireContext(), "Gece modu açık", Toast.LENGTH_SHORT).show()
-            } else Toast.makeText(requireContext(), "Gece modu kapalı", Toast.LENGTH_SHORT).show()
+            if (isChecked)
+            {
+                SettingsFrame.setBackgroundResource(R.color.colorOne)
+                v_Account_line3.setBackgroundResource(R.color.colorBackgraund)
+                Toast.makeText(requireContext(), "Tema değiştirildi", Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                SettingsFrame.setBackgroundResource(R.color.colorBackgraund)
+                v_Account_line3.setBackgroundResource(R.color.colorOne)
+                Toast.makeText(requireContext(), "Standar temaya geçildi.", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

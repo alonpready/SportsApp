@@ -126,10 +126,10 @@ class HomepageFragment() : Fragment() {
     }
 
     private fun loadFragment(fragment: Fragment) {
-        val transaction = activity?.supportFragmentManager?.beginTransaction()
-        transaction?.replace(R.id.fragmentContainerView, fragment)
-        transaction?.addToBackStack(null)
-        transaction?.commit()
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainerView, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
 
