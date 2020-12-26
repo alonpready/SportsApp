@@ -11,7 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
-import com.example.sportsapp_1.Adapters.Homepage_RVAdapter
+import com.example.sportsapp_1.Adapters.AdapterHomepage
 import com.example.sportsapp_1.Model.TrainingVideos
 import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
@@ -251,7 +251,7 @@ class HomepageFragment() : Fragment() {
 
 
         recyclerview_homepage.layoutManager = LinearLayoutManager(activity)
-        recyclerview_homepage.adapter = Homepage_RVAdapter(requireContext(), listOfrandomTrVideos)
+        recyclerview_homepage.adapter = AdapterHomepage(requireContext(), listOfrandomTrVideos)
         { trainingVideos ->
             val videospgFr: VideospageFragment = VideospageFragment(trainingVideos, 0)
             loadFragment(videospgFr)

@@ -25,10 +25,12 @@ class MainActivity : AppCompatActivity() {
         setSplashy()
 
     }
-    private fun setSplashy() { Splashy(this)
+
+    private fun setSplashy() {
+        Splashy(this)
             .setLogo(R.drawable.app_logo)
             .setLogoScaleType(ImageView.ScaleType.FIT_XY)
-            .setLogoWHinDp(150,150)
+            .setLogoWHinDp(150, 150)
             .setTitle("Sports App")
             .setTitleColor("#FFFFFF")
             .setTitleSize(25F)
@@ -44,32 +46,39 @@ class MainActivity : AppCompatActivity() {
             .showProgress(true)
             .show()
     }
+
     private fun setBottomNavigation() {
 
         bottom_navigation.setOnNavigationItemSelectedListener {
 
             when (it.itemId) {
 
-                R.id.homepage ->
-                { loadFragment(HomepageFragment()) }
+                R.id.homepage -> {
+                    loadFragment(HomepageFragment())
+                }
 
-                R.id.rezervationpage ->
-                { loadFragment(RezervationFragment()) }
+                R.id.rezervationpage -> {
+                    loadFragment(RezervationFragment())
+                }
 
-                R.id.qrcodepage ->
-                { loadFragment(QrcodeFragment()) }
+                R.id.qrcodepage -> {
+                    loadFragment(QrcodeFragment())
+                }
 
-                R.id.videospage ->
-                { loadFragment(VideosFragment()) }
+                R.id.videospage -> {
+                    loadFragment(VideosFragment())
+                }
 
-                R.id.bt_logOut ->
-                { loadFragment(UserFragment()) }
+                R.id.bt_logOut -> {
+                    loadFragment(UserFragment())
+                }
 
             }
 
             true
         }
     }
+
     private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainerView, fragment)
@@ -77,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
 
     }
+
     override fun onBackPressed() {
         val setIntent = Intent(Intent.ACTION_MAIN)
         setIntent.addCategory(Intent.CATEGORY_HOME)

@@ -205,19 +205,19 @@ class UserFragment : Fragment() {
                     }
 
                     val uuid = UUID.randomUUID()
-                    val ppname = "$uuid.jpg"
+                    val PPname = "$uuid.jpg"
 
                     val reference = storaged.reference
-                    val ppreference = reference.child("profilephotos").child(ppname)
+                    val PPreference = reference.child("profilephotos").child(PPname)
 
 
 
-                    ppreference.putFile(selectedPicture!!).addOnSuccessListener { taskSnapshot ->
+                    PPreference.putFile(selectedPicture!!).addOnSuccessListener { taskSnapshot ->
 
-                        val uploadPPReferance =
+                        val uploadPPReference =
                             FirebaseStorage.getInstance().reference.child("profilephotos")
-                                .child(ppname)
-                        uploadPPReferance.downloadUrl.addOnSuccessListener { uri ->
+                                .child(PPname)
+                        uploadPPReference.downloadUrl.addOnSuccessListener { uri ->
 
                             val downloadUrl = uri.toString()
 

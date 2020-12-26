@@ -10,7 +10,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
-import com.example.sportsapp_1.Adapters.Reservation_RVAdapter
+import com.example.sportsapp_1.Adapters.AdapterReservation
 import com.example.sportsapp_1.Model.ReservationInfo
 import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
@@ -306,7 +306,7 @@ class RezervationFragment : Fragment() {
         takenewList(strDate2)
         reservation_rv.layoutManager = LinearLayoutManager(activity)
         reservation_rv.adapter =
-            Reservation_RVAdapter(requireContext(), reservationList, strDate2) {
+            AdapterReservation(requireContext(), reservationList, strDate2) {
             }
     }
 

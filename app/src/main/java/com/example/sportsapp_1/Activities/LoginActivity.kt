@@ -2,20 +2,16 @@ package com.example.sportsapp_1.Activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
+
+@Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
-    private val dbReferance = FirebaseDatabase.getInstance().reference.child("users")
-    private var userValues : UserValues? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun buttonClick() {
+    private fun buttonClick() {
         bt_login.setOnClickListener {
             val userEmail = tv_username.text.trim().toString()
             val userPassword = tv_password.text.trim().toString()
@@ -50,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
             if (isEmailOrPasswordValid(userEmail, userPassword)) {
 
                 auth.signInWithEmailAndPassword(userEmail, userPassword)
-                    .addOnCompleteListener() { task ->
+                    .addOnCompleteListener { task ->
 
                         if (task.isSuccessful) {
                             openActivity(MainActivity::class.java)
@@ -69,14 +65,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    private fun isEmailOrPasswordValid(userEmail: String, userPassword: String) : Boolean
-    {
-        return if (userEmail.isNullOrBlank() || userPassword.isNullOrBlank()) {
+    private fun isEmailOrPasswordValid(userEmail: String, userPassword: String): Boolean {
+        return if (userEmail.isBlank() || userPassword.isBlank()) {
             Toast.makeText(this, "Kullanıcı adı veya şifre boş olamaz.", Toast.LENGTH_LONG).show()
             false
-        }
-
-        else true
+        } else true
     }
 
     private fun openActivity(cls: Class<*>) {
@@ -85,7 +78,6 @@ class LoginActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        Log.d("CDA", "onBackPressed Called")
         val setIntent = Intent(Intent.ACTION_MAIN)
         setIntent.addCategory(Intent.CATEGORY_HOME)
         setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

@@ -7,11 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsapp_1.Model.ReservationInfo
-import com.example.sportsapp_1.Model.TrainingVideos
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.Visible
@@ -22,37 +19,24 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 
-class Reservation_RVAdapter(
+class AdapterReservation(
     private val mContext: Context,
     private var reservationList: ArrayList<ReservationInfo>,
-    private val takingdate: String,
+    private val takingDate: String,
     private val urlListener: (reservationList: ReservationInfo) -> Unit
 ) :
-    RecyclerView.Adapter<Reservation_RVAdapter.CardViewHolderOfDesignObjects>() {
+    RecyclerView.Adapter<AdapterReservation.CardViewHolderOfDesignObjects>() {
 
 
     inner class CardViewHolderOfDesignObjects(view: View) : RecyclerView.ViewHolder(view) {
 
-        var reservationCardView: CardView
-        var reservationHour: TextView
-        var strDate2: String
-
-        var reservationProgressBar: ProgressBar
-        var reservationRatio: TextView
-        var reservationIcon: ImageView
-        var reservationCancelIcon: ImageView
+        var reservationHour: TextView = view.findViewById(R.id.tv_Reservation_hours)
+        var reservationProgressBar: ProgressBar = view.findViewById(R.id.pb_Reservation_progressBar)
+        var reservationRatio: TextView = view.findViewById(R.id.tv_Reservation_ratio)
+        var reservationIcon: ImageView = view.findViewById(R.id.iv_Reservation_reserve)
+        var reservationCancelIcon: ImageView = view.findViewById((R.id.iv_Reservation_canceled))
 
 
-        init {
-            reservationCardView = view.findViewById(R.id.cv_reservation_cardview)
-            reservationHour = view.findViewById(R.id.tv_Reservation_hours)
-            strDate2 = takingdate
-            reservationProgressBar = view.findViewById(R.id.pb_Reservation_progressBar)
-            reservationRatio = view.findViewById(R.id.tv_Reservation_ratio)
-            reservationIcon = view.findViewById(R.id.iv_Reservation_reserve)
-            reservationCancelIcon = view.findViewById((R.id.iv_Reservation_canceled))
-
-        }
     }
 
     override fun onCreateViewHolder(
@@ -67,31 +51,31 @@ class Reservation_RVAdapter(
 
     override fun onBindViewHolder(holder: CardViewHolderOfDesignObjects, position: Int) {
 
-        var auth = FirebaseAuth.getInstance()
+        val auth = FirebaseAuth.getInstance()
         val reservation = reservationList[position]
         var newReservation: ReservationInfo? = null
         var res: ReservationInfo? = null
-        val strDate2 = takingdate
-        var referenceF = FirebaseDatabase.getInstance().reference
+        val strDate2 = takingDate
+        val referenceF = FirebaseDatabase.getInstance().reference
 
-        var queryF = referenceF.child("users").child(auth.currentUser!!.uid).child("UserResId")
+        val queryF = referenceF.child("users").child(auth.currentUser!!.uid).child("UserResId")
         queryF.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (singleSnapshot in snapshot!!.children) {
-                var checkid = singleSnapshot.getValue(String::class.java)
-                if (checkid == reservationList[position].reservationId){
+                    val checkId = singleSnapshot.getValue(String::class.java)
+                    if (checkId == reservationList[position].reservationId) {
 
-                    holder.reservationIcon.Gone()
-                    holder.reservationCancelIcon.Visible()
-                    break
-                } else{
-                    holder.reservationIcon.Visible()
-                    holder.reservationCancelIcon.Gone()
+                        holder.reservationIcon.Gone()
+                        holder.reservationCancelIcon.Visible()
+                        break
+                    } else {
+                        holder.reservationIcon.Visible()
+                        holder.reservationCancelIcon.Gone()
                     }
                 }
-                var queryQ = referenceF.child("reservations").child(strDate2)
+                val queryQ = referenceF.child("reservations").child(strDate2)
                     .child(reservationList[position].reservationHour)
-                queryQ.addListenerForSingleValueEvent(object : ValueEventListener{
+                queryQ.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         res = snapshot.getValue(ReservationInfo::class.java)
                         if (res?.reservationCurrent != 0) {
@@ -100,14 +84,16 @@ class Reservation_RVAdapter(
                             holder.reservationProgressBar.max = res!!.reservationQuota
                             holder.reservationRatio.text =
                                 "${res!!.reservationCurrent}/${res!!.reservationQuota}"
-                        }
-                        else{
-                            holder.reservationProgressBar.progress = reservationList[position].reservationCurrent
-                            holder.reservationProgressBar.max = reservationList[position].reservationQuota
+                        } else {
+                            holder.reservationProgressBar.progress =
+                                reservationList[position].reservationCurrent
+                            holder.reservationProgressBar.max =
+                                reservationList[position].reservationQuota
                             holder.reservationRatio.text =
                                 "${reservationList[position].reservationCurrent}/${reservationList[position].reservationQuota}"
                         }
                     }
+
                     override fun onCancelled(error: DatabaseError) {
                         TODO("Not yet implemented")
                     }
@@ -136,18 +122,19 @@ class Reservation_RVAdapter(
             val btCancel = dialog.findViewById(R.id.bt_Dialog_cancel) as Button
             val tvText = dialog.findViewById(R.id.tv_Dialog_text) as TextView
 
-            tvText.text = "${reservation.reservationHour} saatleri arasına rezervasyon yapmak istiyor musunuz?"
+            tvText.text =
+                "${reservation.reservationHour} saatleri arasına rezervasyon yapmak istiyor musunuz?"
 
             btSave.setOnClickListener {
                 val reference = FirebaseDatabase.getInstance().reference
                 val query = reference.child("reservations").child(strDate2)
                     .child(reservationList[position].reservationHour)
-                var x: Boolean = true
+                var x = true
                 query.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         newReservation = snapshot.getValue(ReservationInfo::class.java)
 
-                        val newRes = createnewRes(
+                        val newRes = createNewRes(
                             newReservation!!.reservationHour,
                             newReservation!!.reservationCurrent,
                             newReservation!!.reservationQuota,
@@ -156,24 +143,26 @@ class Reservation_RVAdapter(
                         )
                         if (newRes.reservationCurrent > newRes.reservationQuota) {
                             Toast.makeText(mContext, "Kota Doldu!", Toast.LENGTH_SHORT).show()
-                        }
+                        } else {
 
-                        else {
-
-                            var query2 = reference.child("users").child(auth.currentUser!!.uid).child("UserResId")
+                            val query2 = reference.child("users").child(auth.currentUser!!.uid)
+                                .child("UserResId")
                             query2.addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onDataChange(snapshot: DataSnapshot) {
                                     for (singleSnapshot in snapshot!!.children) {
-                                        var checkid = singleSnapshot.getValue(String::class.java)
-                                        if (checkid == newRes.reservationId ){
+                                        val checkid = singleSnapshot.getValue(String::class.java)
+                                        if (checkid == newRes.reservationId) {
                                             x = false
                                             Toast.makeText(
                                                 mContext,
                                                 "Aynı saat aralığına rezervasyon yapılamaz!",
                                                 Toast.LENGTH_SHORT
                                             ).show()
-                                        }
-                                        else if(checkid?.substring(0, 8) == newRes.reservationDate){
+                                        } else if (checkid?.substring(
+                                                0,
+                                                8
+                                            ) == newRes.reservationDate
+                                        ) {
                                             x = false
                                             Toast.makeText(
                                                 mContext,
@@ -184,27 +173,31 @@ class Reservation_RVAdapter(
 
 
                                     }
-                                    if (x){
-                                        query2.child(newRes.reservationId).
-                                        setValue(newRes.reservationId)
+                                    if (x) {
+                                        query2.child(newRes.reservationId)
+                                            .setValue(newRes.reservationId)
                                         query.setValue(newRes)
                                         Toast.makeText(
                                             mContext,
                                             "${reservation.reservationHour} saatleri arasına rezervasyon yapılmıştır.",
                                             Toast.LENGTH_SHORT
                                         ).show()
-                                        holder.reservationRatio.setText("${(newReservation!!.reservationCurrent)+1}/${(newReservation!!.reservationQuota)}")
+                                        holder.reservationRatio.text =
+                                            "${(newReservation!!.reservationCurrent) + 1}/${(newReservation!!.reservationQuota)}"
                                         holder.reservationIcon.Gone()
                                         holder.reservationCancelIcon.Visible()
-                                        holder.reservationProgressBar.progress = (newReservation!!.reservationCurrent)+1
+                                        holder.reservationProgressBar.progress =
+                                            (newReservation!!.reservationCurrent) + 1
                                     }
                                 }
+
                                 override fun onCancelled(error: DatabaseError) {
                                     TODO("Not yet implemented")
                                 }
                             })
                         }
                     }
+
                     override fun onCancelled(error: DatabaseError) {
                         TODO("Not yet implemented")
                     }
@@ -222,13 +215,14 @@ class Reservation_RVAdapter(
             val dialog = Dialog(mContext)
             dialog.setContentView(R.layout.custom_dialog_reservation)
 
-            var btSave = dialog.findViewById(R.id.bt_Dialog_save) as Button
+            val btSave = dialog.findViewById(R.id.bt_Dialog_save) as Button
             btSave.text = "Evet"
-            var btCancel = dialog.findViewById(R.id.bt_Dialog_cancel) as Button
+            val btCancel = dialog.findViewById(R.id.bt_Dialog_cancel) as Button
             btCancel.text = "Hayır"
             val tvText = dialog.findViewById(R.id.tv_Dialog_text) as TextView
 
-            tvText.text = "${reservation.reservationHour} saatleri arasındaki rezervasyon kaydını silmek istiyor musunuz?"
+            tvText.text =
+                "${reservation.reservationHour} saatleri arasındaki rezervasyon kaydını silmek istiyor musunuz?"
 
 
             btSave.setOnClickListener {
@@ -249,35 +243,38 @@ class Reservation_RVAdapter(
                         )
 
 
-                            var query2 = reference.child("users").child(auth.currentUser!!.uid).child("UserResId")
-                            query2.addListenerForSingleValueEvent(object : ValueEventListener {
-                                override fun onDataChange(snapshot: DataSnapshot) {
-                                    for (singleSnapshot in snapshot!!.children) {
-                                        var checkid = singleSnapshot.getValue(String::class.java)
+                        val query2 = reference.child("users").child(auth.currentUser!!.uid)
+                            .child("UserResId")
+                        query2.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                for (singleSnapshot in snapshot!!.children) {
+                                    val checkid = singleSnapshot.getValue(String::class.java)
 
-                                        if (checkid == newRes.reservationId) {
-                                            query2.child(newRes.reservationId).removeValue()
-                                            query.setValue(newRes)
-                                            Toast.makeText(
-                                                mContext,
-                                                "${reservation.reservationHour} saatleri arasındaki rezervasyon iptal edilmiştir.",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                            holder.reservationRatio.text =
-                                                "${(newReservation!!.reservationCurrent)-1}/${(newReservation!!.reservationQuota)}"
-                                            holder.reservationCancelIcon.Gone()
-                                            holder.reservationIcon.Visible()
-                                            holder.reservationProgressBar.progress =
-                                                (newReservation!!.reservationCurrent)-1
-                                        }
+                                    if (checkid == newRes.reservationId) {
+                                        query2.child(newRes.reservationId).removeValue()
+                                        query.setValue(newRes)
+                                        Toast.makeText(
+                                            mContext,
+                                            "${reservation.reservationHour} saatleri arasındaki rezervasyon iptal edilmiştir.",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        holder.reservationRatio.text =
+                                            "${(newReservation!!.reservationCurrent) - 1}/${(newReservation!!.reservationQuota)}"
+                                        holder.reservationCancelIcon.Gone()
+                                        holder.reservationIcon.Visible()
+                                        holder.reservationProgressBar.progress =
+                                            (newReservation!!.reservationCurrent) - 1
                                     }
                                 }
-                                override fun onCancelled(error: DatabaseError) {
-                                    TODO("Not yet implemented")
-                                }
-                            })
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+                        })
 
                     }
+
                     override fun onCancelled(error: DatabaseError) {
                         TODO("Not yet implemented")
                     }
@@ -292,27 +289,37 @@ class Reservation_RVAdapter(
     }
 
 
-    private fun createnewRes(hour: String, resCurrent: Int, resQuota: Int, date: String, id: String): ReservationInfo {
+    private fun createNewRes(
+        hour: String,
+        resCurrent: Int,
+        resQuota: Int,
+        date: String,
+        id: String
+    ): ReservationInfo {
 
-        val newRes = ReservationInfo(
+        return ReservationInfo(
             hour,
             resCurrent + 1,
             resQuota,
             date,
             id
         )
-        return newRes
     }
 
-    private fun cancelRes(hour: String, resCurrent: Int, resQuota: Int, date: String, id: String): ReservationInfo {
-        val newRes = ReservationInfo(
+    private fun cancelRes(
+        hour: String,
+        resCurrent: Int,
+        resQuota: Int,
+        date: String,
+        id: String
+    ): ReservationInfo {
+        return ReservationInfo(
             hour,
             resCurrent - 1,
             resQuota,
             date,
             id
         )
-        return newRes
     }
 
     override fun getItemCount(): Int {

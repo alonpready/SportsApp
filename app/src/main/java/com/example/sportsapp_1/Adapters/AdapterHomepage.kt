@@ -4,31 +4,23 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsapp_1.Model.TrainingVideos
 import com.example.sportsapp_1.R
 
-class Homepage_RVAdapter(private val mContext: Context,
-                         private val trainingList: List<TrainingVideos>,
-                         private val urlListener:(trainingVideos: TrainingVideos)-> Unit) :
-    RecyclerView.Adapter<Homepage_RVAdapter.CardViewHolderOfDesignObjects>() {
+class AdapterHomepage (private val mContext: Context,
+                      private val trainingList: List<TrainingVideos>,
+                      private val urlListener:(trainingVideos: TrainingVideos)-> Unit) :
+    RecyclerView.Adapter<AdapterHomepage.CardViewHolderOfDesignObjects>() {
 
     inner class CardViewHolderOfDesignObjects(view: View) : RecyclerView.ViewHolder(view) {
 
-        var homepageCardView: CardView
-        var tv_training_type: TextView
-        var tv_training_repetition: TextView
-        var iv_training_playIcon: ImageView
+        var homepageCardView: CardView = view.findViewById(R.id.cv_reservation_cardview)
+        var tvTrainingType: TextView = view.findViewById(R.id.tv_training_type)
+        var tvTrainingRepetition: TextView = view.findViewById(R.id.tv_training_repetition)
 
-        init {
-            homepageCardView = view.findViewById(R.id.cv_reservation_cardview)
-            tv_training_type = view.findViewById(R.id.tv_training_type)
-            tv_training_repetition = view.findViewById(R.id.tv_training_repetition)
-            iv_training_playIcon = view.findViewById(R.id.iv_training_playIcon)
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolderOfDesignObjects {
@@ -42,9 +34,9 @@ class Homepage_RVAdapter(private val mContext: Context,
 
         val training = trainingList[position]
 
-        holder.tv_training_type.text = training.trName
+        holder.tvTrainingType.text = training.trName
 
-        holder.tv_training_repetition.text = training.trPeriod
+        holder.tvTrainingRepetition.text = training.trPeriod
 
         holder.homepageCardView.setOnClickListener {
             urlListener.invoke(trainingList[position])

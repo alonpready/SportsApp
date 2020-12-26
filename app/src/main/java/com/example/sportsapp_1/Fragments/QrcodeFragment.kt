@@ -33,7 +33,7 @@ import java.time.format.DateTimeFormatter
 
 class QrcodeFragment : Fragment() {
 
-    private var userValues : UserValues? = null
+    private var userValues: UserValues? = null
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,10 +66,9 @@ class QrcodeFragment : Fragment() {
         userInfoLoad()
         setClicks()
 
-        if (bt_qrcodegiris.isEnabled && bt_qrcodecikis.isEnabled){
+        if (bt_qrcodegiris.isEnabled && bt_qrcodecikis.isEnabled) {
             bt_qrcodecikis.isEnabled = false
         }
-
 
 
     }
@@ -82,7 +81,7 @@ class QrcodeFragment : Fragment() {
     }
 
 
-    private fun userInfoLoad(){
+    private fun userInfoLoad() {
         val reference = FirebaseDatabase.getInstance().reference
         val currentUser = FirebaseAuth.getInstance().currentUser
         val query = reference.child("users").orderByKey().equalTo(currentUser?.uid)
@@ -103,8 +102,9 @@ class QrcodeFragment : Fragment() {
         })
 
     }
+
     private fun minippLoad(photoUrl: String?) {
-        if (photoUrl != ""){
+        if (photoUrl != "") {
             iv_qrcode_profile.load(photoUrl)
         }
         qrPage_progressbar.Gone()
@@ -119,7 +119,7 @@ class QrcodeFragment : Fragment() {
 
         }
         bt_qrcodegiris.setOnClickListener {
-            val bitmap = generateQRCode(keyanddateToString())
+            val bitmap = generateQRCode(keyAndDateToString())
             iv_qrcode.setImageBitmap(bitmap)
 
             userInstantChanging()
@@ -127,7 +127,7 @@ class QrcodeFragment : Fragment() {
         }
 
         bt_qrcodecikis.setOnClickListener {
-            val bitmap = generateQRCode(keyanddateToString())
+            val bitmap = generateQRCode(keyAndDateToString())
             iv_qrcode.setImageBitmap(bitmap)
 
             userInstantChanging()
@@ -136,15 +136,16 @@ class QrcodeFragment : Fragment() {
     }
 
 
-    private fun userInstantChanging(){
+    private fun userInstantChanging() {
         val reference = FirebaseDatabase.getInstance().reference
-        val query = reference.child("users").child(auth.currentUser?.uid.toString()).child("userInstant")
-        val queryCurrentUserVal =  reference.child("gymCurrentUser").child("value")
+        val query =
+            reference.child("users").child(auth.currentUser?.uid.toString()).child("userInstant")
+        val queryCurrentUserVal = reference.child("gymCurrentUser").child("value")
 
 
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var instant = snapshot.getValue(Int::class.java)
+                val instant = snapshot.getValue(Int::class.java)
 
 
                 if (instant == FALSE.value) {
@@ -156,22 +157,23 @@ class QrcodeFragment : Fragment() {
 
                             curValue = curValue.plus(1)
                             queryCurrentUserVal.setValue(curValue)
-                            cikisEnable()
+                            exitEnable()
                         }
+
                         override fun onCancelled(error: DatabaseError) {
                             TODO("Not yet implemented")
                         }
                     })
-                }
-                else {
+                } else {
                     query.setValue(FALSE.value)
                     queryCurrentUserVal.addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             var curValue = snapshot.getValue(Int::class.java)!!
                             curValue = curValue.minus(1)
                             queryCurrentUserVal.setValue(curValue)
-                            girisEnable()
+                            entryEnable()
                         }
+
                         override fun onCancelled(error: DatabaseError) {
                             TODO("Not yet implemented")
                         }
@@ -185,6 +187,7 @@ class QrcodeFragment : Fragment() {
 
         })
     }
+
     private fun generateQRCode(text: String): Bitmap {
         val width = 500
         val height = 500
@@ -203,19 +206,16 @@ class QrcodeFragment : Fragment() {
         return bitmap
     }
 
-    private fun keyanddateToString(): String{
+    private fun keyAndDateToString(): String {
 
-        var userKey = (userValues?.userKey).toString()
-        var currentTime: String = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm").format(
-            LocalDateTime.now()
-        )
-        var keyandtimeS = "$currentTime + $userKey"
+        val userKey = (userValues?.userKey).toString()
+        val currentTime: String =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm").format(LocalDateTime.now())
 
-        return keyandtimeS
+        return "$currentTime + $userKey"
 
 
     }
-
 
 
     override fun onResume() {
@@ -226,13 +226,12 @@ class QrcodeFragment : Fragment() {
         query.addListenerForSingleValueEvent(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                var instant = snapshot.getValue(Int::class.java)
+                val instant = snapshot.getValue(Int::class.java)
 
                 if (instant == FALSE.value) {
-                    girisEnable()
-                }
-                else {
-                    cikisEnable()
+                    entryEnable()
+                } else {
+                    exitEnable()
                 }
             }
 
@@ -243,13 +242,12 @@ class QrcodeFragment : Fragment() {
     }
 
 
-
-    private fun girisEnable(){
+    private fun entryEnable() {
         bt_qrcodegiris.isEnabled = true
         bt_qrcodecikis.isEnabled = false
     }
 
-    private fun cikisEnable(){
+    private fun exitEnable() {
         bt_qrcodecikis.isEnabled = true
         bt_qrcodegiris.isEnabled = false
     }

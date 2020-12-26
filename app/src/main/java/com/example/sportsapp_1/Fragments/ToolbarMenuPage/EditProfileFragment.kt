@@ -37,10 +37,11 @@ import java.util.*
 class EditProfileFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
-    var selectedPicture: Uri? = null
-    var storaged = FirebaseStorage.getInstance()
     private lateinit var db: FirebaseDatabase
     var userValues: UserValues? = null
+    var selectedPicture: Uri? = null
+    var storaged = FirebaseStorage.getInstance()
+
 
     lateinit var userName: TextView
     lateinit var userLastName: TextView
@@ -49,7 +50,6 @@ class EditProfileFragment : Fragment() {
     lateinit var userMassIndex: TextView
     lateinit var userMassIndex2: TextView
     lateinit var userHeaderName: TextView
-    lateinit var userHeaderSurname: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -163,20 +163,22 @@ class EditProfileFragment : Fragment() {
         bt_changeprofileinfos.setOnClickListener {
 
             if (tv_editLastName.text.isBlank() || tv_editName.text.isBlank() ||
-                tv_editWeight.text.isBlank() || tv_editHeight.text.isBlank()) {
+                tv_editWeight.text.isBlank() || tv_editHeight.text.isBlank()
+            ) {
                 Toast.makeText(
                     requireContext(),
                     "Lütfen tüm alanları doldurunuz!",
-                    Toast.LENGTH_SHORT).show()
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
-                var reference = FirebaseDatabase.getInstance().reference
-                var query = reference.child("users").child(auth.currentUser!!.uid)
+                val reference = FirebaseDatabase.getInstance().reference
+                val query = reference.child("users").child(auth.currentUser!!.uid)
                     .child("userBodyInfo")
                 query.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         userBodyInfo = snapshot.getValue(UserBodyInfo::class.java)
 
-                        var changeUserBodyInfo = UserBodyInfo(
+                        val changeUserBodyInfo = UserBodyInfo(
                             userBodyInfo!!.userWeight,
                             userBodyInfo!!.userHeight,
                             userBodyInfo!!.userMassIndex
@@ -195,12 +197,12 @@ class EditProfileFragment : Fragment() {
 
                 })
 
-                var query2 = reference.child("users").child(auth.currentUser!!.uid)
+                val query2 = reference.child("users").child(auth.currentUser!!.uid)
                 query.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         userValues = snapshot.getValue(UserValues::class.java)
 
-                        var changeUserInfo = UserValues(
+                        val changeUserInfo = UserValues(
                             userValues!!.userName,
                             userValues!!.userLastName
                         )
@@ -259,7 +261,7 @@ class EditProfileFragment : Fragment() {
         grantResults: IntArray
     ) {
         if (requestCode == 1) {
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 val intent =
                     Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 startActivityForResult(intent, 2)
@@ -294,29 +296,30 @@ class EditProfileFragment : Fragment() {
                     }
 
                     val uuid = UUID.randomUUID()
-                    val ppname = "$uuid.jpg"
-
+                    val profilePhotoName = "$uuid.jpg"
                     val reference = storaged.reference
-                    val ppreference = reference.child("profilephotos").child(ppname)
+                    val profilePhotoReference =
+                        reference.child("profilephotos").child(profilePhotoName)
 
 
 
-                    ppreference.putFile(selectedPicture!!).addOnSuccessListener { taskSnapshot ->
+                    profilePhotoReference.putFile(selectedPicture!!)
+                        .addOnSuccessListener { taskSnapshot ->
 
-                        val uploadPPReferance =
-                            FirebaseStorage.getInstance().reference.child("profilephotos")
-                                .child(ppname)
-                        uploadPPReferance.downloadUrl.addOnSuccessListener { uri ->
+                            val uploadPPReference =
+                                FirebaseStorage.getInstance().reference.child("profilephotos")
+                                    .child(profilePhotoName)
+                            uploadPPReference.downloadUrl.addOnSuccessListener { uri ->
 
-                            val downloadUrl = uri.toString()
+                                val downloadUrl = uri.toString()
 
-                            db.reference.child("users")
-                                .child(auth.currentUser?.uid ?: "").child("userPhotoUrl")
-                                .setValue(downloadUrl)
+                                db.reference.child("users")
+                                    .child(auth.currentUser?.uid ?: "").child("userPhotoUrl")
+                                    .setValue(downloadUrl)
 
 
+                            }
                         }
-                    }
                 }
 
             } catch (e: Exception) {

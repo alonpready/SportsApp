@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.sportsapp_1.Utill.Gone
-import com.example.sportsapp_1.Adapters.TrainingTypesAdapter
+import com.example.sportsapp_1.Adapters.AdapterTrainingTypes
 import com.example.sportsapp_1.Model.TrainingVideos
 import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
@@ -91,7 +91,7 @@ class VideosFragment() : Fragment() {
         recycleview_training_types_1.layoutManager =
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_1.adapter =
-            TrainingTypesAdapter(requireContext(), listOfOnKol) {trainingVideos ->
+            AdapterTrainingTypes(requireContext(), listOfOnKol) { trainingVideos ->
 
 
                 val videospgFr : VideospageFragment = VideospageFragment(trainingVideos,1)
@@ -106,7 +106,7 @@ class VideosFragment() : Fragment() {
         recycleview_training_types_2.layoutManager =
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_2.adapter =
-            TrainingTypesAdapter(requireContext(), listOfGogus)  { trainingVideos ->
+            AdapterTrainingTypes(requireContext(), listOfGogus)  { trainingVideos ->
                 val videospgFr : VideospageFragment = VideospageFragment(trainingVideos,1)
                 loadFragment(videospgFr)
             }
@@ -118,7 +118,7 @@ class VideosFragment() : Fragment() {
         recycleview_training_types_3.layoutManager =
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_3.adapter =
-            TrainingTypesAdapter(requireContext(), listOfSirt)  { trainingVideos ->
+            AdapterTrainingTypes(requireContext(), listOfSirt)  { trainingVideos ->
                 val videospgFr : VideospageFragment = VideospageFragment(trainingVideos,1)
                 loadFragment(videospgFr)
             }
@@ -130,7 +130,7 @@ class VideosFragment() : Fragment() {
         recycleview_training_types_4.layoutManager =
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_4.adapter =
-            TrainingTypesAdapter(requireContext(), listOfArkaKol)  { trainingVideos ->
+            AdapterTrainingTypes(requireContext(), listOfArkaKol)  { trainingVideos ->
                 val videospgFr : VideospageFragment = VideospageFragment(trainingVideos,1)
                 loadFragment(videospgFr)
             }
@@ -142,7 +142,7 @@ class VideosFragment() : Fragment() {
         recycleview_training_types_5.layoutManager =
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_5.adapter =
-            TrainingTypesAdapter(requireContext(), listOfBacak)  { trainingVideos ->
+            AdapterTrainingTypes(requireContext(), listOfBacak)  { trainingVideos ->
                 val videospgFr : VideospageFragment = VideospageFragment(trainingVideos,1)
                 loadFragment(videospgFr)
             }
@@ -154,7 +154,7 @@ class VideosFragment() : Fragment() {
         recycleview_training_types_6.layoutManager =
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_6.adapter =
-            TrainingTypesAdapter(requireContext(), listOfKarın)  { trainingVideos ->
+            AdapterTrainingTypes(requireContext(), listOfKarın)  { trainingVideos ->
                 val videospgFr : VideospageFragment = VideospageFragment(trainingVideos,1)
                 loadFragment(videospgFr)
             }
@@ -166,7 +166,7 @@ class VideosFragment() : Fragment() {
         recycleview_training_types_7.layoutManager =
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
         recycleview_training_types_7.adapter =
-            TrainingTypesAdapter(requireContext(), listOfOmuz)  { trainingVideos ->
+            AdapterTrainingTypes(requireContext(), listOfOmuz)  { trainingVideos ->
                 val videospgFr : VideospageFragment = VideospageFragment(trainingVideos,1)
                 loadFragment(videospgFr)
             }

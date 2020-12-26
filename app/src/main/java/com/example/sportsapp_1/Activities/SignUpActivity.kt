@@ -48,7 +48,7 @@ class SignUpActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                var reference = FirebaseDatabase.getInstance().reference
+                val reference = FirebaseDatabase.getInstance().reference
                 val user = UserValues(mail, auth.currentUser?.uid, surname, name, password)
                 FirebaseDatabase.getInstance().reference.child("users")
                     .child(auth.currentUser?.uid ?: "").setValue(user)
@@ -58,7 +58,7 @@ class SignUpActivity : AppCompatActivity() {
 
                 val userBodyInfo = UserBodyInfo()
 
-                var query =  reference.child("users").child(auth.currentUser!!.uid)
+                reference.child("users").child(auth.currentUser!!.uid)
                     .child("userBodyInfo").setValue(userBodyInfo)
                 auth.signOut()
                 startActivity(Intent(this, LoginActivity::class.java))
@@ -75,7 +75,6 @@ class SignUpActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        Log.d("CDA", "onBackPressed Called")
         val setIntent = Intent(Intent.ACTION_MAIN)
         setIntent.addCategory(Intent.CATEGORY_HOME)
         setIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
