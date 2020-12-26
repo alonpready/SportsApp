@@ -8,7 +8,7 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.sportsapp_1.Model.UserBodydInfo
+import com.example.sportsapp_1.Model.UserBodyInfo
 import com.example.sportsapp_1.Model.UserValues
 import com.example.sportsapp_1.R
 import com.google.firebase.auth.FirebaseAuth
@@ -56,7 +56,7 @@ class SignUpActivity : AppCompatActivity() {
                     .child(auth.currentUser?.uid ?: "").child("UserResId")
                     .child("defaultId").setValue("defaultId")
 
-                val userBodyInfo = UserBodydInfo()
+                val userBodyInfo = UserBodyInfo()
 
                 var query =  reference.child("users").child(auth.currentUser!!.uid)
                     .child("userBodyInfo").setValue(userBodyInfo)

@@ -26,7 +26,7 @@ import com.example.sportsapp_1.Fragments.ToolbarMenuPage.EditProfileFragment
 import com.example.sportsapp_1.Fragments.ToolbarMenuPage.SettingsFragment
 import com.example.sportsapp_1.Activities.LoginActivity
 import com.example.sportsapp_1.Fragments.ToolbarMenuPage.AccountInfoFragment
-import com.example.sportsapp_1.Model.UserBodydInfo
+import com.example.sportsapp_1.Model.UserBodyInfo
 import com.example.sportsapp_1.R
 import com.example.sportsapp_1.Utill.Gone
 import com.example.sportsapp_1.Utill.Visible
@@ -93,7 +93,6 @@ class UserFragment : Fragment() {
         setClicks()
         circularProgressBar()
         userInfoLoad()
-        //userPhysicalInfoLoad()
 
     }
 
@@ -251,15 +250,15 @@ class UserFragment : Fragment() {
 
 
     private fun circularProgressBar() {
-        var userBodyInfo: UserBodydInfo ?= null
-        var reference = FirebaseDatabase.getInstance().reference
-        var query = reference.child("users").child(auth.currentUser!!.uid)
+        var userBodyInfo: UserBodyInfo?
+        val reference = FirebaseDatabase.getInstance().reference
+        val query = reference.child("users").child(auth.currentUser!!.uid)
             .child("userBodyInfo")
         query.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                userBodyInfo = snapshot.getValue(UserBodydInfo::class.java)
+                userBodyInfo = snapshot.getValue(UserBodyInfo::class.java)
 
-                var changeUserBodyInfo1 = UserBodydInfo(
+                val changeUserBodyInfo1 = UserBodyInfo(
                     userBodyInfo!!.userWeight,
                     userBodyInfo!!.userHeight,
                     userBodyInfo!!.userMassIndex
@@ -310,7 +309,7 @@ class UserFragment : Fragment() {
                 v_userpage_CircularProgressBar_3.apply {
 
                     setProgressWithAnimation(changeUserBodyInfo1.userMassIndex, 1900)
-                    progressMax = 25f
+                    progressMax = 50f
                     progressBarColorStart = Color.parseColor("#84AC28")
                     progressBarColorEnd = Color.parseColor("#84AC28")
                     progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
