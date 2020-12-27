@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/qrCodeFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.QrcodeFragment">
@@ -53,24 +54,26 @@
 
         <Button
             android:id="@+id/bt_qrcodegiris"
-            android:layout_width="154dp"
+            android:layout_width="0dp"
             android:layout_height="54dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/rounded_corners_green"
             android:text="GİRİŞ"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toEndOf="@+id/iv_qrcode"
             app:layout_constraintStart_toStartOf="@+id/iv_qrcode"
             app:layout_constraintTop_toBottomOf="@+id/iv_qrcode" />
 
         <Button
             android:id="@+id/bt_qrcodecikis"
-            android:layout_width="154dp"
+            android:layout_width="0dp"
             android:layout_height="54dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/rounded_corners_orange"
             android:text="ÇIKIŞ"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             app:layout_constraintEnd_toEndOf="@+id/iv_qrcode"
+            app:layout_constraintStart_toStartOf="@+id/iv_qrcode"
             app:layout_constraintTop_toBottomOf="@+id/iv_qrcode" />
 
         <TextView
@@ -94,11 +97,12 @@
             app:layout_constraintTop_toBottomOf="@+id/editprofile_toolbar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ProgressBar
         android:id="@+id/qrPage_progressbar"
         style="@android:style/Widget.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </FrameLayout>

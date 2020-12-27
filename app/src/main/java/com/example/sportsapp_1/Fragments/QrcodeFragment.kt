@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import coil.load
@@ -67,8 +68,11 @@ class QrcodeFragment : Fragment() {
         setClicks()
 
         if (bt_qrcodegiris.isEnabled && bt_qrcodecikis.isEnabled) {
-            bt_qrcodecikis.isEnabled = false
+            bt_qrcodecikis.Gone()
         }
+
+        val shake = AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
+        bt_qrcodecikis.startAnimation(shake)
 
 
     }
@@ -113,6 +117,9 @@ class QrcodeFragment : Fragment() {
     }
 
     private fun setClicks() {
+
+        val shake = AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
+
         iv_qrcode_profile.setOnClickListener {
             loadFragment(UserFragment())
 
@@ -121,17 +128,17 @@ class QrcodeFragment : Fragment() {
         bt_qrcodegiris.setOnClickListener {
             val bitmap = generateQRCode(keyAndDateToString())
             iv_qrcode.setImageBitmap(bitmap)
+            bt_qrcodegiris.startAnimation(shake)
 
             userInstantChanging()
-            //cikisEnable()
         }
 
         bt_qrcodecikis.setOnClickListener {
             val bitmap = generateQRCode(keyAndDateToString())
             iv_qrcode.setImageBitmap(bitmap)
+            bt_qrcodecikis.startAnimation(shake)
 
             userInstantChanging()
-            //girisEnable()
         }
     }
 
@@ -243,12 +250,12 @@ class QrcodeFragment : Fragment() {
 
 
     private fun entryEnable() {
-        bt_qrcodegiris.isEnabled = true
-        bt_qrcodecikis.isEnabled = false
+        bt_qrcodegiris.Visible()
+        bt_qrcodecikis.Gone()
     }
 
     private fun exitEnable() {
-        bt_qrcodecikis.isEnabled = true
-        bt_qrcodegiris.isEnabled = false
+        bt_qrcodecikis.Visible()
+        bt_qrcodegiris.Gone()
     }
 }

@@ -53,6 +53,8 @@
                 android:layout_marginTop="4dp"
                 android:text="Dead Lift"
                 android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_training_level" />
 
@@ -63,6 +65,8 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginBottom="20dp"
                 android:text="Süre : 10 dakika"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -73,6 +77,8 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginBottom="4dp"
                 android:text="Set Sayısı : 12x3"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/tv_training_time"
                 app:layout_constraintStart_toStartOf="parent" />
 
